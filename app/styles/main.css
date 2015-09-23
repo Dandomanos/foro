@@ -1,0 +1,165 @@
+body {
+  background: #F3F3F3;
+}
+
+
+/* NAV BAR */
+.nav-pic {
+  margin: -2px 5px 0 0;
+  max-height: 20px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+}
+
+
+/* MAIN POSTS PAGE */
+.post {
+  background: #fff;
+  padding:15px 0;
+  -moz-box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.info {
+  font-weight: bolder;
+  font-size: 16px;
+}
+
+.info .url {
+  font-weight: normal;
+  color:#999;
+  font-size:13px;
+  margin-left:5px;
+}
+
+
+/* PROFILE PAGE */
+.prof-img{
+  width:100%;
+  max-width:100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+}
+
+.name {
+  font-weight: bolder;
+  font-size: 1.5em;
+}
+
+.nav-tabs {
+  margin-top:30px;
+}
+
+.vote {
+  height:20px;
+  cursor: pointer;
+}
+
+.auth-forms {
+  max-width:400px;
+  margin:0 auto;
+  background: #fff;
+  padding:1px 25px 25px 25px;
+  -moz-box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.cmt-form {
+  margin-top:30px;
+}
+
+.cmt {
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid #ccc;
+}
+
+.cmt .author {
+  font-size:11px;
+  color:#bbb;
+}
+nav a.new-top
+{
+      padding: 7px 15px;
+      padding-right:0;
+}
+.header .nav > li {
+  padding:5px 20px;
+}
+
+.big
+{
+  font-size:18px;
+}
+
+.error-login
+{
+  font-size:12px;
+  width:100%;
+  text-align:center;
+  padding:0;
+  margin:0;
+}
+
+.header .navbar-default .navbar-form 
+{
+  margin-bottom:0;
+}
+
+.postInfo
+{
+  float:left;
+  height:100%;
+}
+
+.postInfo a:hover, .postActions a:hover
+{
+  text-decoration:none;
+  color:#4e9f54;
+}
+
+.postActions
+{
+  float:right;
+  height:100%;
+}
+
+.postActions i
+{
+  margin-top:10px;
+}
+
+.postActions a
+{
+  cursor:pointer;
+}
+
+.list-group-item
+{
+  height:60px;
+}
+
+.profilePost li
+{
+  height:40px;
+}
+
+.profilePost .postActions i
+{
+  margin-top:0;
+}
+
+#section-title
+{
+  background:#337ab7;
+  height:50px;
+  padding:5px 10px;
+  color:#FFF;
+}

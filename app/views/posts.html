@@ -1,0 +1,151 @@
+
+<div class="post-page">
+	<div ng-show="signedIn()">
+
+		<!-- Seccion General -->
+		<h4>Temas generales:</h4>
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="post in postGeneral">
+				<div class="postInfo">
+					<div class="info">
+						<a ng-href="#/posts/general/{{ post.$id }}">
+							{{ post.title}}
+							<span class="url">({{ post.url | hostnameFromUrl }})</span>
+						</a>
+					</div>
+					<div>
+						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
+					</div>
+				</div>
+				<div class="postActions">
+					<a ng-href="#/posts/general/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
+					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
+				</div>
+			</li>
+		</ul>
+		<!-- Fin Sección General -->
+
+		<!-- Seccion Batallas -->
+		<h4>Batallas:</h4>
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="post in postBatallas">
+				<div class="postInfo">
+					<div class="info">
+						<a ng-href="#/posts/batallas/{{ post.$id }}">
+							{{ post.title}}
+							<span class="url">({{ post.url | hostnameFromUrl }})</span>
+						</a>
+					</div>
+					<div>
+						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
+					</div>
+				</div>
+				<div class="postActions">
+					<a ng-href="#/posts/batallas/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
+					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
+				</div>
+			</li>
+		</ul>
+		<!-- Fin Sección Batallas -->
+
+		<!-- Seccion Piratería -->
+		<h4>Piratería:</h4>
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="post in postPirata">
+				<div class="postInfo">
+					<div class="info">
+						<a ng-href="#/posts/{{ post.$id }}">
+							{{ post.title}}
+							<span class="url">({{ post.url | hostnameFromUrl }})</span>
+						</a>
+					</div>
+					<div>
+						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
+					</div>
+				</div>
+				<div class="postActions">
+					<a ng-href="#/posts/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
+					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
+				</div>
+			</li>
+		</ul>
+		<!-- Fin Sección Piratería -->
+
+		<!-- Seccion Comercio -->
+		<h4>Comercio:</h4>
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="post in postComercio">
+				<div class="postInfo">
+					<div class="info">
+						<a ng-href="#/posts/{{ post.$id }}">
+							{{ post.title}}
+							<span class="url">({{ post.url | hostnameFromUrl }})</span>
+						</a>
+					</div>
+					<div>
+						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
+					</div>
+				</div>
+				<div class="postActions">
+					<a ng-href="#/posts/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
+					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
+				</div>
+			</li>
+		</ul>
+		<!-- Fin Sección Comercio -->
+
+		<!-- Seccion Cultura -->
+		<h4>Cultura:</h4>
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="post in postComercio">
+				<div class="postInfo">
+					<div class="info">
+						<a ng-href="#/posts/{{ post.$id }}">
+							{{ post.title}}
+							<span class="url">({{ post.url | hostnameFromUrl }})</span>
+						</a>
+					</div>
+					<div>
+						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
+					</div>
+				</div>
+				<div class="postActions">
+					<a ng-href="#/posts/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
+					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
+				</div>
+			</li>
+		</ul>
+		<!-- Fin Sección Cultura -->
+
+		<!-- Seccion Taberna -->
+		<h4>Taberna:</h4>
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="post in postComercio">
+				<div class="postInfo">
+					<div class="info">
+						<a ng-href="#/posts/{{ post.$id }}">
+							{{ post.title}}
+							<span class="url">({{ post.url | hostnameFromUrl }})</span>
+						</a>
+					</div>
+					<div>
+						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
+					</div>
+				</div>
+				<div class="postActions">
+					<a ng-href="#/posts/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
+					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
+				</div>
+			</li>
+		</ul>
+		<!-- Fin Sección Taberna -->
+
+	</div>
+
+	<div ng-hide="signedIn()">
+		<p><span class="big text-danger">Se encuentra usted en un foro privado.</span><br /><br />
+			Si no dispone de cuenta personal contacte con el administrador.<br />
+			Gracias y disculpe las molestias :).
+		</p>
+	</div>
+</div>

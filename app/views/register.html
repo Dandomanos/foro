@@ -1,0 +1,22 @@
+<div class="auth-forms" ng-show="isAdmin()">
+	<h2>Crear un nuevo usuario</h2>
+	<form ng-submit="register()">
+		<input type="text" ng-model="user.username" placeholder="Nombre de usuario" class="form-control" /><br />
+		<input type="email" ng-model="user.email" placeholder="Email" class="form-control" /><br />
+		<input type="password" ng-model="user.password" placeholder="Password" class="form-control" /><br />
+		<select ng-model="user.rango" class="form-control">
+			<option value="admin">Admin</option>
+			<option value="user">User</option>
+		</select>
+		<p ng-show="error" class="text-danger" >
+			{{mensajeDeError}}
+		</p>
+		<br />
+		<input type="submit" value="Registrar" class="btn btn-primary" style="float:right"/>
+	</form>
+	<br />
+	<span class="text-success" ng-show="registroRealizado">Usuario <a ng-href="#/profile/{{registros.uid}}">{{registros.user}}</a> creado correctamente</span>
+</div>
+<div class="text text-danger" ng-hide="isAdmin()">
+	<h4>Lo sentimos, debes ser administrador para crear perfiles nuevos.</h4>
+</div>

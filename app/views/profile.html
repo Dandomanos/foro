@@ -1,0 +1,19 @@
+<h1>{{profile.username}}<br />
+<small>{{profile.email}}</small></h1>
+<p>Rango: <span class="text text-primary">{{profile.rango}}</span>
+<a ng-href="#/" style="margin-left:100px;"><button class="btn btn-primary">Volver</button></a>
+<br /><br />
+<h4>Posts Creados</h4>
+<ul class="list-group profilePost">
+	<li class="list-group-item" ng-repeat="post in profile.posts">
+		<div class="postInfo">
+			<a class="text text-primary info" ng-href="#/posts/{{post.postId}}">{{post.title}}</a>
+		</div>
+		<div class="postActions">
+    		<a ng-href="#/posts/{{post.postId}}"><i class="glyphicon glyphicon-arrow-right"></i></a>
+		</div>
+	</li>
+</ul>
+<span ng-show="canEdit()" class="text text-success">Este es tu perfil, puedes editarlo.</span>
+<span ng-hide="canEdit()" class="text text-danger">Este no es tu perfil, no puedes editarlo.</span>
+
