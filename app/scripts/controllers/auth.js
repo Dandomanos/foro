@@ -20,6 +20,7 @@ angular.module('blogApp')
 
     $scope.profile = Auth.getProfile(Auth.user.uid);
 
+    
   	var callbackRegister = function(error, authData)
      {
         if(error)
@@ -57,14 +58,14 @@ angular.module('blogApp')
             // console.log("userProfile", $scope.userProfile);
             // Auth.login($scope.user, callbackLogin);
         }
-        $scope.$apply();
+        // $scope.$apply();
      };
 
      
 
 
 
-     var callbackProfile = function(error, authData)
+     var callbackProfile = function(error)
      {
         if(error)
         {
@@ -102,7 +103,7 @@ angular.module('blogApp')
       {
         return false;
       }
-    }
+    };
 
 
 

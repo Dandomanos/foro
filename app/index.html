@@ -10,18 +10,24 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/font-awesome.min.css">
     <!-- endbuild -->
+
+
+
   </head>
-  <body ng-app="blogApp">
+  <body ng-app="blogApp" autoscroll="true">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
+    <div class="header" id="inicio">
       <div ng-include="'views/nav.html'"></div>
     </div>
 
@@ -29,9 +35,15 @@
     <div ng-view=""></div>
     </div>
 
+    
+    <div id="users" class="container">
+        <div ng-include="'views/users.html'"></div>
+    </div>
+    
+
     <div class="footer">
       <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+        <p><i class="fa fa-keyboard-o"></i><small> Desarrollado por <a ng-href="#/profile/93a24580-1ccb-4fc4-b16a-b26eac902e86" alt="Ver el perfil de Dandomanos" title="Ver el perfil de Dandomanos">Dandomanos</a></small></p>
       </div>
     </div>
 
@@ -53,6 +65,7 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -80,6 +93,7 @@
         <script src="scripts/controllers/profile.js"></script>
         <script src="scripts/services/profile.js"></script>
         <script src="scripts/controllers/section.js"></script>
+        <script src="scripts/controllers/users.js"></script>
         <!-- endbuild -->
 </body>
 </html>

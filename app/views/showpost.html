@@ -1,5 +1,187 @@
+<!--
 <div>
 	<a ng-href="{{ post.url }}" target="_blank">{{ post.title }}</a>
 </div>
+-->
+<div class="postLocation">
+	<div id="migasDePan">
+		<small><a ng-href="#/" alt="Volver al Inicio" title="Volver al Inicio">Inicio</a> / 
+			<a ng-href="#/section/{{post.section}}" alt="Volver a {{post.sectionTitle}}" title="Volver a {{post.sectionTitle}}">{{post.sectionTitle}}</a>
+		</small>
+	</div>
+	<!--<h3>{{post.sectionTitle}}:</h3>-->
+</div>
+<div id="postDeleted" ng-hide="exist">
+	<span class="text text-danger">
+		El Hilo al que intentas acceder no existe, o ha sido borrado por el Administrador, disculpe las molestias.
+	</div>
+<div id="postContent" ng-show="exist">
+	<div class="section-title">
+		<div class="postInfo">
+					<h2>{{post.title}}:</h2>
+		</div>
+		<p class="postData">
+			<span title="Post cerrado por el Administrador" ng-hide="post.open"><i class="fa fa-lock"></i></span>
+			<small>
+				Creado por <a ng-href="#/profile/{{post.author.uid}}" alt="Ver perfil de {{post.author.username}}" title="Ver perfil de {{post.author.username}}">{{post.author.username}}</a><br />
+				<span class="fecha">
+					el {{fechar(post.date) | date:'dd-MM-yyyy'}} a las {{fechar(post.date) | date:'HH:mm'}}
+				</span>
+			</small>
+		</p>
+	</div>
+	<div class="post-comment row" ng-class="{ 'editByAdmin': post.edited.byAdmin }">
+		<div class="post-profile col-md-2">
+			<!-- Aquí debería también ir la foto de perfil -->
+			<div class="profileImage">
+				<img gravatar-src="profile.email" gravatar-size="120" gravatar-default="retro">
+			</div>
+			<a ng-href="#/profile/{{post.author.uid}}" alt="Ver perfil de {{post.author.username}}" title="Ver perfil de {{post.author.username}}">{{post.author.username}}</a><br />
 
-<a ng-href="#/posts">Volver a los posts</a>
+			<i class="fa fa-circle green" ng-show="isConnected(autor.lastConnection)" title="Conectado el {{fechar(autor.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(autor.lastConnection) | date:'HH:mm'}}"></i>
+			<i class="fa fa-circle gray" ng-hide="isConnected(autor.lastConnection)" title="Desconectado el {{fechar(autor.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(autor.lastConnection) | date:'HH:mm'}}"></i>
+			 {{autor.rango}}<br />
+					<small class="fecha">
+						el {{fechar(post.date) | date:'dd-MM-yyyy'}} a las {{fechar(post.date) | date:'HH:mm'}}
+					</small>
+					<br />
+				
+		</div>
+		<div class="post-comment-text col-md-10">
+			{{post.comment}}
+			<div ng-show="post.edited.count>0">
+				<small>
+					<span class="fecha">
+						<div ng-show="post.edited.byAdmin!=true">
+							<span ng-show="post.edited.count==1">Post editado {{post.edited.count}} vez.</span>
+							<span ng-show="post.edited.count>1">Post editado {{post.edited.count}} veces.</span>
+						</div>
+						<div ng-show="post.edited.byAdmin">
+							Post editado por el administrador.
+						</div>
+						<span class="lastUpdate">
+					Última edición el {{fechar(post.edited.lastEdit.date) | date:'dd-MM-yyyy'}} a las {{fechar(post.edited.lastEdit.date) | date:'HH:mm'}} por <a ng-href="#/profile/{{post.edited.lastEdit.editor.uid}}">{{post.edited.lastEdit.editor.username}}</a>
+						</span>
+					</span>
+				</small>
+			</div>
+		</div>
+		<div class="actionPost">
+				<ul>
+					<li>
+						<button class="btn btn-danger" ng-show="isAdmin()" ng-click="editarOriginal()">
+							Editar <small>(Admin)</small>
+						</button>
+					</li>
+					<li>
+						<button class="btn btn-primary" ng-show="isAuthor(post.author.uid) && post.open && post.edited.byAdmin!=true" ng-click="editarOriginal()">
+							Editar
+						</button>
+					</li>
+				</ul>
+			</div>
+	</div>
+	<!-- ngRepeat para los comentarios -->
+	<div class="post-comment row" ng-repeat="post in post.comments" ng-class="{ 'editByAdmin': post.edited.byAdmin }">
+		<div class="post-profile col-md-2">
+			<!-- Aquí debería también ir la foto de perfil -->
+			<div class="profileImage">
+				<img gravatar-src="post.author.profile.email" gravatar-size="120" gravatar-default="retro">
+			</div>
+			<a ng-href="#/profile/{{post.author.uid}}" alt="Ver perfil de {{post.author.username}}" title="Ver perfil de {{post.author.username}}">{{post.author.username}}</a><br />
+			<!--
+			<i class="fa fa-circle" ng-class="{'green': isConnected(post.author.profile.lastConnection), 'gray': !isConnected(post.author.profile.lastConnection)}"></i> {{post.author.profile.rango}}<br /> -->
+			<i class="fa fa-circle green" ng-show="isConnected(post.author.profile.lastConnection)" title="Conectado el {{fechar(post.author.profile.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(post.author.profile.lastConnection) | date:'HH:mm'}}"></i>
+			<i class="fa fa-circle gray" ng-hide="isConnected(post.author.profile.lastConnection)" title="Desconectado el {{fechar(post.author.profile.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(post.author.profile.lastConnection) | date:'HH:mm'}}"></i>
+			 {{post.author.profile.rango}}<br />
+			<!--
+			<span ng-show="isConnected(post.author.profile.lastConnection)">Conectado</span>
+			<span ng-hide="isConnected(post.author.profile.lastConnection)">Desconectado</span>
+			<br />
+			Rango: {{post.author.profile.rango}}<br /> -->
+					<small class="fecha">
+						el {{fechar(post.date) | date:'dd-MM-yyyy'}} a las {{fechar(post.date) | date:'HH:mm'}}
+					</small>
+					<br />
+				
+		</div>
+		<div class="post-comment-text col-md-10">
+		{{post.comment}}
+			<div ng-show="post.edited.count>0">
+				<small>
+					<span class="fecha">
+						<div ng-show="post.edited.byAdmin!=true">
+							<span ng-show="post.edited.count==1">Post editado {{post.edited.count}} vez.</span>
+							<span ng-show="post.edited.count>1">Post editado {{post.edited.count}} veces.</span>
+						</div>
+						<div ng-show="post.edited.byAdmin">
+							Post editado por el administrador.
+						</div>
+						<span class="lastUpdate">
+					Última edición el {{fechar(post.edited.lastEdit.date) | date:'dd-MM-yyyy'}} a las {{fechar(post.edited.lastEdit.date) | date:'HH:mm'}} por <a ng-href="#/profile/{{post.edited.lastEdit.editor.uid}}">{{post.edited.lastEdit.editor.username}}</a>
+						</span>
+					</span>
+				</small>
+			</div>
+		</div>
+		<div class="actionPost">
+			<ul>
+				<li>
+					<button class="btn btn-danger" ng-show="isAdmin()" ng-click="editar(this.post)">
+						Editar <small>(Admin)</small>
+					</button>
+					
+				</li>
+				<li>
+						<button class="btn btn-primary" ng-show="isAuthor(post.author.uid) && $parent.post.open && post.edited.byAdmin!=true" ng-click="editar(this.post)">
+						Editar
+					</button>
+					
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- fin ngRepeat de los comentarios -->
+	<div id="TEXTAREA">
+		<div id="newPost" class="new-post" ng-show="replying">
+			<form class="form-group" ng-submit="submitPost()">
+	        	<!--<input type="text" class="form-control" placeholder="Título" ng-model="comment.title> -->
+	        	<textarea class="form-control comentario" ng-model="comment.comment" placeholder="Respuesta"></textarea>
+	      		<button type="submit" class="btn btn-primary">Enviar Respuesta</button>
+		    </form>
+		</div>
+		<div id="editPost" class="new-post" ng-show="editing">
+			<form class="form-group" ng-submit="EditPost(post)">
+	        	<!--<input type="text" class="form-control" placeholder="Título" ng-model="comment.title> -->
+	        	<textarea class="form-control comentario" ng-model="edit.comment" placeholder="Respuesta"></textarea>
+	      		<button type="submit" class="btn btn-primary">Editar Respuesta</button>
+		    </form>
+		</div>
+		<div id="editOriginal" class="new-post" ng-show="original">
+			<form class="form-group" ng-submit="EditOriginalPost()">
+	        	<!--<input type="text" class="form-control" placeholder="Título" ng-model="comment.title> -->
+	        	<textarea class="form-control comentario" ng-model="originalComment" placeholder="Respuesta"></textarea>
+	      		<button type="submit" class="btn btn-primary">Editar Post</button>
+		    </form>
+		</div>
+	</div>
+	<div class="postDetail-actions">
+		<div ng-show="youAreTheLast()" class="info-buttons">
+			<a ng-click="warningExpanded =! warningExpanded"><i class="fa fa-exclamation-triangle"></i> <span ng-show="warningExpanded">No puedes escribir dos comentarios seguidos, edíta la última entrada si tienes algo nuevo que aportar, gracias.</span></a>
+		</div>
+		<ul>
+			<li>
+				<a ng-href="#/section/{{post.section}}" alt="Volver a {{post.sectionTitle}}" title="Volver a {{post.sectionTitle}}">
+					<button class="btn btn-primary">Volver a {{post.sectionTitle}}</button>
+				</a>
+			</li>			
+			<li ng-show="post.open" ng-hide="youAreTheLast()">
+				<a ng-click="responder()"><button class="btn btn-primary">Responder</button></a>
+			</li>
+			<li ng-hide="post.open">
+				<span class="text" title="Post cerrado por el Administrador"><i class="fa fa-lock"></i></span>
+			</li>
+		</ul>
+	</div>
+</div>
+

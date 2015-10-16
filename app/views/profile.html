@@ -1,19 +1,129 @@
-<h1>{{profile.username}}<br />
-<small>{{profile.email}}</small></h1>
-<p>Rango: <span class="text text-primary">{{profile.rango}}</span>
-<a ng-href="#/" style="margin-left:100px;"><button class="btn btn-primary">Volver</button></a>
-<br /><br />
-<h4>Posts Creados</h4>
-<ul class="list-group profilePost">
-	<li class="list-group-item" ng-repeat="post in profile.posts">
+<div class="separador">	
+	<div class="section-title">
 		<div class="postInfo">
-			<a class="text text-primary info" ng-href="#/posts/{{post.postId}}">{{post.title}}</a>
+			<h2>{{profile.username}}
+			</h2>
 		</div>
 		<div class="postActions">
-    		<a ng-href="#/posts/{{post.postId}}"><i class="glyphicon glyphicon-arrow-right"></i></a>
+			
+				<i ng-show="profile.rango=='user'"class="fa fa-user" title="User"></i>
+				<i ng-show="profile.rango=='admin'"class="fa fa-user-plus" title="Admin"></i>
+			<!--	<i class="glyphicon glyphicon-arrow-right"></i> -->
 		</div>
-	</li>
-</ul>
+	</div>
+	<div id="profileContent">
+		<div id="profileImage">
+			<img gravatar-src="profile.email" gravatar-size="150" gravatar-default="retro">
+		</div>
+		<div id="profileData">
+			<h3>{{profile.username}}<br />
+			<small>{{profile.email}}</small></h3>
+			<p>Rango: <span class="text text-primary"><b>{{profile.rango}}</b></span>	<br />
+				Última conexión:<br />
+				<i class="fa fa-circle green" ng-show="isConnected(profile.lastConnection)" title="Conectado el {{fechar(profile.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(profile.lastConnection) | date:'HH:mm'}}"></i> 
+				<i class="fa fa-circle gray" ng-hide="isConnected(profile.lastConnection)" title="Desconectado el {{fechar(profile.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(profile.lastConnection) | date:'HH:mm'}}"></i> 
+				<span class="fecha">
+					<small>
+						[{{fechar(profile.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(profile.lastConnection) | date:'HH:mm'}}]
+					</small>
+				</span>
+			</p>
+		</div>
+		<div id="Options">
+			<div ng-show="avatarOptions">
+				Cambiar la imagen del perfil es muy sencillo, sólo debes tener una cuenta en <a href="https://es.gravatar.com/" target="_blank" title="Ir a Gravatar" alt="Ir a Gravatar">Gravatar</a> asociada a la misma dirección de email que el foro. Si todavía no la tienes, consíguela <a href="https://es.gravatar.com/" target="_blank" title="Ir a Gravatar" alt="Ir a Gravatar">aquí</a>.<br />
+
+				<span class="text text-warning">
+					<i class="fa fa-exclamation-triangle"></i><small> Recuerda que debes usar el mismo el mismo correo electrónico que usas en el foro.</small>
+				</span>
+			</div>
+			<div ng-show="passwordOptions">
+				Cambiar de contraseña
+			</div>
+			<div ng-show="profileOptions">
+				Editar Perfil
+			</div>
+		</div>
+	</div>
+		<div id="profileActions">
+			<ul>
+				<li>
+					<button class="btn btn-primary" ng-show="canEdit()" ng-click="openOptions('avatar')">
+						Cambiar Avatar
+					</button>
+				</li>
+				<li>
+					<button class="btn btn-primary" ng-show="canEdit()" ng-click="openOptions('pass')">
+						Cambiar Contraseña
+					</button>
+				</li>
+				<li>
+					<button class="btn btn-primary" ng-show="canEdit()" ng-click="openOptions('profile')">
+						Editar Perfil
+					</button>
+				</li>
+				<li>
+					<a ng-href="#/">
+						<button class="btn btn-primary">
+							Volver al Inicio
+						</button>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="separador">
+	<div class="section-title">
+		<div class="postInfo">
+			<h2>Posts Creados
+			</h2>
+		</div>
+		<div class="postActions">
+			
+				<i class="fa fa-folder-open"></i>
+			<!--	<i class="glyphicon glyphicon-arrow-right"></i> -->
+		</div>
+	</div>
+	<ul class="list-group profilePost">
+		<li class="list-group-item" ng-repeat="post in profile.posts">
+			<div class="postInfo">
+				<a class="text text-primary info" ng-href="#/posts/{{post.section}}/{{post.postId}}" alt='Ir al post "{{post.title}}"' title='Ir al post "{{post.title}}"'>{{post.title}}</a><br />
+				<small><a ng-href="#/section/{{post.section}}" alt='Ir a la sección de {{post.sectionTitle}}' title='Ir a la sección de {{post.sectionTitle}}'>{{post.sectionTitle}}</a> | <span class="fecha">Creado el {{fechar(post.date) | date:'dd-MM-yyyy'}} a las {{fechar(post.date) | date:'HH:mm'}}</small>
+			</div>
+			<div class="postActions">
+	    		<a ng-href="#/posts/{{post.section}}/{{post.postId}}" alt='Ir al post "{{post.title}}"' title='Ir al post "{{post.title}}"'><i class="fa fa-arrow-right"></i></a>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<div class="separador">
+	<div class="section-title">
+		<div class="postInfo">
+			<h2>Posts Comentados
+			</h2>
+		</div>
+		<div class="postActions">
+			
+				<i class="fa fa-folder-open"></i>
+			<!--	<i class="glyphicon glyphicon-arrow-right"></i> -->
+		</div>
+	</div>
+	<ul class="list-group profilePost">
+		<li class="list-group-item" ng-repeat="post in profile.comments">
+			<div class="postInfo">
+				<a class="text text-primary info" ng-href="#/posts/{{post.section}}/{{post.postId}}" alt='Ir al post "{{post.title}}"' title='Ir al post "{{post.title}}"'>{{post.title}}</a><br />
+				<small><a ng-href="#/section/{{post.section}}" alt='Ir a la sección de {{post.sectionTitle}}' title='Ir a la sección de {{post.sectionTitle}}'>{{post.sectionTitle}}</a> | <span class="fecha">Comentado el {{fechar(post.dateComment) | date:'dd-MM-yyyy'}} a las {{fechar(post.dateComment) | date:'HH:mm'}}</small>
+			</div>
+			<div class="postActions">
+	    		<a ng-href="#/posts/{{post.section}}/{{post.postId}}" alt='Ir al post "{{post.title}}"' title='Ir al post "{{post.title}}"'><i class="fa fa-arrow-right"></i></a>
+			</div>
+		</li>
+	</ul>
+</div>
+
 <span ng-show="canEdit()" class="text text-success">Este es tu perfil, puedes editarlo.</span>
 <span ng-hide="canEdit()" class="text text-danger">Este no es tu perfil, no puedes editarlo.</span>
 

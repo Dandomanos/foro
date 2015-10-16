@@ -33,7 +33,7 @@ angular.module('blogApp')
      Auth.user.onChange = function()
      {
         console.log('ID DE USUARIO', Auth.user.uid);
-     }
+     };
      
 
      $scope.signedIn = function()
@@ -131,7 +131,7 @@ angular.module('blogApp')
             return false;
           }
       }
-    }
+    };
 
 
 

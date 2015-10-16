@@ -1,25 +1,73 @@
 
-<!-- Seccion General -->
-		<div id="section-title">
-			<h4>{{title}}</h4><i class="fa fa-file-o"></i>
-		</div>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="post in posts">
+<!-- Inicio de sección -->
+		<div id="migasDePan">
+			<small><a ng-href="#/" alt="Volver al Inicio" title="Volver al Inicio">Inicio</a></small>
+			</div>
+		<div id="postContent">
+			<div class="section-title">
 				<div class="postInfo">
-					<div class="info">
-						<a ng-href="#/posts/{{section}}/{{ post.$id }}">
-							{{ post.title}}
-							<span class="url">({{ post.url | hostnameFromUrl }})</span>
-						</a>
-					</div>
-					<div>
-						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
-					</div>
+					<h2>{{title}}</h2>
 				</div>
 				<div class="postActions">
-					<a ng-href="#/posts/{{section}}/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
-					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
+					<a ng-click="nuevoPost()" alt="Nuevo Post" title="Nuevo Post" ng-hide="posting">
+						<i class="fa fa-file-o"></i>
+					</a>
+					<a ng-click="cerrarPost()" alt="Nuevo Post" title="Nuevo Post" ng-show="posting">
+						<i class="fa fa-close"></i>
+					</a>
 				</div>
-			</li>
-		</ul>
-		<!-- Fin Sección General -->
+			</div>
+			<div class="new-post" ng-show="posting">
+				
+				<form class="form-group" ng-submit="submitPost()">
+		        		<input type="text" class="form-control" placeholder="Título" ng-model="post.title">
+		        		<textarea class="form-control comentario" ng-model="post.comment" placeholder="Comentario"></textarea>
+		      			<button type="submit" class="btn btn-primary">Nuevo Post</button>
+		    	</form>
+
+			</div>
+			<div class="Posts">
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="post in posts">
+						<div class="postInfo">
+							<div class="info">
+								<h3>
+									<a ng-href="#/posts/{{section}}/{{ post.$id }}" alt='Ir al Post "{{ post.title}}"' title='Ir al Post "{{ post.title}}"'>
+										{{ post.title}}
+										<!-- <span class="url">({{ post.url | hostnameFromUrl }})</span> -->
+									</a>
+								</h3>
+							</div>
+							<div>
+								<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}" alt="Ver el perfil de {{post.author.username}}" title="Ver el perfil de {{post.author.username}}">{{ post.author.username }} </a> <span class="fecha">el {{fechar(post.date) | date:'dd-MM-yyyy'}} a las {{fechar(post.date) | date:'HH:mm'}}</span> |
+									Última respuesta: <a ng-href="#profile/{{ post.lastUpdate.author.uid }}" alt="Ver el perfil de {{post.lastUpdate.author.username}}" title="Ver el perfil de {{post.lastUpdate.author.username}}">{{ post.lastUpdate.author.username }} </a> <span class="fecha">el {{fechar(post.lastUpdate.date) | date:'dd-MM-yyyy'}} a las {{fechar(post.lastUpdate.date) | date:'HH:mm'}}</span></small>
+							</div>
+						</div>
+						<div class="postActions">
+							<div class="adminActions" ng-show="isAdmin()">
+								<a ng-click="open(post)" ng-hide="post.open" alt="Reabrir el post" title="Reabrir el post"><i class="fa fa-unlock"></i></a>
+								<a ng-click="close(post)" ng-show="post.open" alt="Cerrar el post" title="Cerrar el post"><i class="fa fa-lock"></i></a>
+
+								<a ng-click="deletePost(post)" alt="Borrar el Hilo" title="Borrar el Hilo"><i class="fa fa-trash"></i></a>
+							</div>
+							<span class="locked" ng-hide="post.open" title="Post cerrado por el Administrador"><i class="fa fa-lock"></i></span>
+							<a ng-href="#/posts/{{section}}/{{ post.$id }}" alt='Ir al Post "{{ post.title}}"' title='Ir al Post "{{ post.title}}"'><i class="fa fa-arrow-right"></i></a>
+						</div>
+					</li>
+				</ul>
+				<div class="postDetail-actions">
+				<ul>
+					<li>
+						<a ng-href="#/" alt="Volver a al Inicio" title="Volver a al Inicio">
+							<button class="btn btn-primary">Volver a al Inicio</button>
+						</a>
+					</li>			
+					<li>
+						<a ng-click="nuevoPost()" alt="Nuevo Post" title="Nuevo Post" ng-hide="posting">
+							<button class="btn btn-primary">Nuevo Post</button>
+						</a>
+					</li>
+				</ul>
+				</div>
+			</div>
+		<!-- Fin de Sección -->

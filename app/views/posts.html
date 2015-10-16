@@ -2,150 +2,56 @@
 <div class="post-page">
 	<div ng-show="signedIn()">
 
-		<!-- Seccion General -->
-		<h4>Temas generales:</h4>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="post in postGeneral">
+		<!-- Iteramos las diferentes secciones del foro -->
+		<div class="separador" data-ng-repeat="section in sections">
+			<div class="section-title">
 				<div class="postInfo">
-					<div class="info">
-						<a ng-href="#/posts/general/{{ post.$id }}">
-							{{ post.title}}
-							<span class="url">({{ post.url | hostnameFromUrl }})</span>
-						</a>
-					</div>
-					<div>
-						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
-					</div>
+					<h2><a ng-href="#/section/{{section.section}}" alt="Ir a la sección de {{section.title}}" title="Ir a la sección de {{section.title}}">
+						{{section.title}}
+					</a></h2>
 				</div>
 				<div class="postActions">
-					<a ng-href="#/posts/general/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
-					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
+					<a ng-href="#/section/{{section.section}}" alt="Ir a la sección de {{section.title}}" title="Ir a la sección de {{section.title}}">
+						<i class="fa fa-arrow-right"></i>
+					<!--	<i class="glyphicon glyphicon-arrow-right"></i> -->
+					</a>
 				</div>
-			</li>
-		</ul>
-		<!-- Fin Sección General -->
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item" ng-repeat="post in section.posts">
+					<div class="postInfo">
+						<div class="info">
+							<h3>
+								<a ng-href="#/posts/{{section.section}}/{{ post.$id }}" alt='Ir al Post "{{post.title}}"' title='Ir al Post "{{post.title}}"'>
+									{{post.title}}
+									<!--  <span class="url">({{ post.url | hostnameFromUrl }})</span> -->
+								</a>
+							</h3>
+						</div>
+						<div>
+							<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}" alt="Ver el perfil de {{post.author.username}}" title="Ver el perfil de {{post.author.username}}">{{ post.author.username }} </a> <span class="fecha">el {{fechar(post.date) | date:'dd-MM-yyyy'}} a las {{fechar(post.date) | date:'HH:mm'}}</span> |
+								Última respuesta: <a ng-href="#profile/{{ post.lastUpdate.author.uid }}" alt="Ver el perfil de {{post.lastUpdate.author.username}}" title="Ver el perfil de {{post.lastUpdate.author.username}}">{{ post.lastUpdate.author.username }} </a> <span class="fecha">el {{fechar(post.lastUpdate.date) | date:'dd-MM-yyyy'}} a las {{fechar(post.lastUpdate.date) | date:'HH:mm'}}</span></small>
+						</div>
 
-		<!-- Seccion Batallas -->
-		<h4>Batallas:</h4>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="post in postBatallas">
-				<div class="postInfo">
-					<div class="info">
-						<a ng-href="#/posts/batallas/{{ post.$id }}">
-							{{ post.title}}
-							<span class="url">({{ post.url | hostnameFromUrl }})</span>
+					</div>
+					<div class="postActions">
+						<div class="adminActions" ng-show="isAdmin()">
+								<a ng-click="open(post)" ng-hide="post.open" alt="Reabrir el post" title="Reabrir el post"><i class="fa fa-unlock"></i></a>
+								<a ng-click="close(post)" ng-show="post.open" alt="Cerrar el post" title="Cerrar el post"><i class="fa fa-lock"></i></a>
+
+								<a ng-click="deletePost(post)" alt="Borrar el Hilo" title="Borrar el Hilo"><i class="fa fa-trash"></i></a>
+							</div>
+
+						<span class="locked" ng-hide="post.open" title="Post cerrado por el Administrador"><i class="fa fa-lock"></i></span>
+						<a ng-href="#/posts/{{section.section}}/{{ post.$id }}" alt='Ir al Post "{{post.title}}"' title='Ir al Post "{{post.title}}"'>
+							<i class="fa fa-arrow-right"></i>
 						</a>
+							
 					</div>
-					<div>
-						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
-					</div>
-				</div>
-				<div class="postActions">
-					<a ng-href="#/posts/batallas/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
-					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
-				</div>
-			</li>
-		</ul>
-		<!-- Fin Sección Batallas -->
+				</li>
+			</ul>
+		</div>
+		<!-- Fin de la iteración de las diferentes secciones del foro -->
 
-		<!-- Seccion Piratería -->
-		<h4>Piratería:</h4>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="post in postPirata">
-				<div class="postInfo">
-					<div class="info">
-						<a ng-href="#/posts/{{ post.$id }}">
-							{{ post.title}}
-							<span class="url">({{ post.url | hostnameFromUrl }})</span>
-						</a>
-					</div>
-					<div>
-						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
-					</div>
-				</div>
-				<div class="postActions">
-					<a ng-href="#/posts/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
-					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
-				</div>
-			</li>
-		</ul>
-		<!-- Fin Sección Piratería -->
-
-		<!-- Seccion Comercio -->
-		<h4>Comercio:</h4>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="post in postComercio">
-				<div class="postInfo">
-					<div class="info">
-						<a ng-href="#/posts/{{ post.$id }}">
-							{{ post.title}}
-							<span class="url">({{ post.url | hostnameFromUrl }})</span>
-						</a>
-					</div>
-					<div>
-						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
-					</div>
-				</div>
-				<div class="postActions">
-					<a ng-href="#/posts/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
-					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
-				</div>
-			</li>
-		</ul>
-		<!-- Fin Sección Comercio -->
-
-		<!-- Seccion Cultura -->
-		<h4>Cultura:</h4>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="post in postComercio">
-				<div class="postInfo">
-					<div class="info">
-						<a ng-href="#/posts/{{ post.$id }}">
-							{{ post.title}}
-							<span class="url">({{ post.url | hostnameFromUrl }})</span>
-						</a>
-					</div>
-					<div>
-						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
-					</div>
-				</div>
-				<div class="postActions">
-					<a ng-href="#/posts/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
-					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
-				</div>
-			</li>
-		</ul>
-		<!-- Fin Sección Cultura -->
-
-		<!-- Seccion Taberna -->
-		<h4>Taberna:</h4>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="post in postComercio">
-				<div class="postInfo">
-					<div class="info">
-						<a ng-href="#/posts/{{ post.$id }}">
-							{{ post.title}}
-							<span class="url">({{ post.url | hostnameFromUrl }})</span>
-						</a>
-					</div>
-					<div>
-						<small>Creado por: <a ng-href="#profile/{{ post.author.uid }}">{{ post.author.username }}</small></span>
-					</div>
-				</div>
-				<div class="postActions">
-					<a ng-href="#/posts/{{ post.$id }}"><i class="glyphicon glyphicon-arrow-right"></i></a>
-					<a ng-click="deletePost(post)" ng-show="isAdmin()"><i class="glyphicon glyphicon-trash"></i></a>
-				</div>
-			</li>
-		</ul>
-		<!-- Fin Sección Taberna -->
-
-	</div>
-
-	<div ng-hide="signedIn()">
-		<p><span class="big text-danger">Se encuentra usted en un foro privado.</span><br /><br />
-			Si no dispone de cuenta personal contacte con el administrador.<br />
-			Gracias y disculpe las molestias :).
-		</p>
 	</div>
 </div>

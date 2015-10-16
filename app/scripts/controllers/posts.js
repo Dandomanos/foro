@@ -10,14 +10,62 @@
 angular.module('blogApp')
   .controller('PostsCtrl',['$scope', 'Post', 'Auth', function ($scope, Post, Auth) {
 
-    $scope.posts = Post.all;
-    $scope.postGeneral = Post.general;
-    console.log("POSTS", Post.all);
-    console.log("POST general", Post.all.general);
+    // $scope.posts = Post.all;
+    // $scope.postGeneral = Post.getSection('general');
+    // $scope.postGeneral.$loaded(function(){
+    //   console.log("$scope.postGeneral", $scope.postGeneral);
+    // });
+    // console.log("POSTS", Post.all);
+    // console.log("POST general", Post.all.general);
 
     $scope.post = {url: 'http://'};
 
-    $scope.profile = Auth.getProfile(Auth.user.uid);
+    if(Auth.user.uid!==undefined)
+    {
+        console.log("Auth.user.uid", Auth.user.uid);
+        $scope.profile = Auth.getProfile(Auth.user.uid);
+
+        $scope.profile.$loaded(function(){
+          Auth.updateConnection(Auth.user.uid);
+        });
+          
+    }
+
+
+
+
+    $scope.sections = [
+      {
+        title: 'Temas Generales',
+        section: 'general',
+        posts: Post.getSection('general')
+      },
+      {
+        title: 'Batallas',
+        section: 'batallas',
+        posts: Post.getSection('batallas')
+      },
+      {
+        title: 'Piratería',
+        section: 'pirateria',
+        posts: Post.getSection('pirateria')
+      },
+      {
+        title: 'Comercio',
+        section: 'comercio',
+        posts: Post.getSection('comercio')
+      },
+      {
+        title: 'Cultura',
+        section: 'cultura',
+        posts: Post.getSection('cultura')
+      },
+      {
+        title: 'Taberna',
+        section: 'taberna',
+        posts: Post.getSection('taberna')
+      }
+    ];
 
     /*
     $scope.submitPost = function() {
@@ -51,5 +99,27 @@ angular.module('blogApp')
             return false;
           }
       }
-    }
+    };
+
+    $scope.fechar = function(milisecs)
+     {
+        var fecha = new Date(milisecs);
+        return fecha;
+     };
+
+     $scope.open = function(post)
+    {
+        console.log("POST", post);
+        Post.setState(post, true);
+    };
+
+    $scope.close = function(post)
+    {
+        Post.setState(post, false);
+    };
+
+    $scope.deletePost = function(post)
+    {
+        Post.delete(post);
+    };
   }]);

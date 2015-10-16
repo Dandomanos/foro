@@ -15,10 +15,15 @@ angular.module('blogApp')
 			Auth.getProfile(authData.uid);
 			console.log("Auth.user ", Auth.user);
 			console.log("Redirecciono a la home");
-			// $scope.$apply(function() { $location.path("/"); });
 			$location.path('/');
 			update();
 		} else {
+			console.log("user sin conectar",Auth.user.uid);
+			if(Auth.user.uid!==undefined)
+			{
+				console.log("Está logado");
+				Auth.updateConnection(Auth.user.uid);
+			}
 			$location.path('/desconectado');
 			console.log("User is logged out");
 			Auth.user={};
@@ -33,6 +38,11 @@ angular.module('blogApp')
             $rootScope.currentPath = $location.path();
         }, 0);
     };
+
+    var callbackUpdate = function(date) {
+      console.log("Ultima conexión actualizada", date);
+    };
+
 
 	
 
@@ -60,7 +70,8 @@ angular.module('blogApp')
 					username: user.username,
 					email: user.email,
 					post: {},
-					rango: 'user'
+					rango: 'user',
+					uid: user.uid
 				};
 
 				// var profileRef = $firebase(ref.child('profile'));
@@ -78,9 +89,28 @@ angular.module('blogApp')
 				var posts = $firebaseArray(ref.child('profile').child(uid).child('posts'));
 				var post = {
 					postId: postID,
-					title: Post.title
-				}
+					title: Post.title,
+					section:Post.section,
+					sectionTitle:Post.sectionTitle,
+					date:Post.date
+				};
 				return posts.$add(post);
+
+				// ref.child('profile').child(uid).child('posts').set(post, callback);
+			},
+			addCommentToProfile: function(uid, postID, Post, comentario){
+
+				var posts = $firebaseArray(ref.child('profile').child(uid).child('comments'));
+				var comment = {
+					postId: postID,
+					title: Post.title,
+					section:Post.section,
+					sectionTitle:Post.sectionTitle,
+					datePost:Post.date,
+					dateComment:comentario.date,
+					comment:comentario.comment
+				};
+				return posts.$add(comment);
 
 				// ref.child('profile').child(uid).child('posts').set(post, callback);
 			},
@@ -88,12 +118,16 @@ angular.module('blogApp')
 			{
 				if(uid)
 				{
-				console.log("PERFIL-AUTH", $firebaseObject(ref.child('profile').child(uid)));
+				// console.log("PERFIL-AUTH", $firebaseObject(ref.child('profile').child(uid)));
 				return $firebaseObject(ref.child('profile').child(uid));
 					
 				}
 				// return ref.child('profile').child(uid);
 			},
+		    updateConnection: function (uid) {
+		      var date = new Date().getTime();
+		      ref.child('profile').child(uid).child('lastConnection').set(date, callbackUpdate(date));
+		    },
 			login: function(user, callback) {
 				
 				ref.authWithPassword({
@@ -130,6 +164,19 @@ angular.module('blogApp')
 				} else
 				{
 					return null;
+				}
+			},
+			isConnected: function(milisecs) {
+				console.log("milisecs", milisecs);
+				var actualDate = new Date().getTime();
+				var diferencia = actualDate - milisecs;
+				console.log("Diferencia", diferencia);
+				if(diferencia<=300000)
+				{
+					return true;
+				} else
+				{
+					return false;
 				}
 			},
 			user: {},

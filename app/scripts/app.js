@@ -19,7 +19,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'firebase'
+    'firebase',
+    'ui.gravatar'
   ])
   .constant('FIREBASE_URL', 'https://caos.firebaseio.com/')
   .config(function ($routeProvider) {
