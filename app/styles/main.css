@@ -6,7 +6,15 @@ body {
 
 ul{list-style:none;}
 
+.btn:focus, .btn.active:focus, .btn:active:hover, .btn:active:focus
+{
+  outline:none;
+}
 
+a, a:hover, a:focus, a:active
+{
+  text-decoration:none;
+}
 /* NAV BAR */
 .nav-pic {
   margin: -2px 5px 0 0;
@@ -512,25 +520,83 @@ box-sizing:border-box;
 #Options
 {
   float: left;
-    margin-top: 38px;
+    margin-top: 16px;
     margin-left: 50px;
     padding: 10px;
     padding-left: 60px;
     border-left: 1px solid #ddd;
-    height: 121px;
+    height: 165px;
     max-width: 670px;
+    padding-top:14px;
 }
 
-#Options span
+#Options h4
+{
+  padding: 0;
+    margin-top: 0;
+    font-weight:bold;
+    font-size:17px;
+    color:#337ab7;
+}
+
+#Options input
+{
+  display:inline-block;
+  width:180px;
+  margin: 5px;
+}
+
+#Options span.alert
 {
   position: relative;
-    top: 21px;
+    top: 11px;
+}
+#Options input.floatRight
+{
+      position: absolute;
+    right: 85px;
+    
+}
+
+#Options .data-options
+{
+  font-size: 18px;
+  color: #449d44;
+  font-weight: bold;
+}
+
+#Options form{
+  margin-top: -6px;
+  margin-left: -3px;
+}
+
+#Options a, #Options a:hover, #Options a:focus, #Options a:active{
+  font-weight: bold;
+  text-decoration:none;
+}
+
+#Options .error-pass
+{
+    float: left;
+    left: 6px;
+    position: relative;
+    text-align: left;
+}
+
+#Options input.error
+{
+  border-color:#d9534f;
 }
 
 #profileData p
 {
-  margin-top:50px;
-  font-size:14px;
+  font-size:13px;
+}
+
+#profileData button.btn.btn-success
+{
+  margin-top:10px;
+  margin-bottom:10px;
 }
 
 .profileImage img
@@ -563,7 +629,7 @@ div.users-avatar
 #profileActions
 {
   position: absolute;
-    right: 10%;
+    right: 200px;
     bottom: 2px;
 }
 

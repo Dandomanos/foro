@@ -9,18 +9,64 @@
  */
 angular.module('blogApp')
   	.controller('ProfileCtrl', ['$scope', '$routeParams', 'Post', 'Auth', '$anchorScroll', '$location', function ($scope, $routeParams, Post, Auth, $anchorScroll, $location) {
+    $scope.created = 0;
+    $scope.commented = 0;
+
+    $scope.scrollTo = function(id) {
+      var old = $location.hash();
+      $location.hash(id);
+      $anchorScroll();
+      //reset to old to keep any additional routing logic from kicking in
+      $location.hash(old);
+    };
+
+    var contarPost = function()
+    {
+        $scope.created = 0;
+        angular.forEach($scope.profile.posts, function(){
+            $scope.created++;
+        });
+
+        // for(var post in $scope.profile.posts)
+        // {
+        //     $scope.created +=1;
+        // }
+    };
+    var contarComentarios = function()
+    {
+        $scope.commented = 0;
+        angular.forEach($scope.profile.comments, function(){
+            $scope.commented++;
+        });
+        // for(var comment in $scope.profile.comments)
+        // {
+        //     $scope.commented +=1;
+        // }
+    };
  	$scope.profile = Auth.getProfile($routeParams.uid);
  	$scope.profile.$loaded(function() {
  		console.log("cargo el perfil");
+        contarPost();
+        contarComentarios();
  		console.log("Número de comentarios", $scope.profile.comments);
  		// $scope.gotoAnchor('inicio');
  		Auth.updateConnection(Auth.user.uid);
 
- 		$location.hash("inicio");
- 		$anchorScroll();
+        $scope.passwordUpdate = {email:$scope.profile.email,  oldPassword: "", newPassword: ""};
+
+        $scope.scrollTo("inicio");
+
  	});
  	console.log("Profile uid", $routeParams.uid);
  	console.log("Auth uid", Auth.user.uid);
+
+    $scope.error = false;
+    $scope.success = false;
+    $scope.mensajeDeError = '';
+    $scope.errorNumber = 0;
+
+
+    $scope.profileOptions = true;
 
 
  	$scope.isConnected = function(milisecs) {
@@ -63,7 +109,7 @@ angular.module('blogApp')
         $scope.passwordOptions = false;
         $scope.profileOptions = false;
         console.log("cierro todas las ventanas");
-     }
+     };
 
      $scope.openOptions = function(menu)
      {
@@ -84,6 +130,64 @@ angular.module('blogApp')
            $scope.cerrarOptions();
            break;
         }
-     }
-     $scope.cerrarOptions();
+     };
+     $scope.openOptions('profile');
+
+     var callbackChangePass = function(error)
+     {
+        if(error)
+        {
+            switch (error.code) {
+              case "INVALID_PASSWORD":
+                console.log("La contraseña actual no es correcta");
+                $scope.error = true;
+                $scope.mensajeDeError = 'La contraseña actual no es correcta';
+                $scope.errorNumber = 2;
+                $scope.passwordUpdate.oldPassword = '';
+                $scope.$apply();
+                break;
+              case "INVALID_USER":
+                console.log("La dirección de correo electrónico no es correcta");
+                $scope.error = true;
+                $scope.mensajeDeError = 'La dirección de correo electrónica no es correcta';
+                $scope.errorNumber = 3;
+                break;
+              default:
+                console.log("Se ha producido un error inesperado al intentar cambiar la contraseña", error);
+                $scope.error = true;
+                $scope.mensajeDeError = 'Se ha producido un error inesperado al intentar cambiar la contraseña';
+                $scope.errorNumber = 0;
+            }
+        } else
+        {
+            console.log("Contraseña cambiada correctamente");
+            $scope.error = false;
+            $scope.mensajeDeError = '';
+            $scope.success = true;
+            $scope.passwordUpdate.oldPassword = $scope.passwordUpdate.newPassword = $scope.passwordUpdate.newPassword2 = '';
+            $scope.$apply();
+        }
+     };
+
+     $scope.changePassword = function()
+     {
+        $scope.success = false;
+        $scope.error = false;
+        $scope.mensajeDeError = '';
+        $scope.errorNumber = 0;
+        if($scope.passwordUpdate.newPassword === $scope.passwordUpdate.newPassword2)
+        {
+            console.log("Update Object",$scope.passwordUpdate);
+            
+            Auth.changePass($scope.passwordUpdate, callbackChangePass);
+        } else
+        {
+            console.log("La contraseña nueva no coincide");
+            $scope.error = true;
+            $scope.mensajeDeError = 'La contraseña nueva no coincide';
+            $scope.errorNumber = 1;
+            $scope.passwordUpdate.newPassword = $scope.passwordUpdate.newPassword2 = '';
+
+        }
+     };
   }]);

@@ -6,7 +6,7 @@
 <div class="postLocation">
 	<div id="migasDePan">
 		<small><a ng-href="#/" alt="Volver al Inicio" title="Volver al Inicio">Inicio</a> / 
-			<a ng-href="#/section/{{post.section}}" alt="Volver a {{post.sectionTitle}}" title="Volver a {{post.sectionTitle}}">{{post.sectionTitle}}</a>
+			<a ng-href="#/section/{{post.section}}" alt="Volver a {{post.sectionTitle}}" title="Volver a {{post.sectionTitle}}">{{post.sectionTitle}}</a> / {{post.title}}
 		</small>
 	</div>
 	<!--<h3>{{post.sectionTitle}}:</h3>-->
@@ -34,7 +34,7 @@
 		<div class="post-profile col-md-2">
 			<!-- Aquí debería también ir la foto de perfil -->
 			<div class="profileImage">
-				<img gravatar-src="profile.email" gravatar-size="120" gravatar-default="retro">
+				<img gravatar-src="autor.email" gravatar-size="120" gravatar-default="retro">
 			</div>
 			<a ng-href="#/profile/{{post.author.uid}}" alt="Ver perfil de {{post.author.username}}" title="Ver perfil de {{post.author.username}}">{{post.author.username}}</a><br />
 

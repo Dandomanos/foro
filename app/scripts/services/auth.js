@@ -65,6 +65,10 @@ angular.module('blogApp')
 				// });
 
 			},
+			changePass: function(user, callback)
+			{
+				ref.changePassword(user, callback);
+			},
 			createProfile: function (user, callback) {
 				var profile = {
 					username: user.username,

@@ -17,6 +17,10 @@ angular.module('blogApp')
     var callbackData = function()
     {
         console.log("callBack", $scope.post.author);
+        // $scope.post.author.profile = Auth.getProfile($scope.post.author.uid);
+        // $scope.post.author.profile.$loaded(function(){
+        //   console.log("perfil del autor cargado");
+        // })
     };
 
 
@@ -79,6 +83,9 @@ angular.module('blogApp')
 
     $scope.cargarRangos = function()
     {
+      
+
+
         for(var comment in $scope.post.comments)
              {
                  $scope.post.comments[comment].author.profile =  Auth.getProfile($scope.post.comments[comment].author.uid);
@@ -123,14 +130,14 @@ angular.module('blogApp')
       $scope.editByAdmin = false;
 
       $scope.$apply();
-    }
+    };
 
     $scope.reiniciarVariables = function()
     {
          
           if($scope.post.comments)
           {
-            console.log("Existen comentarios, cargo los rangos")
+            console.log("Existen comentarios, cargo los rangos");
             $scope.cargarRangos();
             console.log("Rangos cargados");
           }
@@ -156,14 +163,14 @@ angular.module('blogApp')
         { return false;
         } else
         { 
-          return true
+          return true;
         }
-    }
+    };
 
     $scope.responder = function() {
       if($scope.lastAuthor.uid!==Auth.user.uid)
         {
-          console.log("Puedes Responder")
+          console.log("Puedes Responder");
         $scope.replying = true;
         $scope.editing = false;
         $scope.original = false;
@@ -191,7 +198,7 @@ angular.module('blogApp')
       {
 
         
-          console.log("Puedes Comentar")
+          console.log("Puedes Comentar");
           $scope.editing = true;
           $scope.replying = false;
           $scope.original = false;
@@ -218,7 +225,7 @@ angular.module('blogApp')
       {
         $scope.editByAdmin = true;
          $scope.editar(post);
-      }
+      };
 
       $scope.editarOriginal = function()
       {
