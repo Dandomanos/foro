@@ -25,12 +25,21 @@
 	    </form>
 	     -->
 	    <ul class="nav navbar-nav navbar-right" ng-show="signedIn()">
-	    	<li>
+	    	<li class="user-loged">
 	    		<span>Hola <a ng-href="#/profile/{{profile.$id}}" alt="Ir a tu perfil" title="Ir a tu perfil">{{profile.username}}</a></span><br /><small>{{profile.email}}</small>
 	    	</li>
-	    	<li ng-show="isAdmin()"><a class="new-top" ng-href="#/register">Crear Nuevo Usuario</a></li>
+	    	<li ng-show="isAdmin()">
+	    		<a class="new-top" ng-href="#/register">
+	    			<i class="fa fa-user-plus"></i> Crear Nuevo Usuario
+	    		</a>
+	    	</li>
 	    	<li>
-	    		<button ng-href="#" class="btn btn-primary" ng-click="logout()">Salir</button>
+	    		<a class="new-top" ng-href="#/chat" title="Ir al chat" alt="Ir al chat">
+	    			<i class="fa fa-weixin"></i> Chat
+	    		</a>
+	    	</li>
+	    	<li>
+	    		<button ng-href="#" class="btn btn-danger" ng-click="logout()" title="Desconectarse">Salir</button>
 	    	</li>
 	    </ul>
 	    <div ng-hide="signedIn()" class="navbar-form navbar-right">

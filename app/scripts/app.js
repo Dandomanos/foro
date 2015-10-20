@@ -29,6 +29,10 @@ angular
         templateUrl: 'views/posts.html',
         controller: 'PostsCtrl'
       })
+      .when('/chat', {
+        templateUrl: 'views/chat.html',
+        controller: 'ChatCtrl'
+      })
       .when('/posts/:section/:postId', {
         templateUrl: 'views/showpost.html',
         controller: 'PostviewCtrl'

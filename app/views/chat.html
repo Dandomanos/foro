@@ -1,0 +1,43 @@
+<div id="migasDePan">
+	<small><a ng-href="#/" alt="Volver al Inicio" title="Volver al Inicio">Inicio</a> / Chat</small> 
+</div>
+<div class="separador">	
+	<div class="section-title">
+		<div class="postInfo">
+			<h2>Chat de CAOS
+			</h2>
+		</div>
+		<div class="postActions">
+			
+				<i class="fa fa-weixin" title="Chat"></i>
+		</div>
+	</div>
+	<div id="chatContent" scroll-chat="conversacion">
+		<div class="chat-entry" ng-repeat="entrada in conversacion | orderBy : 'date' | actualMessages:conexion" ng-class="{system:entrada.system}">
+			<div class="chat-user">
+
+				<img gravatar-src="entrada.email" gravatar-size="30" gravatar-default="retro" ng-hide="entrada.system">
+				 {{entrada.username}} <small class="fecha">[{{fechar(entrada.date) | date:'HH:mm'}}]</small> :
+
+			</div>
+			<div class="chat-message">
+				{{entrada.content}}
+			</div>
+			<!--
+			<div class="enterTheChat">
+				{{entrada.entered.username}} ha entrado en la sala.
+			</div>
+			-->
+		</div>
+	</div>
+	<div id="chat-form" class="input-group">
+		<form ng-submit="sendMessage()">
+			<i class="fa fa-weixin" title="Chat"></i> 
+			<input type="text" class="form-control campo" ng-model="message" placeholder="Escribe un mensaje" ng-focus="true"id="campoEntrada" name="campoEntrada">
+			<span class="input-group-btn">
+				<!-- <input type="submit" value="Enviar" class="btn btn-primary"/> -->
+								<button class="btn btn-primary" type="submit">Enviar</button>
+			</span>
+		</form>
+	</div>
+</div>
