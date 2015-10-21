@@ -1,5 +1,5 @@
 'use strict';
-
+/* global $:false */
 /**
  * @ngdoc function
  * @name blogApp.controller:ChatCtrl
@@ -12,16 +12,71 @@ angular.module('blogApp')
  
   	$scope.profile = Auth.getProfile(Auth.user.uid);
   	$scope.mensaje = {};
-  	$scope.conversacion = Chat.all;
+  	// $scope.conversacion = Chat.all;
+    $scope.enterTime = new Date().getTime();
+    $scope.conversacion = Chat.filterMessages($scope.enterTime - 1);
+
+    $scope.conectados = Chat.getConnected();
+
+    $scope.conectados.$loaded(function(){
+      console.log("Conectados", $scope.conectados);
+    });
 
   	$scope.conversacion.$loaded(function(){
-  		console.log("conversación cargada", $scope.conversacion);
-  		$scope.conexion = new Date().getTime();
-  		console.log("lastEntry", $scope.conversacion.lastEntry);
+      console.log("Conversación Filtrada", $scope.conversacion);
+      console.log("Location Path", $location.path());
+  		// console.log("conversación cargada", $scope.conversacion);
+  		// // $scope.conexion = new Date().getTime();
+  		// console.log("lastEntry", $scope.conversacion.lastEntry);
   		
 
 
   	});
+
+    $scope.$on('$routeChangeStart', function() { 
+      var entrada = {
+          username: 'Sistema',
+          uid: $scope.profile.uid,
+          email: $scope.profile.email,
+          date: new Date().getTime(),
+          content: $scope.profile.username + " ha abandonado la sala",
+          rango: $scope.profile.rango,
+          system:true
+      };
+      Chat.sendMessage(entrada).then(function()
+      {
+        console.log("Usuario sale del Chat");
+        Chat.removeUserFromChat($scope.profile.username, function()
+        {
+          console.log("usuario eliminado del panel del chat", $scope.profile.username);
+        });
+      });
+    });
+
+    window.onbeforeunload = function () {
+      // event.preventDefault();
+      var entrada = {
+          username: 'Sistema',
+          uid: $scope.profile.uid,
+          email: $scope.profile.email,
+          date: new Date().getTime(),
+          content: $scope.profile.username + " ha abandonado la sala",
+          rango: $scope.profile.rango,
+          system:true
+      };
+      Chat.sendMessage(entrada).then(function()
+      {
+        console.log("Usuario sale del Chat");
+      });
+      Chat.removeUserFromChat($scope.profile.username, function()
+      {
+        console.log("usuario eliminado del panel del chat", $scope.profile.username);
+      });
+    };
+
+     // $scope.conversacionFiltrada.$loaded(function(){
+     //  console.log("Conversación Filtrada", $scope.conversacionFiltrada);
+     // });
 
   	$scope.profile.$loaded(function(){
   		console.log("Perfil cargado", $scope.profile);
@@ -29,7 +84,7 @@ angular.module('blogApp')
 	  			username: 'Sistema',
 	  			uid: $scope.profile.uid,
 	  			email: $scope.profile.email,
-	  			date: new Date().getTime(),
+	  			date: $scope.enterTime,
 	  			content: $scope.profile.username + " ha entrado en la sala",
 	  			rango: $scope.profile.rango,
 	  			system:true
@@ -37,6 +92,18 @@ angular.module('blogApp')
   		Chat.sendMessage(entrada).then(function()
   		{
   			console.log("Usuario Entra en el chat");
+        var user =
+        {
+          username: $scope.profile.username,
+          uid: $scope.profile.uid,
+          email: $scope.profile.email,
+          rango: $scope.profile.rango,
+          date: $scope.enterTime
+        };
+        Chat.addUserToChat(user, function()
+          {
+            console.log("usuario añadido al panel del chat", user);
+          });
   		});
 
   		// Chat.enterChat($scope.conversacion.lastEntry, Auth.user);
@@ -74,10 +141,6 @@ angular.module('blogApp')
     	});
     	
     };
-    var callbackMessage = function()
-    {
-    	console.log("Ultima entrada actualizada");
-    }
 
     $scope.fechar = function(milisecs)
      {

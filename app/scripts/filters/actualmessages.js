@@ -23,7 +23,7 @@ angular.module('blogApp')
       		out.push(mensaje);
       	}
 
-      })
+      });
 
       return out;
     };

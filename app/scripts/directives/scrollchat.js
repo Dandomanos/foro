@@ -1,11 +1,12 @@
 'use strict';
-
+/* global $:false */
 /**
  * @ngdoc directive
  * @name blogApp.directive:scrollChat
  * @description
  * # scrollChat
  */
+ 
 angular.module('blogApp')
   .directive('scrollChat', ['$timeout', function ($timeout) {
     return {

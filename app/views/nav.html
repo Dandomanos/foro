@@ -26,7 +26,14 @@
 	     -->
 	    <ul class="nav navbar-nav navbar-right" ng-show="signedIn()">
 	    	<li class="user-loged">
-	    		<span>Hola <a ng-href="#/profile/{{profile.$id}}" alt="Ir a tu perfil" title="Ir a tu perfil">{{profile.username}}</a></span><br /><small>{{profile.email}}</small>
+	    		<div class="users-avatar"> 
+	    			<a ng-href="#/profile/{{profile.$id}}" alt="Ir a tu perfil" title="Ir a tu perfil">
+						<img gravatar-src="profile.email" gravatar-size="30" gravatar-default="retro">
+					</a>
+				</div>
+				<div class="nav-user-info">
+		    		<span>Hola <a ng-href="#/profile/{{profile.$id}}" alt="Ir a tu perfil" title="Ir a tu perfil">{{profile.username}}</a></span><br /><small>{{profile.email}}</small>
+		    	</div>
 	    	</li>
 	    	<li ng-show="isAdmin()">
 	    		<a class="new-top" ng-href="#/register">

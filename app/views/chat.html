@@ -13,10 +13,11 @@
 		</div>
 	</div>
 	<div id="chatContent" scroll-chat="conversacion">
-		<div class="chat-entry" ng-repeat="entrada in conversacion | orderBy : 'date' | actualMessages:conexion" ng-class="{system:entrada.system}">
+		<div class="chat-entry" ng-repeat="entrada in conversacion | orderBy : 'date' | actualMessages:enterTime" ng-class="{system:entrada.system}">
 			<div class="chat-user">
-
-				<img gravatar-src="entrada.email" gravatar-size="30" gravatar-default="retro" ng-hide="entrada.system">
+				<div class="users-avatar" ng-hide="entrada.system"> 
+					<img gravatar-src="entrada.email" gravatar-size="30" gravatar-default="retro">
+				</div>
 				 {{entrada.username}} <small class="fecha">[{{fechar(entrada.date) | date:'HH:mm'}}]</small> :
 
 			</div>
@@ -29,6 +30,24 @@
 			</div>
 			-->
 		</div>
+	</div>
+	<div id="chatUsers">
+		<ul>
+			<li ng-repeat="user in conectados">
+				<div class="user-connected">	
+					<i class="fa fa-circle green" ng-show="isConnected(user.lastConnection)" title="Conectado el {{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}"></i> 
+					<i class="fa fa-circle gray" ng-hide="isConnected(user.lastConnection)" title="Desconectado el {{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}"></i>
+				</div>
+				<div class="users-avatar"> 
+					<a ng-href="#/profile/{{user.uid}}" alt="Ver perfil de {{user.username}}" title="Ver perfil de {{user.username}}">
+						<img gravatar-src="user.email" gravatar-size="30" gravatar-default="retro">
+					</a>
+				</div>
+				<div class="users-data">
+					<a ng-href="#/profile/{{user.uid}}" alt="Ver perfil de {{user.username}}" title="Ver perfil de {{user.username}}">{{user.username}}</a> <small>({{user.rango}})</small>
+				</div>
+			</li>
+		</ul>
 	</div>
 	<div id="chat-form" class="input-group">
 		<form ng-submit="sendMessage()">

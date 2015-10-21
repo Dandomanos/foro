@@ -14,9 +14,9 @@ angular.module('blogApp')
 			Auth.user = authData;
 			Auth.getProfile(authData.uid);
 			console.log("Auth.user ", Auth.user);
-			console.log("Redirecciono a la home");
-			$location.path('/');
-			update();
+			// console.log("Redirecciono a la home");
+			// $location.path('/');
+			// update();
 		} else {
 			console.log("user sin conectar",Auth.user.uid);
 			if(Auth.user.uid!==undefined)
@@ -32,12 +32,12 @@ angular.module('blogApp')
 		}
 	}
 
-	var update = function () {
-		console.log("Actualizo el path");
-        $timeout(function () {
-            $rootScope.currentPath = $location.path();
-        }, 0);
-    };
+	// var update = function () {
+	// 	console.log("Actualizo el path");
+ //        $timeout(function () {
+ //            $rootScope.currentPath = $location.path();
+ //        }, 0);
+ //    };
 
     var callbackUpdate = function(date) {
       console.log("Ultima conexión actualizada", date);

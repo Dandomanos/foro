@@ -52,7 +52,14 @@ border-bottom-left-radius: 7px;
 .navbar-nav > li.user-loged
 {
       line-height: 15px;
-      margin-top:6px;
+      margin-top:3px;
+}
+
+.nav-user-info
+{
+  float:right;
+  margin-top: 4px;
+  margin-left: 3px;
 }
 .nav-pic {
   margin: -2px 5px 0 0;
@@ -720,8 +727,11 @@ div.users-avatar
   background-color:#fff;
   height:500px;
   overflow-y:auto;
-  overflow-x:none;
-  border:1px solid #ddd;
+  overflow-x: hidden;
+  border-left:1px solid #ddd;
+  border-right:1px solid #ddd;
+  width:79%;
+  float:left;
 }
 
 #chatContent .chat-message, #chatContent .chat-user
@@ -784,4 +794,25 @@ div.users-avatar
 {
   color:red;
   font-style:italic; 
+}
+
+#chatUsers
+{
+  width:21%;
+  margin-left:79%;
+  height:500px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  border-right: 1px solid #ddd;
+  background-color:aliceblue;
+}
+
+#chatUsers ul{
+  margin:0;
+  padding:0;
+}
+
+#chatUsers li{
+  padding:5px;
+  margin-left:3px;
 }
