@@ -8,9 +8,11 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('ChatCtrl', ['$scope', 'Auth', 'Chat', '$location', '$anchorScroll', function ($scope, Auth, Chat, $location, $anchorScroll) {
- 
-  	$scope.profile = Auth.getProfile(Auth.user.uid);
+  .controller('ChatCtrl', ['$scope', 'Auth', 'Chat', '$location', '$anchorScroll', '$window', function ($scope, Auth, Chat, $location, $anchorScroll, $window) {
+    
+    
+  	 $scope.profile = Auth.getProfile(Auth.user.uid);
+
   	$scope.mensaje = {};
   	// $scope.conversacion = Chat.all;
     $scope.enterTime = new Date().getTime();
@@ -20,6 +22,7 @@ angular.module('blogApp')
 
     $scope.conectados.$loaded(function(){
       console.log("Conectados", $scope.conectados);
+      
     });
 
   	$scope.conversacion.$loaded(function(){
@@ -77,9 +80,20 @@ angular.module('blogApp')
      // $scope.conversacionFiltrada.$loaded(function(){
      //  console.log("Conversación Filtrada", $scope.conversacionFiltrada);
      // });
-
+    
   	$scope.profile.$loaded(function(){
+
+      // if($scope.profile===undefined)
+      // {
+      //   console.log("ha ponciado")
+      // } else
+      // {
+
+      
+
+
   		console.log("Perfil cargado", $scope.profile);
+      
   		var entrada = {
 	  			username: 'Sistema',
 	  			uid: $scope.profile.uid,
@@ -103,11 +117,13 @@ angular.module('blogApp')
         Chat.addUserToChat(user, function()
           {
             console.log("usuario añadido al panel del chat", user);
+            Auth.updateChatConnection(user.uid, user.username);
           });
   		});
-
+    // }
   		// Chat.enterChat($scope.conversacion.lastEntry, Auth.user);
   	});
+
 
   	$scope.scrollTo = function(id) {
       var old = $location.hash();
@@ -135,6 +151,7 @@ angular.module('blogApp')
     	{
     		console.log("mensaje guardado con id", ref.key());
     		$('#campoEntrada').focus();
+        Auth.updateChatConnection($scope.profile.uid, $scope.profile.username);
     		// Chat.lastEntry(ref.key(), callbackMessage);
     		// document.getElementById("mytext").focus();
 
@@ -142,9 +159,37 @@ angular.module('blogApp')
     	
     };
 
+    $scope.isConnected = function(milisecs) {
+                // console.log("milisecs", milisecs);
+                var actualDate = new Date().getTime();
+                var diferencia = actualDate - milisecs;
+                // console.log("Diferencia", diferencia);
+                // if(diferencia<=300000)
+                if(diferencia<=300000)
+                {
+                    return "";
+                } else
+                {
+                    return "ausente";
+                }
+            };
+
     $scope.fechar = function(milisecs)
      {
         var fecha = new Date(milisecs);
         return fecha;
+     };
+
+     $window.onfocus = function(){
+       console.log("focused");
+       if($scope.profile!==undefined)
+       {
+       Auth.updateChatConnection($scope.profile.uid, $scope.profile.username);
+       }
+     };
+
+     $scope.signedIn = function()
+     {
+        return Auth.signedIn(); 
      };
   }]);

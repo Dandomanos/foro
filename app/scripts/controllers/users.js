@@ -51,6 +51,13 @@ angular.module('blogApp')
                 }
             };
 
+     $scope.signedIn = function()
+     {
+         // $scope.user = Auth.user;
+        return Auth.signedIn();
+        
+     };
+
        
     
   }]);

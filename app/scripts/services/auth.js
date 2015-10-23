@@ -14,9 +14,13 @@ angular.module('blogApp')
 			Auth.user = authData;
 			Auth.getProfile(authData.uid);
 			console.log("Auth.user ", Auth.user);
-			// console.log("Redirecciono a la home");
-			// $location.path('/');
-			// update();
+
+			if($location.path()==='/desconectado')
+			{
+			console.log("Redirecciono a la home");
+			$location.path('/');
+			update();
+			}
 		} else {
 			console.log("user sin conectar",Auth.user.uid);
 			if(Auth.user.uid!==undefined)
@@ -32,18 +36,21 @@ angular.module('blogApp')
 		}
 	}
 
-	// var update = function () {
-	// 	console.log("Actualizo el path");
- //        $timeout(function () {
- //            $rootScope.currentPath = $location.path();
- //        }, 0);
- //    };
+	var update = function () {
+		console.log("Actualizo el path");
+        $timeout(function () {
+            $rootScope.currentPath = $location.path();
+        }, 0);
+    };
 
     var callbackUpdate = function(date) {
       console.log("Ultima conexión actualizada", date);
     };
 
-
+    var callbackUpdateChatConnection = function(date)
+    {
+    	 console.log("Ultima conexión del Chat actualizada", date);
+    };
 	
 
 	
@@ -132,6 +139,23 @@ angular.module('blogApp')
 		      var date = new Date().getTime();
 		      ref.child('profile').child(uid).child('lastConnection').set(date, callbackUpdate(date));
 		    },
+		    updateChatConnection: function (uid, username) 
+		    {
+		    	var date = new Date().getTime();
+		    	console.log("DATE", date);
+		    	console.log("UID", uid);
+		    	console.log("Username", username);
+		    	ref.child('profile').child(uid).child('lastConnection').set(date,
+		    		Auth.updateConnectionFromChat(date, username));		    	
+		    },
+		    updateConnectionFromChat: function(date, username)
+		    {
+		    	ref.child('chat').child('connected').child(username).child('lastConnection').set(date, callbackUpdateChatConnection(date));
+		    },
+		    // getConnection: function(uid)
+		    // {
+		    // 	return $firebaseObject(ref.child('profile').child(uid).child('lastConnection').val());
+		    // },
 			login: function(user, callback) {
 				
 				ref.authWithPassword({

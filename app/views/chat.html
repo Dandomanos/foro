@@ -1,7 +1,7 @@
 <div id="migasDePan">
 	<small><a ng-href="#/" alt="Volver al Inicio" title="Volver al Inicio">Inicio</a> / Chat</small> 
 </div>
-<div class="separador">	
+<div class="separador" ng-show="signedIn()">	
 	<div class="section-title">
 		<div class="postInfo">
 			<h2>Chat de CAOS
@@ -34,17 +34,23 @@
 	<div id="chatUsers">
 		<ul>
 			<li ng-repeat="user in conectados">
+				
+				<!--
 				<div class="user-connected">	
 					<i class="fa fa-circle green" ng-show="isConnected(user.lastConnection)" title="Conectado el {{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}"></i> 
-					<i class="fa fa-circle gray" ng-hide="isConnected(user.lastConnection)" title="Desconectado el {{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}"></i>
+					<i class="fa fa-circle ausente" ng-hide="isConnected(user.lastConnection)" title="Desconectado el {{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}"></i>
 				</div>
-				<div class="users-avatar"> 
+				-->
+				<div class="users-avatar" ng-class="isConnected(user.lastConnection)"> 
 					<a ng-href="#/profile/{{user.uid}}" alt="Ver perfil de {{user.username}}" title="Ver perfil de {{user.username}}">
 						<img gravatar-src="user.email" gravatar-size="30" gravatar-default="retro">
 					</a>
 				</div>
-				<div class="users-data">
+				<div class="users-data" ng-class="isConnected(user.lastConnection)">
 					<a ng-href="#/profile/{{user.uid}}" alt="Ver perfil de {{user.username}}" title="Ver perfil de {{user.username}}">{{user.username}}</a> <small>({{user.rango}})</small>
+					<br />
+
+					<!-- <span class="fecha"><small>[{{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}]</small></span> -->
 				</div>
 			</li>
 		</ul>

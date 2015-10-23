@@ -50,7 +50,7 @@
 	    	</li>
 	    </ul>
 	    <div ng-hide="signedIn()" class="navbar-form navbar-right">
-	    	<ul class="nav navbar-nav navbar-right">
+	    	<ul class="nav navbar-nav navbar-right navbar-login">
 	    		<li>
 	    			
 	    	<form ng-submit="login()">
@@ -60,7 +60,7 @@
 		      <div class="form-group">
 		      <input type="password" class="form-control" placeholder="Contraseña" ng-model="user.password">
 		      </div>
-		      <button type="submit" class="btn btn-default">Entrar</button>
+		      <button type="submit" class="btn btn-primary">Entrar</button>
 		      <p ng-show="error" class="text-danger error-login">{{mensajeDeError}}</p>
 	    	</form>
 	    		</li>
