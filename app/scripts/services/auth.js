@@ -4,7 +4,7 @@
 
 
 angular.module('blogApp')
-.factory('Auth', ['FIREBASE_URL', '$firebase', '$location', '$timeout', '$rootScope', '$firebaseObject', '$firebaseArray', function(FIREBASE_URL, $firebase, $location, $timeout, $rootScope, $firebaseObject, $firebaseArray){
+.factory('Auth', ['FIREBASE_URL', '$firebase', '$location', '$timeout', '$rootScope', '$firebaseObject', '$firebaseArray', '$window', function(FIREBASE_URL, $firebase, $location, $timeout, $rootScope, $firebaseObject, $firebaseArray, $window){
 	var ref = new Firebase(FIREBASE_URL);
 
 	function authDataCallback(authData)
@@ -15,11 +15,19 @@ angular.module('blogApp')
 			Auth.getProfile(authData.uid);
 			console.log("Auth.user ", Auth.user);
 
-			if($location.path()==='/desconectado')
+			if($location.path()==='/desconectado'  || $location.path()==='/forgetpassword')
 			{
 			console.log("Redirecciono a la home");
 			$location.path('/');
 			update();
+			// } else
+			// {
+			// 	console.log("path()", $location.path());
+			// 	var cadena = '#' + $location.path() + "?loaded";
+			// 	console.log("cadena", cadena);
+			// 	$window.location.href = cadena;
+
+				// $location.$reload();
 			}
 		} else {
 			console.log("user sin conectar",Auth.user.uid);
@@ -28,7 +36,7 @@ angular.module('blogApp')
 				console.log("Está logado");
 				Auth.updateConnection(Auth.user.uid);
 			}
-			$location.path('/desconectado');
+			$location.path('/unlogged');
 			console.log("User is logged out");
 			Auth.user={};
 			console.log("Auth.user ", Auth.user);

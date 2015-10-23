@@ -9,6 +9,13 @@
  */
 angular.module('blogApp')
   .controller('PostviewCtrl', ['$scope', '$routeParams', 'Post', 'Auth', '$anchorScroll', '$location', '$timeout', function ($scope, $routeParams, Post, Auth, $anchorScroll, $location, $timeout) {
+
+    if(Auth.user.uid===undefined)
+    {
+      console.log("No estás logado")
+      $location.path("/unlogged");
+      return;
+    }
     $scope.profile = Auth.getProfile(Auth.user.uid);
     $scope.profile.$loaded(function(){
       Auth.updateConnection(Auth.user.uid);

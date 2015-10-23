@@ -55,9 +55,13 @@ angular
         //   }
         // }
       })
-      .when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
+      .when('/forgetpassword', {
+        templateUrl: 'views/forgetpassword.html',
+        controller: 'ForgetpasswordCtrl'
+      })
+      .when('/unlogged', {
+        templateUrl: 'views/unlogged.html',
+        controller: 'UnloggedCtrl'
       })
       .when('/desconectado', {
         templateUrl: 'views/desconectado.html',

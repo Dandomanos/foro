@@ -46,7 +46,7 @@
 	    		</a>
 	    	</li>
 	    	<li>
-	    		<button ng-href="#" class="btn btn-danger" ng-click="logout()" title="Desconectarse">Salir</button>
+	    		<button ng-href="#" class="btn btn-danger salir" ng-click="logout()" title="Desconectarse">Salir</button>
 	    	</li>
 	    </ul>
 	    <div ng-hide="signedIn()" class="navbar-form navbar-right">
@@ -64,8 +64,11 @@
 		      <p ng-show="error" class="text-danger error-login">{{mensajeDeError}}</p>
 	    	</form>
 	    		</li>
-	    		 <!-- <li><a class="btn-default" ng-href="#/login">Conectarse</a></li>-->
-	    		
+	    		<li class="forgetPass">
+	    			<button class="btn btn-danger">
+	    				<a ng-href="#/forgetpassword">Olvidé mi contraseña</a>
+	    			</button>
+	    		</li>
 	    	</ul>
 	    </div>
 	    <!--

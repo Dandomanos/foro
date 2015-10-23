@@ -8,7 +8,7 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('PostsCtrl',['$scope', 'Post', 'Auth', function ($scope, Post, Auth) {
+  .controller('PostsCtrl',['$scope', 'Post', 'Auth', '$location', function ($scope, Post, Auth, $location) {
 
     // $scope.posts = Post.all;
     // $scope.postGeneral = Post.getSection('general');
@@ -29,6 +29,11 @@ angular.module('blogApp')
           Auth.updateConnection(Auth.user.uid);
         });
           
+    } else
+    {
+      console.log("No estás logado")
+      $location.path("/unlogged");
+      return;
     }
 
 

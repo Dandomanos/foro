@@ -9,8 +9,83 @@
  */
 angular.module('blogApp')
   .controller('ChatCtrl', ['$scope', 'Auth', 'Chat', '$location', '$anchorScroll', '$window', function ($scope, Auth, Chat, $location, $anchorScroll, $window) {
+
+    if(Auth.user.uid===undefined)
+    {
+      console.log("No estás logado")
+      $location.path("/unlogged");
+      return;
+
+    }
+    //Definición de métodos
+
+    $scope.signedIn = function()
+     {
+        return Auth.signedIn(); 
+     };
+
+    $scope.scrollTo = function(id) {
+      var old = $location.hash();
+      $location.hash(id);
+      $anchorScroll();
+      //reset to old to keep any additional routing logic from kicking in
+      $location.hash(old);
+    };
+
+    $scope.sendMessage = function()
+    {
+      $scope.mensaje =
+      {
+        username: $scope.profile.username,
+        uid: $scope.profile.uid,
+        email: $scope.profile.email,
+        date: new Date().getTime(),
+        content: $scope.message,
+        rango: $scope.profile.rango,
+        system:false
+      };
+      console.log("mensaje", $scope.mensaje);
+      $scope.message = '';
+      Chat.sendMessage($scope.mensaje).then(function(ref)
+      {
+        console.log("mensaje guardado con id", ref.key());
+        $('#campoEntrada').focus();
+        Auth.updateChatConnection($scope.profile.uid, $scope.profile.username);
+        // Chat.lastEntry(ref.key(), callbackMessage);
+        // document.getElementById("mytext").focus();
+
+      });
+      
+    };
+
+    $scope.isConnected = function(milisecs) {
+                // console.log("milisecs", milisecs);
+                var actualDate = new Date().getTime();
+                var diferencia = actualDate - milisecs;
+                // console.log("Diferencia", diferencia);
+                // if(diferencia<=300000)
+                if(diferencia<=300000)
+                {
+                    return "";
+                } else
+                {
+                    return "ausente";
+                }
+            };
+
+    $scope.fechar = function(milisecs)
+     {
+        var fecha = new Date(milisecs);
+        return fecha;
+     };
+
+
+
+
+
+     //Chequeo de usuario
     
-    
+      console.log("Tengo usuario, continuo ", Auth.user);
   	 $scope.profile = Auth.getProfile(Auth.user.uid);
 
   	$scope.mensaje = {};
@@ -81,16 +156,7 @@ angular.module('blogApp')
      //  console.log("Conversación Filtrada", $scope.conversacionFiltrada);
      // });
     
-  	$scope.profile.$loaded(function(){
-
-      // if($scope.profile===undefined)
-      // {
-      //   console.log("ha ponciado")
-      // } else
-      // {
-
-      
-
+  	$scope.profile.$loaded(function(data){
 
   		console.log("Perfil cargado", $scope.profile);
       
@@ -125,60 +191,7 @@ angular.module('blogApp')
   	});
 
 
-  	$scope.scrollTo = function(id) {
-      var old = $location.hash();
-      $location.hash(id);
-      $anchorScroll();
-      //reset to old to keep any additional routing logic from kicking in
-      $location.hash(old);
-    };
-
-    $scope.sendMessage = function()
-    {
-    	$scope.mensaje =
-  		{
-  			username: $scope.profile.username,
-  			uid: $scope.profile.uid,
-  			email: $scope.profile.email,
-  			date: new Date().getTime(),
-  			content: $scope.message,
-  			rango: $scope.profile.rango,
-  			system:false
-  		};
-    	console.log("mensaje", $scope.mensaje);
-    	$scope.message = '';
-    	Chat.sendMessage($scope.mensaje).then(function(ref)
-    	{
-    		console.log("mensaje guardado con id", ref.key());
-    		$('#campoEntrada').focus();
-        Auth.updateChatConnection($scope.profile.uid, $scope.profile.username);
-    		// Chat.lastEntry(ref.key(), callbackMessage);
-    		// document.getElementById("mytext").focus();
-
-    	});
-    	
-    };
-
-    $scope.isConnected = function(milisecs) {
-                // console.log("milisecs", milisecs);
-                var actualDate = new Date().getTime();
-                var diferencia = actualDate - milisecs;
-                // console.log("Diferencia", diferencia);
-                // if(diferencia<=300000)
-                if(diferencia<=300000)
-                {
-                    return "";
-                } else
-                {
-                    return "ausente";
-                }
-            };
-
-    $scope.fechar = function(milisecs)
-     {
-        var fecha = new Date(milisecs);
-        return fecha;
-     };
+  	
 
      $window.onfocus = function(){
        console.log("focused");
@@ -188,8 +201,5 @@ angular.module('blogApp')
        }
      };
 
-     $scope.signedIn = function()
-     {
-        return Auth.signedIn(); 
-     };
+     
   }]);
