@@ -15,7 +15,7 @@ angular.module('blogApp')
 			Auth.getProfile(authData.uid);
 			console.log("Auth.user ", Auth.user);
 
-			if($location.path()==='/desconectado'  || $location.path()==='/forgetpassword')
+			if($location.path()==='/desconectado'  || $location.path()==='/forgetpassword' || $location.path()==='/unlogged')
 			{
 			console.log("Redirecciono a la home");
 			$location.path('/');
@@ -83,6 +83,10 @@ angular.module('blogApp')
 			changePass: function(user, callback)
 			{
 				ref.changePassword(user, callback);
+			},
+			resetPass: function(email, callback)
+			{
+				ref.resetPassword(email, callback);
 			},
 			createProfile: function (user, callback) {
 				var profile = {

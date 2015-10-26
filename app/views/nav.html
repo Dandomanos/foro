@@ -35,6 +35,11 @@
 		    		<span>Hola <a ng-href="#/profile/{{profile.$id}}" alt="Ir a tu perfil" title="Ir a tu perfil">{{profile.username}}</a></span><br /><small>{{profile.email}}</small>
 		    	</div>
 	    	</li>
+			<li ng-show="isAdmin()">
+	    		<a class="new-top" ng-href="#/admin">
+	    			<i class="fa fa-cogs"></i>
+	    		</a>
+	    	</li>
 	    	<li ng-show="isAdmin()">
 	    		<a class="new-top" ng-href="#/register">
 	    			<i class="fa fa-user-plus"></i> Crear Nuevo Usuario

@@ -672,9 +672,55 @@ box-sizing:border-box;
     text-align: left;
 }
 
-#Options input.error
+#Options input.error, .form-group.error input 
 {
   border-color:#d9534f;
+  outline-color: #d9534f;
+
+}
+
+#Options input, .form-group input
+{
+  -webkit-transition: all .15s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -ms-transition: all .15s ease-in-out;
+    -kthtml-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+
+    -webkit-transform: all .15s ease-in-out;
+    -moz-transform: all .15s ease-in-out;
+    -ms-transform: all .15s ease-in-out;
+    -kthtml-transform: all .15s ease-in-out;
+    transform: all .15s ease-in-out;
+
+}
+
+.form-group.success input
+{
+  border-color:#3c763d;
+  outline-color:#3c763d;
+}
+
+.form-group.success input:focus
+{
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(60,118,61,.5);
+-moz-box-shadow: 0px 0px 15px 0px rgba(60,118,61,.5);
+box-shadow: 0px 0px 15px 0px rgba(60,118,61,.5);
+}
+
+.unlogged .error-password, .unlogged .success-password{
+  font-size:12px;
+}
+
+.form-group.error input:focus
+{
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(217,83,79,.5);
+-moz-box-shadow: 0px 0px 15px 0px rgba(217,83,79,.5);
+box-shadow: 0px 0px 15px 0px rgba(217,83,79,.5);
+
+
+
 }
 
 #profileData p
@@ -863,3 +909,17 @@ border-bottom-left-radius: 4px;
 {
   color:#fff;
 } 
+
+.unlogged .form-group
+{
+  width:80%;
+  max-width:500px;
+  display:inline-block;
+}
+
+.unlogged button{
+  margin-top:-1px;
+  margin-left:20px;
+  margin-top: -3px;
+  margin-left: 5px;
+}

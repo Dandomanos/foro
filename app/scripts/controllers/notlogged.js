@@ -9,5 +9,7 @@
  */
 angular.module('blogApp')
   .controller('UnloggedCtrl',['$scope', function ($scope) {
+
+  	
     
   }]);
