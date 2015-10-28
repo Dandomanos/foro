@@ -19,15 +19,22 @@
 	<ul class="list-group col-xs-12 user-list">
 		<li class="list-group-item col-lg-4 col-md-6 col-xs-12" data-ng-repeat="user in users | orderBy : '-lastConnection'">
 		<div class="user-connected">	
-			<i class="fa fa-circle green" ng-show="isConnected(user.lastConnection)" title="Conectado el {{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}"></i> 
-			<i class="fa fa-circle gray" ng-hide="isConnected(user.lastConnection)" title="Desconectado el {{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}"></i>
+			<i class="fa fa-circle green" ng-show="isConnected(user.lastConnection)" title="Conectado el {{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}"></i>
+			<span ng-show="user.lastConnection!==undefined">
+				<i class="fa fa-circle gray" ng-hide="isConnected(user.lastConnection)" title="Desconectado el {{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}"></i>
+			</span>
+			<span ng-hide="user.lastConnection!==undefined">
+				<i class="fa fa-circle gray" title="El usuario no se ha conectado nunca"></i>
+			</span>
 		</div>
 		<div class="users-avatar"> 
 			<img gravatar-src="user.email" gravatar-size="30" gravatar-default="retro">
 		</div>
 		<div class="users-data">
 			<a ng-href="#/profile/{{user.uid}}" alt="Ver perfil de {{user.username}}" title="Ver perfil de {{user.username}}">{{user.username}}</a> <small>({{user.rango}})</small>
-			<small class="fecha" title="Última conexión"> [{{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}]</small>
+			<small class="fecha" title="Última conexión" ng-show="user.lastConnection!==undefined"> [{{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}]</small>
+			<small class="fecha" title="Última conexión" ng-hide="user.lastConnection!==undefined">
+				[Ninguna Conexión]
 			<br />
 		</div>
 			 

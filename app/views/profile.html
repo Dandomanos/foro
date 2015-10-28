@@ -30,13 +30,19 @@
 			</a>
 			<p>Rango: <span class="text text-primary"><b>{{profile.rango}}</b></span>	<br />
 				Última conexión:<br />
-				<i class="fa fa-circle green" ng-show="isConnected(profile.lastConnection)" title="Conectado el {{fechar(profile.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(profile.lastConnection) | date:'HH:mm'}}"></i> 
-				<i class="fa fa-circle gray" ng-hide="isConnected(profile.lastConnection)" title="Desconectado el {{fechar(profile.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(profile.lastConnection) | date:'HH:mm'}}"></i> 
-				<span class="fecha">
+				<div ng-show="profile.lastConnection!==undefined">
+					<i class="fa fa-circle green" ng-show="isConnected(profile.lastConnection)" title="Conectado el {{fechar(profile.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(profile.lastConnection) | date:'HH:mm'}}"></i> 
+					<i class="fa fa-circle gray" ng-hide="isConnected(profile.lastConnection)" title="Desconectado el {{fechar(profile.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(profile.lastConnection) | date:'HH:mm'}}"></i> 
+					<span class="fecha">
+						<small>
+							[{{fechar(profile.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(profile.lastConnection) | date:'HH:mm'}}]
+						</small>
+					</span>
+				</div>
+				<div ng-hide="profile.lastConnection!==undefined" class="fecha">
 					<small>
-						[{{fechar(profile.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(profile.lastConnection) | date:'HH:mm'}}]
-					</small>
-				</span>
+					<i class="fa fa-circle gray" title="El usuario no se ha conectado nunca"></i> [Ninguna Conexión]</small>
+				</div>
 			</p>
 		</div>
 		<div id="Options">

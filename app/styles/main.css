@@ -726,6 +726,7 @@ box-shadow: 0px 0px 5px 0px rgba(217,83,79,.5);
 #profileData p
 {
   font-size:13px;
+  margin:0;
 }
 
 #profileData button.btn.btn-success
