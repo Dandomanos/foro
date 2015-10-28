@@ -1,1 +1,64 @@
-<p>This is the admin view.</p>
+<div class="separador">
+	<div class="section-title">
+		<div class="postInfo">
+			<h2>Panel de Administración</h2>
+		</div>
+		<div class="postActions">
+			
+				<i class="fa fa-cogs" title="Panel de Administración"></i></i>
+		</div>
+	</div>
+	<div class="admin-settings">
+		<div class="chat-settings">
+			<form ng-submit="deleteChat()">
+				<h4 class="text text-primary"><b><i class="fa fa-commenting" title="Chat"></i> Chat:</b></h4>
+				<p>Borrar Mensajes del Chat hasta:</p>
+			      <div class="form-group form-group-date" ng-class="{error: error, success:success}">
+			        <input type="date" class="form-control"  ng-model="today">
+			      </div>
+			      <div class="form-group form-group-time" ng-class="{error: error, success:success}">
+			        <input type="time" class="form-control"  ng-model="today">
+			    </div>
+<!-- 
+			      <small class="fecha" title="Hora Borrado"> [{{fechar(today) | date:'dd-MM-yyyy'}} a las {{fechar(today) | date:'HH:mm'}}]</small>
+			       -->
+			      <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Borrar Mensajes</button>
+			      <p ng-show="error" class="text-danger error-password"><i class="fa fa-exclamation-triangle"></i> {{mensajeResetPassword}}</p>
+			      <p ng-show="success" class="text-success success-password"><i class="fa fa-check"></i> {{mensajeResetPassword}}</p>
+			      <p class="text text-danger delete-chat-info"><i class="fa fa-exclamation-triangle"></i> <small>
+			      	<b>Los mensajes borrados no podrán ser recuperados posteriormente.</b><br />(Ejecutar esta acción sólo ante problemas de rendimiento de la aplicación)</small>
+			      </p>
+		    </form>
+		</div>
+		<hr>
+		<div class="user-settings">
+			<h4 class="text text-primary"><b><i class="fa fa-users" title="Usuarios"></i> Usuarios:</b></h4>
+			<ul class="users-registred">
+				<li ng-repeat="user in users | orderBy : 'username'" class="user-admin">
+					<div class="users-avatar"> 
+						<a ng-href="#/profile/{{user.uid}}" alt="Ver el perfil de {{user.username}}" title="Ver el perfil de {{user.username}}"><img gravatar-src="user.email" gravatar-size="20" gravatar-default="retro"></a>
+					</div>
+					<div class="user-data">
+						<a ng-href="#/profile/{{user.uid}}" alt="Ver el perfil de {{user.username}}" title="Ver el perfil de {{user.username}}">{{user.username}}</a>
+					</div>
+					<div class="user-options" ng-hide="user.rango=='admin'">
+						<ul>
+							<li>
+								<a ng-click="silenciar(user.uid)" title="Silenciar a {{user.username}}"><i class="fa fa-commenting"></i></a>
+							</li>
+							<li>
+								<a ng-click="cegar(user.uid)" title="Cegar a {{user.username}}"><i class="fa fa-eye"></i></a>
+							</li>
+							<li>
+								<a ng-click="eliminar(user.uid)" title="Eliminar a {{user.username}}"><i class="fa fa-trash text-danger"></i></a>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- <div class="postDetail-actions">
+		
+	</div> -->
+</div>

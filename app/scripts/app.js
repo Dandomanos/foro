@@ -55,6 +55,10 @@ angular
         //   }
         // }
       })
+      .when('/admin', {
+        templateUrl: 'views/admin.html',
+        controller: 'AdminCtrl'
+      })
       .when('/forgetpassword', {
         templateUrl: 'views/forgetpassword.html',
         controller: 'ForgetpasswordCtrl'

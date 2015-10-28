@@ -57,6 +57,6 @@ angular.module('blogApp')
 
   		$scope.$apply();
 
-  	}
+  	};
 
   }]);

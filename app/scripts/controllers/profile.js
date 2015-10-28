@@ -12,7 +12,7 @@ angular.module('blogApp')
 
       if(Auth.user.uid===undefined)
     {
-      console.log("No estás logado")
+      console.log("No estás logado");
       $location.path("/unlogged");
       return;
     }

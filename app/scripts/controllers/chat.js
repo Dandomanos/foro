@@ -12,7 +12,7 @@ angular.module('blogApp')
 
     if(Auth.user.uid===undefined)
     {
-      console.log("No estás logado")
+      console.log("No estás logado");
       $location.path("/unlogged");
       return;
 
@@ -46,15 +46,21 @@ angular.module('blogApp')
       };
       console.log("mensaje", $scope.mensaje);
       $scope.message = '';
-      Chat.sendMessage($scope.mensaje).then(function(ref)
-      {
-        console.log("mensaje guardado con id", ref.key());
-        $('#campoEntrada').focus();
-        Auth.updateChatConnection($scope.profile.uid, $scope.profile.username);
-        // Chat.lastEntry(ref.key(), callbackMessage);
-        // document.getElementById("mytext").focus();
 
-      });
+      // for(var i=0; i<100; i++)
+      // {
+        Chat.sendMessage($scope.mensaje).then(function(ref)
+        {
+          console.log("mensaje guardado con id", ref.key());
+          $('#campoEntrada').focus();
+          Auth.updateChatConnection($scope.profile.uid, $scope.profile.username);
+          // Chat.lastEntry(ref.key(), callbackMessage);
+          // document.getElementById("mytext").focus();
+          // Chat.cleanChat();
+        });
+      // }
+
+
       
     };
 
@@ -158,7 +164,7 @@ angular.module('blogApp')
     
   	$scope.profile.$loaded(function(data){
 
-  		console.log("Perfil cargado", $scope.profile);
+  		console.log("Perfil cargado", data);
       
   		var entrada = {
 	  			username: 'Sistema',
@@ -197,7 +203,11 @@ angular.module('blogApp')
        console.log("focused");
        if($scope.profile!==undefined)
        {
-       Auth.updateChatConnection($scope.profile.uid, $scope.profile.username);
+          if($scope.profile.uid!==undefined && $scope.profile.username!==undefined)
+          {
+            Auth.updateChatConnection($scope.profile.uid, $scope.profile.username);  
+          }
+          
        }
      };
 

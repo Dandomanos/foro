@@ -4,7 +4,7 @@
 
 
 angular.module('blogApp')
-.factory('Auth', ['FIREBASE_URL', '$firebase', '$location', '$timeout', '$rootScope', '$firebaseObject', '$firebaseArray', '$window', function(FIREBASE_URL, $firebase, $location, $timeout, $rootScope, $firebaseObject, $firebaseArray, $window){
+.factory('Auth', ['FIREBASE_URL', '$firebase', '$location', '$timeout', '$rootScope', '$firebaseObject', '$firebaseArray', function(FIREBASE_URL, $firebase, $location, $timeout, $rootScope, $firebaseObject, $firebaseArray){
 	var ref = new Firebase(FIREBASE_URL);
 
 	function authDataCallback(authData)

@@ -31,7 +31,7 @@ angular.module('blogApp')
           
     } else
     {
-      console.log("No estás logado")
+      console.log("No estás logado");
       $location.path("/unlogged");
       return;
     }

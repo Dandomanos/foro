@@ -704,9 +704,9 @@ box-sizing:border-box;
 
 .form-group.success input:focus
 {
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(60,118,61,.5);
--moz-box-shadow: 0px 0px 15px 0px rgba(60,118,61,.5);
-box-shadow: 0px 0px 15px 0px rgba(60,118,61,.5);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(60,118,61,.5);
+-moz-box-shadow: 0px 0px 5px 0px rgba(60,118,61,.5);
+box-shadow: 0px 0px 5px 0px rgba(60,118,61,.5);
 }
 
 .unlogged .error-password, .unlogged .success-password{
@@ -715,9 +715,9 @@ box-shadow: 0px 0px 15px 0px rgba(60,118,61,.5);
 
 .form-group.error input:focus
 {
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(217,83,79,.5);
--moz-box-shadow: 0px 0px 15px 0px rgba(217,83,79,.5);
-box-shadow: 0px 0px 15px 0px rgba(217,83,79,.5);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(217,83,79,.5);
+-moz-box-shadow: 0px 0px 5px 0px rgba(217,83,79,.5);
+box-shadow: 0px 0px 5px 0px rgba(217,83,79,.5);
 
 
 
@@ -880,7 +880,7 @@ border-bottom-left-radius: 4px;
   margin-left:3px;
 }
 
-.unlogged
+.unlogged, .admin-settings
 {
   background-color:#fff;
   padding:20px;
@@ -917,9 +917,91 @@ border-bottom-left-radius: 4px;
   display:inline-block;
 }
 
-.unlogged button{
+.chat-settings .form-group
+{
+  display:inline-block;
+}
+
+.form-group-date
+{
+  width:160px;
+}
+
+.form-group-time
+{
+  width:100px;
+}
+
+.chat-settings .form-group button{
+  display:inline-block;
+}
+
+.chat-settings p.delete-chat-info
+{
+  margin-left: 27px;
+  top: 9px;
+  position: relative;
+}
+
+.unlogged button, .chat-settings button{
   margin-top:-1px;
   margin-left:20px;
   margin-top: -3px;
   margin-left: 5px;
+}
+
+.chat-settings p{
+  display:inline-block;
+  margin-right:10px;
+}
+
+.users-registred li
+{
+  display:inline-block;
+}
+
+.users-registred .user-data, .users-registred .user-options
+{
+  display:inline-block;
+}
+
+.user-settings ul{
+  padding:0;
+  margin:0;
+}
+
+.user-settings li.user-admin
+{
+  margin:5px;
+  border:1px solid #ddd;
+  padding:5px 10px;
+  border-radius:4px;
+}
+
+.user-settings li.user-admin ul{
+  margin-left:10px;
+}
+
+.user-settings li.user-admin ul li{
+  margin:0 2px;
+}
+
+.user-settings .users-avatar
+{
+  border-width:2px;
+  height:20px;
+  width:20px;
+  margin:0;
+  padding:0;
+  margin-right:5px;
+}
+
+.user-settings a{
+  cursor:pointer;
+}
+
+.user-settings .users-avatar img
+{
+  top: -1px;
+  position: relative;
 }

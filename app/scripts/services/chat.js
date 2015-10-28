@@ -22,7 +22,10 @@ angular.module('blogApp')
       sendMessage:function(mensaje)
       {
         console.log("Mensaje", mensaje);
-        return chat.$add(mensaje);
+        return chat.$add(mensaje).then(Chat.cleanChat()).catch(function(error)
+          {
+            console.log("se ha producido un error al enviar el mensaje", error);
+          });
       },
       addUserToChat:function(user, callback)
       {
@@ -38,6 +41,58 @@ angular.module('blogApp')
       {
         var destino = ref.child('chat').child('connected');
         return $firebaseArray(destino);
+      },
+      cleanChat:function()
+      {
+        var limite = new Date();
+        var tresHoras = 36000000*3;
+        // var unMinuto = 60000;
+        // limite.setDate(limite.getDate()-0.125);
+        // limite.setDate(limite.getDate()-0.0001);
+        limite = limite.getTime() - tresHoras;
+
+        console.log("limite", limite);
+
+        var messages = ref.child('chat').child('messages').orderByChild('date').endAt(limite);
+        messages.once("value", function(snapshot){
+          snapshot.forEach(function(childSnapshot){
+            var key = childSnapshot.key();
+            console.log("Key", key);
+
+            ref.child('chat').child('messages').child(key).remove();
+
+            // var childData = childSnapshot.val();
+            // console.log("childData", childData);
+          });
+        });
+        console.log("Chat limpio");
+      },
+      deleteMessagesBefore:function(date, callback){
+        var messages = ref.child('chat').child('messages').orderByChild('date').endAt(date);
+        messages.once("value", function(snapshot){
+          snapshot.forEach(function(childSnapshot){
+            var key = childSnapshot.key();
+            console.log("Key", key);
+
+            ref.child('chat').child('messages').child(key).remove();
+
+            var childData = childSnapshot.val();
+            console.log("childData", childData);
+          });
+        });
+
+        console.log("borrado finalizado");
+        callback();
+        // var old = messages.orderByChild('date').endAt(date);
+        // var listener = old.on('child_added', function(snapshot){
+        //   console.log("ref", snapshot.ref().key());
+        //   return snapshot.ref().remove(callback);
+
+        // });
+        // angular.forEach(messages.snapshot, function(snapshot){
+        //   console.log("REF", snapshot);
+        // });
+        // return messages.remove(callback);
       }
     };
 
