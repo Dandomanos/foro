@@ -3,7 +3,7 @@
 /* global Firebase:false */
 
 angular.module('blogApp')
-.factory('Post',['$firebaseArray', '$firebaseObject', 'FIREBASE_URL', function($firebaseArray, $firebaseObject, FIREBASE_URL) {
+.factory('Post',['$firebaseArray', '$firebaseObject', 'FIREBASE_URL', 'Profile', function($firebaseArray, $firebaseObject, FIREBASE_URL, Profile) {
 	var ref = new Firebase(FIREBASE_URL);
 	var posts = $firebaseArray(ref.child('posts'));
 	var general = $firebaseArray(ref.child('posts').child('general'));
@@ -121,8 +121,22 @@ angular.module('blogApp')
 			return ref.child('posts').child(Section).child(editedRef.postID).child('comments').child(editedRef.commentID).child('edited').child('lastEdit').set(lastEdited, callback);
 		},
 		delete: function (post) {
+			// console.log("POST a deletear", post)
+			for(var comment in post.comments)
+			{
+				// console.log("comment", post.comments[comment]);
+				// console.log("autorNick", post.comments[comment].author.username);
+				// console.log("autorUID", post.comments[comment].author.uid);
+				Profile.deleteCommentFromProfile(post.comments[comment].author.uid, comment);
+			}
+			// console.log("Author Post", post.author.uid);
+			// console.log("ID POST", post.$id);
+			Profile.deletePostFromProfile(post.author.uid, post.$id);
+
+
+
 			var hilo = ref.child('posts').child(post.section).child(post.$id);
-			return hilo.remove();
+			hilo.remove();
 		}
 	};
 

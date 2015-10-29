@@ -13,7 +13,7 @@ angular.module('blogApp')
   	// 	$location.path('/');
   	// }
 
-    $scope.user = {email:'', password:'', username:'', uid:'', rango:'user'};
+    $scope.user = {email:'', password:'', username:'', uid:'', rango:'user', silenced:false, blind:false};
 
     $scope.registroRealizado = false;
     $scope.registros = {};

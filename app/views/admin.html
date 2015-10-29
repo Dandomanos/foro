@@ -44,10 +44,12 @@
 					<div class="user-options" ng-hide="user.rango=='admin'">
 						<ul>
 							<li>
-								<a ng-click="silenciar(user.uid)" title="Silenciar a {{user.username}}"><i class="fa fa-commenting"></i></a>
+								<a ng-hide="user.silenced" ng-click="silenciar(user.uid, true)" title="Silenciar a {{user.username}}"><i class="fa fa-commenting"></i></a>
+								<a ng-show="user.silenced" ng-click="silenciar(user.uid, false)" title="Permitir hablar a {{user.username}}"><i class="fa fa-comment-o"></i></a>
 							</li>
 							<li>
-								<a ng-click="cegar(user.uid)" title="Cegar a {{user.username}}"><i class="fa fa-eye"></i></a>
+								<a ng-hide="user.blind" ng-click="cegar(user.uid, true)" title="Cegar a {{user.username}}"><i class="fa fa-eye"></i></a>
+								<a ng-show="user.blind" ng-click="cegar(user.uid, false)" title="Permitir ver a {{user.username}}"><i class="fa fa-eye-slash"></i></a>
 							</li>
 							<li>
 								<a ng-click="eliminar(user.uid)" title="Eliminar a {{user.username}}"><i class="fa fa-trash text-danger"></i></a>
@@ -56,6 +58,35 @@
 					</div>
 				</li>
 			</ul>
+		</div>
+		<hr>
+		<div class="posts-settings">
+			<h4 class="text text-primary"><b><i class="fa fa-file-text"></i> Posts:</b></h4>
+			<div class="section-select">
+				Selecciona una sección:	<br />	
+				<select class="btn btn-primary" ng-model="section_selected" ng-options="section.title for section in sections" ng-change="loadSection(section_selected)"></select>
+			</div>
+			<div class="section-loaded">
+				<ul>
+					<li ng-repeat="post in postLoaded" class="post-admin">
+						<div class="post-title">
+							<span class="text text-primary">{{post.title}}</span>
+						</div>
+						<div class="post-options" ng-hide="user.rango=='admin'">
+						<ul>
+							
+							<li>
+								<a ng-click="open(post)" ng-hide="post.open" alt="Reabrir el post {{post.title}}" title="Reabrir el post {{post.title}}"><i class="fa fa-unlock"></i></a>
+								<a ng-click="close(post)" ng-show="post.open" alt="Cerrar el post {{post.title}}" title="Cerrar el post {{post.title}}"><i class="fa fa-lock"></i></a>
+							</li>
+							<li>
+								<a ng-click="deletePost(post)" alt="Borrar el Hilo" title="Borrar el Hilo" class="text-danger"><i class="fa fa-trash"></i></a>
+							</li>
+						</ul>
+					</div>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<!-- <div class="postDetail-actions">

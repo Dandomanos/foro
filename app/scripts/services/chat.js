@@ -44,12 +44,12 @@ angular.module('blogApp')
       },
       cleanChat:function()
       {
-        var limite = new Date();
-        var tresHoras = 36000000*3;
-        // var unMinuto = 60000;
+        var limite = new Date().getTime();
+        var tresHoras = 3600000*3;
+        var unMinuto = 60000;
         // limite.setDate(limite.getDate()-0.125);
         // limite.setDate(limite.getDate()-0.0001);
-        limite = limite.getTime() - tresHoras;
+        limite -= unMinuto;
 
         console.log("limite", limite);
 
@@ -59,13 +59,22 @@ angular.module('blogApp')
             var key = childSnapshot.key();
             console.log("Key", key);
 
-            ref.child('chat').child('messages').child(key).remove();
+            ref.child('chat').child('messages').child(key).remove(function(error){
+              if(error)
+              {
+                console.log("Error", error);
+              } else
+              {
+                console.log("Mensaje eliminado con el id", key);
+              }
+            });
 
             // var childData = childSnapshot.val();
             // console.log("childData", childData);
           });
         });
-        console.log("Chat limpio");
+        console.log("Chat cleaned"); 
+        
       },
       deleteMessagesBefore:function(date, callback){
         var messages = ref.child('chat').child('messages').orderByChild('date').endAt(date);

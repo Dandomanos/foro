@@ -961,7 +961,7 @@ border-bottom-left-radius: 4px;
   display:inline-block;
 }
 
-.users-registred .user-data, .users-registred .user-options
+.users-registred .user-data, .users-registred .user-options, .section-loaded .post-options, .section-loaded .post-options li
 {
   display:inline-block;
 }
@@ -971,19 +971,22 @@ border-bottom-left-radius: 4px;
   margin:0;
 }
 
-.user-settings li.user-admin
+.user-settings li.user-admin, .posts-settings li.post-admin
 {
   margin:5px;
   border:1px solid #ddd;
   padding:5px 10px;
   border-radius:4px;
+  display: inline-block;
+      position: relative;
+    left: -5px;
 }
 
-.user-settings li.user-admin ul{
+.user-settings li.user-admin ul, .posts-settings li.post-admin ul{
   margin-left:10px;
 }
 
-.user-settings li.user-admin ul li{
+.user-settings li.user-admin ul li, .posts-settings li.post-admin ul li{
   margin:0 2px;
 }
 
@@ -997,7 +1000,7 @@ border-bottom-left-radius: 4px;
   margin-right:5px;
 }
 
-.user-settings a{
+.user-settings a, .posts-settings a{
   cursor:pointer;
 }
 
@@ -1005,4 +1008,19 @@ border-bottom-left-radius: 4px;
 {
   top: -1px;
   position: relative;
+}
+
+.section-loaded
+{
+  margin-top:10px;
+}
+
+.posts-settings ul{
+  margin:0;
+  padding:0;
+}
+
+.section-loaded .post-title
+{
+  display:inline-block;
 }

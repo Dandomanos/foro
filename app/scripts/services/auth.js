@@ -94,7 +94,10 @@ angular.module('blogApp')
 					email: user.email,
 					post: {},
 					rango: 'user',
-					uid: user.uid
+					uid: user.uid,
+					silenced: false,
+					blind: false,
+					lastConnection: 0
 				};
 
 				// var profileRef = $firebase(ref.child('profile'));
