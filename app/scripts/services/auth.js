@@ -12,8 +12,26 @@ angular.module('blogApp')
 		if(authData) {
 			console.log("User "+ authData.uid + " is logged in with " + authData.provider);
 			Auth.user = authData;
-			Auth.getProfile(authData.uid);
+			Auth.profile = Auth.getProfile(authData.uid);
+
+			Auth.profile.$loaded(function(){
+				if(Auth.profile.username===undefined)
+				{
+					console.log("El usuario ha sido eliminado por un administrador");
+					$location.path('/user-deleted');
+					update();
+				}
+			});
 			console.log("Auth.user ", Auth.user);
+
+			// if(Auth.user.username===undefined)
+			// {
+			// 	console.log("El usuario ha sido eliminado por un administrador");
+			// 	$location.path('/user-deleted');
+			// 	update();
+			// }
+
+
 
 			if($location.path()==='/desconectado'  || $location.path()==='/forgetpassword' || $location.path()==='/unlogged')
 			{
@@ -39,6 +57,8 @@ angular.module('blogApp')
 			$location.path('/unlogged');
 			console.log("User is logged out");
 			Auth.user={};
+			Auth.profile = {};
+			Auth.autentified = false;
 			console.log("Auth.user ", Auth.user);
 
 		}
@@ -69,16 +89,6 @@ angular.module('blogApp')
 					email: user.email,
 					password: user.password
 				}, callback);
-
-				// function(error, userData) {
-				// 	if(error) {
-				// 		console.log("Error al crear usuario", error);
-				// 	} else {
-				// 		console.log("Se ha creado una cuenta con el siguiente uid: ", userData.uid);
-				// 		Auth.login(user);
-				// 	}
-				// });
-
 			},
 			changePass: function(user, callback)
 			{
@@ -99,17 +109,30 @@ angular.module('blogApp')
 					blind: false,
 					lastConnection: 0
 				};
-
-				// var profileRef = $firebase(ref.child('profile'));
-				// var refProfile = $firebaseObject(ref.child('profile'));
-				// ref.set({user.uid, profile}, callback);
 				ref.child('profile').child(user.uid).set(profile, callback);
 			},
-			// addPostToProfile: function(uid, postID)
-			// {
-			// 	// ref.child('profile').child(uid).posts.push({postID});
-			// 	 // messageListRef.push({ 'user_id': 'fred', 'text': 'Yabba Dabba Doo!' });
-			// },
+			checkUser: function() 
+			{
+				if(Auth.user.uid===undefined)
+			    {
+			      console.log("No estás logado");
+			      $location.path("/unlogged");
+			      return;
+			    }
+
+			    Auth.profile.$loaded(function(){
+					if(Auth.profile.username===undefined)
+					{
+						console.log("El usuario ha sido eliminado por un administrador");
+						$location.path('/user-deleted');
+						update();
+					} else
+					{
+						console.log("El usuario está autentificado");
+						Auth.autentified = true;
+					}
+				});
+			},
 			addPostToProfile: function(uid, postID, Post){
 
 				var posts = $firebaseArray(ref.child('profile').child(uid).child('posts'));
@@ -121,13 +144,12 @@ angular.module('blogApp')
 					date:Post.date
 				};
 				return posts.$add(post);
-
-				// ref.child('profile').child(uid).child('posts').set(post, callback);
 			},
-			addCommentToProfile: function(uid, postID, Post, comentario){
+			addCommentToProfile: function(uid, commentID, Post, comentario, postID){
 
 				var posts = $firebaseArray(ref.child('profile').child(uid).child('comments'));
 				var comment = {
+					commentId: commentID,
 					postId: postID,
 					title: Post.title,
 					section:Post.section,
@@ -137,22 +159,21 @@ angular.module('blogApp')
 					comment:comentario.comment
 				};
 				return posts.$add(comment);
-
-				// ref.child('profile').child(uid).child('posts').set(post, callback);
 			},
 			getProfile: function(uid)
 			{
 				if(uid)
 				{
-				// console.log("PERFIL-AUTH", $firebaseObject(ref.child('profile').child(uid)));
 				return $firebaseObject(ref.child('profile').child(uid));
 					
 				}
-				// return ref.child('profile').child(uid);
 			},
 		    updateConnection: function (uid) {
-		      var date = new Date().getTime();
-		      ref.child('profile').child(uid).child('lastConnection').set(date, callbackUpdate(date));
+		    	if(Auth.profile.username!==undefined)
+		    	{
+			      var date = new Date().getTime();
+			      ref.child('profile').child(uid).child('lastConnection').set(date, callbackUpdate(date));
+		    	}
 		    },
 		    updateChatConnection: function (uid, username) 
 		    {
@@ -223,7 +244,8 @@ angular.module('blogApp')
 				}
 			},
 			user: {},
-			profile: {}
+			profile: {},
+			autentified: false
 
 		};
 

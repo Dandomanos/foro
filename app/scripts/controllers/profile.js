@@ -10,12 +10,10 @@
 angular.module('blogApp')
   	.controller('ProfileCtrl', ['$scope', '$routeParams', 'Post', 'Auth', '$anchorScroll', '$location', function ($scope, $routeParams, Post, Auth, $anchorScroll, $location) {
 
-      if(Auth.user.uid===undefined)
-    {
-      console.log("No estás logado");
-      $location.path("/unlogged");
-      return;
-    }
+
+
+    Auth.checkUser();
+
       
     $scope.created = 0;
     $scope.commented = 0;

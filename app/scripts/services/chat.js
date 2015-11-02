@@ -46,10 +46,10 @@ angular.module('blogApp')
       {
         var limite = new Date().getTime();
         var tresHoras = 3600000*3;
-        var unMinuto = 60000;
+        // var unMinuto = 60000;
         // limite.setDate(limite.getDate()-0.125);
         // limite.setDate(limite.getDate()-0.0001);
-        limite -= unMinuto;
+        limite -= tresHoras;
 
         console.log("limite", limite);
 

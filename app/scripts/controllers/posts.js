@@ -10,15 +10,11 @@
 angular.module('blogApp')
   .controller('PostsCtrl',['$scope', 'Post', 'Auth', '$location', function ($scope, Post, Auth, $location) {
 
-    // $scope.posts = Post.all;
-    // $scope.postGeneral = Post.getSection('general');
-    // $scope.postGeneral.$loaded(function(){
-    //   console.log("$scope.postGeneral", $scope.postGeneral);
-    // });
-    // console.log("POSTS", Post.all);
-    // console.log("POST general", Post.all.general);
+    
 
     $scope.post = {url: 'http://'};
+
+    Auth.checkUser();
 
     if(Auth.user.uid!==undefined)
     {

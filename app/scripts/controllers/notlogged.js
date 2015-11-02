@@ -8,7 +8,7 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('UnloggedCtrl',['$scope', function ($scope) {
+  .controller('UnloggedCtrl',[function () {
 
   	
     

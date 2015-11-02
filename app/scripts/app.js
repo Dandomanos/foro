@@ -45,6 +45,10 @@ angular
         templateUrl: 'views/profile.html',
         controller: 'ProfileCtrl'
       })
+      .when('/user-deleted', {
+        templateUrl: 'views/user-deleted.html',
+        controller: 'UserdeletedCtrl'
+      })
       .when('/register', {
         templateUrl: 'views/register.html',
         controller: 'AuthCtrl'

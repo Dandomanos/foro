@@ -9,9 +9,8 @@
  */
 angular.module('blogApp')
   .controller('AuthCtrl',['$scope', '$location', 'Auth',  function ($scope, $location, Auth) {
-  	// if(user) {
-  	// 	$location.path('/');
-  	// }
+  	
+    Auth.checkUser();
 
     $scope.user = {email:'', password:'', username:'', uid:'', rango:'user', silenced:false, blind:false};
 

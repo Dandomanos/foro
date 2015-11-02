@@ -10,16 +10,21 @@
 angular.module('blogApp')
   .controller('PostviewCtrl', ['$scope', '$routeParams', 'Post', 'Auth', '$anchorScroll', '$location', '$timeout', function ($scope, $routeParams, Post, Auth, $anchorScroll, $location, $timeout) {
 
-    if(Auth.user.uid===undefined)
-    {
-      console.log("No estás logado");
-      $location.path("/unlogged");
-      return;
-    }
+
+
+
+    Auth.checkUser();
+
+
     $scope.profile = Auth.getProfile(Auth.user.uid);
     $scope.profile.$loaded(function(){
       Auth.updateConnection(Auth.user.uid);
     });
+
+    //Añadir watch para cambios en los post {{$scope.post}}
+    //Revisar de nuevo la conexión de cada user
+
+
 
     var callbackData = function()
     {
@@ -33,6 +38,8 @@ angular.module('blogApp')
 
 
     $scope.post = Post.get($routeParams.postId, $routeParams.section, callbackData);
+
+
     $scope.exist = true;
     $scope.lastAuthor = {};
     $scope.post.$loaded().then(function(data){
@@ -56,6 +63,19 @@ angular.module('blogApp')
          }
 
             });
+    $scope.post.$watch(function(){
+      console.log("Se ha producido un nuevo post: ");
+      if(Auth.profile.username===undefined)
+      {
+        console.log("Usuario eliminado, no debería estar aquí");
+        Auth.checkUser();
+      } else {
+        console.log("USERNAME", Auth.profile.username);
+        $scope.cargarRangos();
+      }
+    });
+
+
     $scope.replying = false;
     $scope.editing = false;
     $scope.original = false;
@@ -98,25 +118,10 @@ angular.module('blogApp')
                  $scope.post.comments[comment].author.profile =  Auth.getProfile($scope.post.comments[comment].author.uid);
                  $scope.post.comments[comment].author.profile.$loaded(function(){
 
-                  // console.log("Profile Loaded", $scope.post.comments[comment].author.profile);
-
                     $scope.post.comments[comment].author.connected = $scope.isConnected($scope.post.comments[comment].author.profile.lastConnection);
 
                     $scope.lastAuthor.uid = $scope.post.comments[comment].author.uid;
 
-                    console.log("UID",  $scope.lastAuthor.uid);
-
-
-
-                 //    //descomentar si no actualiza tras un post
-                 //    // $scope.post.comments[comment].editable = $scope.isAuthor($scope.post.comments[comment].author.uid);
-
-
-                    // console.log("Profile loaded", $scope.post.comments[comment].author.profile);
-
-                    // console.log("lastConnection", $scope.post.comments[comment].author.profile.lastConnection);
-
-                    // console.log("isConnected", $scope.post.comments[comment].author.connected);
                  });
                  
                 
@@ -352,7 +357,7 @@ angular.module('blogApp')
         console.log("FECHA", $scope.post.date);
         Post.addComment($scope.post, $scope.comment).then(function(ref) {
             $scope.comment.id = ref.key();
-            Auth.addCommentToProfile($scope.profile.$id, ref.key(), $scope.post,  $scope.comment);
+            Auth.addCommentToProfile($scope.profile.$id, ref.key(), $scope.post,  $scope.comment, $routeParams.postId);
             console.log("Comentario actualizado", ref);
 
             console.log("Comment ID", $scope.comment.id);

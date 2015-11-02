@@ -8,10 +8,25 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('NavCtrl',['$scope', '$location', 'Post', 'Auth', function ($scope, $location, Post, Auth) {
+  .controller('NavCtrl',['$scope', '$location', 'Post', 'Auth', '$window', function ($scope, $location, Post, Auth, $window) {
 
 
     $scope.profile = Auth.getProfile(Auth.user.uid);
+
+    $scope.checkRoute = function() {
+      if($location.path() ==='/unlogged' || $location.path() === '/user-deleted') {
+        console.log("El usuario no debería ver el panel");
+        $scope.autentified = false;
+      } else {
+        $scope.autentified = true;
+      }
+    };
+    $scope.autentified = true;
+    $scope.checkRoute();
+
+    $scope.$on('$routeChangeStart', function() {
+      $scope.checkRoute();
+    });
 
 
 
@@ -132,6 +147,18 @@ angular.module('blogApp')
           }
       }
     };
+
+    $window.onfocus = function(){
+       console.log("focused");
+       if(Auth.user.uid!==undefined && Auth.profile.username !== undefined && $location.path() !== '/unlogged' && $location.path()!=='user-deleted')
+       {
+            Auth.updateConnection(Auth.user.uid); 
+       } else
+       {
+        Auth.checkUser();
+       }
+       
+     };
 
 
 

@@ -981,6 +981,14 @@ border-bottom-left-radius: 4px;
       position: relative;
     left: -5px;
 }
+.posts-settings .section-select option
+ {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin:2px 5px;
+    padding:2px 5px;
+ }
 
 .user-settings li.user-admin ul, .posts-settings li.post-admin ul{
   margin-left:10px;

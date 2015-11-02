@@ -8,7 +8,26 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('UsersCtrl', ['$scope', 'Auth', 'Profile', function ($scope, Auth, Profile) {
+  .controller('UsersCtrl', ['$scope', 'Auth', 'Profile', '$location', function ($scope, Auth, Profile, $location) {
+
+    Auth.checkUser();
+
+    
+
+    $scope.checkRoute = function() {
+      if($location.path() ==='/unlogged' || $location.path() === '/user-deleted') {
+        console.log("El usuario no debería ver el panel");
+        $scope.autentified = false;
+      } else {
+        $scope.autentified = true;
+      }
+    };
+    $scope.autentified = true;
+    $scope.checkRoute();
+
+    $scope.$on('$routeChangeStart', function() {
+      $scope.checkRoute();
+    });
 
   	$scope.users = Profile.getAll();
 

@@ -9,12 +9,10 @@
  */
 angular.module('blogApp')
   .controller('SectionCtrl',['$scope', '$routeParams', 'Post', 'Auth', '$location', function ($scope, $routeParams, Post, Auth, $location) {
-    if(Auth.user.uid===undefined)
-    {
-      console.log("No estás logado");
-      $location.path("/unlogged");
-      return;
-    }
+    
+    Auth.checkUser();
+
+
 
     
   	$scope.section = $routeParams.section;

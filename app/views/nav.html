@@ -25,7 +25,7 @@
 	    </form>
 	     -->
 	    <ul class="nav navbar-nav navbar-right" ng-show="signedIn()">
-	    	<li class="user-loged">
+	    	<li class="user-loged" ng-show="autentified">
 	    		<div class="users-avatar"> 
 	    			<a ng-href="#/profile/{{profile.$id}}" alt="Ir a tu perfil" title="Ir a tu perfil">
 						<img gravatar-src="profile.email" gravatar-size="30" gravatar-default="retro">
@@ -45,7 +45,7 @@
 	    			<i class="fa fa-user-plus"></i> Crear Nuevo Usuario
 	    		</a>
 	    	</li>
-	    	<li>
+	    	<li ng-show="autentified">
 	    		<a class="new-top" ng-href="#/chat" title="Ir al chat" alt="">
 	    			<i class="fa fa-weixin"></i> Chat
 	    		</a>

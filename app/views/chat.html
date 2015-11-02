@@ -12,8 +12,8 @@
 				<i class="fa fa-weixin" title="Chat"></i>
 		</div>
 	</div>
-	<div id="chatContent" scroll-chat="conversacion">
-		<div class="chat-entry" ng-repeat="entrada in conversacion | orderBy : 'date' | actualMessages:enterTime" ng-class="{system:entrada.system}">
+	<div id="chatContent" scroll-chat="conversacion" ng-show="autentified()">
+		<div class="chat-entry" ng-repeat="entrada in conversacion | orderBy : 'date' | actualMessages:enterTime" ng-class="{system:entrada.system}" >
 			<div class="chat-user">
 				<div class="users-avatar" ng-hide="entrada.system"> 
 					<img gravatar-src="entrada.email" gravatar-size="30" gravatar-default="retro">

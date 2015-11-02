@@ -8,7 +8,10 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('AdminCtrl',['$scope', 'Profile', 'Chat', 'Post', function ($scope, Profile, Chat, Post) {
+  .controller('AdminCtrl',['$scope', 'Profile', 'Chat', 'Post', 'Auth', function ($scope, Profile, Chat, Post, Auth) {
+    
+   Auth.checkUser();
+
    $scope.today = new Date();
 
    $scope.today.setDate($scope.today.getDate()-1);
@@ -21,7 +24,7 @@ angular.module('blogApp')
    {
     console.log("Cargando sección", section.title);
     $scope.postLoaded = Post.getSection(section.section);
-    $scope.postLoaded.$loaded(function(authData){
+    $scope.postLoaded.$loaded(function(){
       console.log("Cargado", $scope.postLoaded);
       // $scope.$apply();
     });

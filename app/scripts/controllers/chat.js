@@ -10,14 +10,12 @@
 angular.module('blogApp')
   .controller('ChatCtrl', ['$scope', 'Auth', 'Chat', '$location', '$anchorScroll', '$window', function ($scope, Auth, Chat, $location, $anchorScroll, $window) {
 
-    if(Auth.user.uid===undefined)
-    {
-      console.log("No estás logado");
-      $location.path("/unlogged");
-      return;
+    Auth.checkUser();
 
-    }
-    //Definición de métodos
+    $scope.autentified = function() {
+        // console.log("Auth.autentified", Auth.autentified)
+        return Auth.autentified;
+    };
 
     $scope.signedIn = function()
      {
@@ -34,6 +32,12 @@ angular.module('blogApp')
 
     $scope.sendMessage = function()
     {
+      console.log("scopeProfile", $scope.profile);
+      if($scope.profile.username===undefined)
+      {
+        Auth.checkUser();
+      } else
+      {
       $scope.mensaje =
       {
         username: $scope.profile.username,
@@ -61,7 +65,7 @@ angular.module('blogApp')
       // }
 
 
-      
+      }
     };
 
     $scope.isConnected = function(milisecs) {
@@ -91,8 +95,10 @@ angular.module('blogApp')
 
      //Chequeo de usuario
     
-      console.log("Tengo usuario, continuo ", Auth.user);
+      // console.log("Tengo usuario, continuo ", Auth.user);
   	 $scope.profile = Auth.getProfile(Auth.user.uid);
+
+
 
   	$scope.mensaje = {};
   	// $scope.conversacion = Chat.all;
@@ -117,24 +123,44 @@ angular.module('blogApp')
 
   	});
 
-    $scope.$on('$routeChangeStart', function() { 
-      var entrada = {
-          username: 'Sistema',
-          uid: $scope.profile.uid,
-          email: $scope.profile.email,
-          date: new Date().getTime(),
-          content: $scope.profile.username + " ha abandonado la sala",
-          rango: $scope.profile.rango,
-          system:true
-      };
-      Chat.sendMessage(entrada).then(function()
+    $scope.conversacion.$watch(function(){
+      console.log("Conversación ha cambiado: ");
+      if($scope.profile.username===undefined)
       {
-        console.log("Usuario sale del Chat");
-        Chat.removeUserFromChat($scope.profile.username, function()
+        console.log("Usuario eliminado, no debería estar aquí");
+        Auth.checkUser();
+      }
+    });
+
+
+
+    $scope.$on('$routeChangeStart', function() {
+
+      if($scope.profile.username===undefined)
+      {
+        return;
+      } else
+      {
+
+
+        var entrada = {
+            username: 'Sistema',
+            uid: $scope.profile.uid,
+            email: $scope.profile.email,
+            date: new Date().getTime(),
+            content: $scope.profile.username + " ha abandonado la sala",
+            rango: $scope.profile.rango,
+            system:true
+        };
+        Chat.sendMessage(entrada).then(function()
         {
-          console.log("usuario eliminado del panel del chat", $scope.profile.username);
+          console.log("Usuario sale del Chat");
+          Chat.removeUserFromChat($scope.profile.username, function()
+          {
+            console.log("usuario eliminado del panel del chat", $scope.profile.username);
+          });
         });
-      });
+      }
     });
 
     window.onbeforeunload = function () {
@@ -164,6 +190,14 @@ angular.module('blogApp')
     
   	$scope.profile.$loaded(function(data){
 
+      if($scope.profile.username===undefined)
+      {
+        return;
+      } else
+      {
+
+
+
   		console.log("Perfil cargado", data);
       
   		var entrada = {
@@ -192,8 +226,8 @@ angular.module('blogApp')
             Auth.updateChatConnection(user.uid, user.username);
           });
   		});
-    // }
-  		// Chat.enterChat($scope.conversacion.lastEntry, Auth.user);
+
+      }
   	});
 
 
@@ -201,7 +235,7 @@ angular.module('blogApp')
 
      $window.onfocus = function(){
        console.log("focused");
-       if($scope.profile!==undefined)
+       if($scope.profile!==undefined && $location.path()==='/chat')
        {
           if($scope.profile.uid!==undefined && $scope.profile.username!==undefined)
           {
