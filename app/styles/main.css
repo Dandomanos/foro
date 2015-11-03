@@ -1134,3 +1134,14 @@ border-bottom-left-radius: 4px;
 .chat-settings form {
   display:inline-block;
 }
+
+@media all and (-ms-high-contrast:none) {
+  .label-consult { float: left; margin-top:6px; margin-right:5px;} /* IE10 */
+  *::-ms-backdrop, .label-consult { float: left; margin-top:6px; margin-right:5px;} /* IE11 */ 
+
+  .consult-from {float:left;}
+  *::-ms-backdrop, .consult-from { float: left; } /* IE11 */ 
+
+  .chat-settings button{margin-top:0px;}
+  *::-ms-backdrop, .chat-settings button{margin-top:0px;}
+}

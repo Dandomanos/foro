@@ -23,8 +23,8 @@ angular.module('blogApp')
 
    $scope.From = new Date($scope.today.getTime() - unDia - tresHoras);
 
-   // $scope.To = new Date($scope.today.getTime() - tresHoras);
-   $scope.To = $scope.today;
+   $scope.To = new Date($scope.today.getTime() - tresHoras);
+   // $scope.To = $scope.today;
 
    $scope.postLoaded = {};
 
