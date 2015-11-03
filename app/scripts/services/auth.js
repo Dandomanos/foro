@@ -116,7 +116,10 @@ angular.module('blogApp')
 				if(Auth.user.uid===undefined)
 			    {
 			      console.log("No estás logado");
-			      $location.path("/unlogged");
+			      if($location.path()!=='/forgetpassword')
+			      {
+			      	$location.path("/unlogged");
+			      }
 			      return;
 			    }
 

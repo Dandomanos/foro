@@ -47,6 +47,7 @@ angular.module('blogApp')
                 break;
             }
             $scope.error = true;
+            $scope.$apply();
         } else
         {
             console.log("Registrado correctamente, procedemos a crear el Perfil", authData);

@@ -19,6 +19,7 @@ angular.module('blogApp')
         $scope.autentified = false;
       } else {
         $scope.autentified = true;
+        //UpdateConnection
       }
     };
     $scope.autentified = true;
@@ -150,7 +151,7 @@ angular.module('blogApp')
 
     $window.onfocus = function(){
        console.log("focused");
-       if(Auth.user.uid!==undefined && Auth.profile.username !== undefined && $location.path() !== '/unlogged' && $location.path()!=='user-deleted')
+       if(Auth.user.uid!==undefined && Auth.profile.username !== undefined && $location.path() !== '/unlogged' && $location.path()!=='user-deleted' && $location.path() !== '/forgetpassword')
        {
             Auth.updateConnection(Auth.user.uid); 
        } else

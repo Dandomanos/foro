@@ -12,13 +12,47 @@ angular.module('blogApp')
     
    Auth.checkUser();
 
+   var unDia = 86400000;
+   var tresHoras = 3600000*3;
+
    $scope.today = new Date();
 
-   $scope.today.setDate($scope.today.getDate()-1);
+   // $scope.today.setDate($scope.today.getDate()-1);
    $scope.today.setMilliseconds(0);
    $scope.today.setSeconds(0);
 
+   $scope.From = new Date($scope.today.getTime() - unDia - tresHoras);
+
+   // $scope.To = new Date($scope.today.getTime() - tresHoras);
+   $scope.To = $scope.today;
+
    $scope.postLoaded = {};
+
+   $scope.stockChat = {};
+   $scope.stockLoaded = false;
+
+   $scope.loadOldChat = function()
+   {
+      $scope.stockLoaded = false;
+      $scope.stockChat = Chat.loadStockChat($scope.From.getTime(), $scope.To.getTime());
+      $scope.stockChat.$loaded(function(error){
+        if(error === null){
+          console.log("Se ha producido un error al cargar los mensajes del chat", error.code);
+        } else
+        {
+          console.log("Mensajes cargados correctamente", $scope.stockChat);
+          $scope.stockLoaded = true;
+        }
+      });
+
+   };
+
+   $scope.unloadStock = function()
+   {
+    console.log("Stock Eliminado");
+      $scope.stockChat = {};
+      $scope.stockLoaded = false;
+   };
 
    $scope.loadSection = function(section)
    {

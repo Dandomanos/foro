@@ -21,7 +21,7 @@
 				 {{entrada.username}} <small class="fecha">[{{fechar(entrada.date) | date:'HH:mm'}}]</small> :
 
 			</div>
-			<div class="chat-message">
+			<div class="chat-message" ng-bind-html="entrada.content | parseUrl" >
 				{{entrada.content}}
 			</div>
 			<!--

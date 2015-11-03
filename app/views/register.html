@@ -1,22 +1,46 @@
-<div class="auth-forms" ng-show="isAdmin()">
-	<h2>Crear un nuevo usuario</h2>
-	<form ng-submit="register()">
-		<input type="text" ng-model="user.username" placeholder="Nombre de usuario" class="form-control" /><br />
-		<input type="email" ng-model="user.email" placeholder="Email" class="form-control" /><br />
-		<input type="password" ng-model="user.password" placeholder="Password" class="form-control" /><br />
-		<select ng-model="user.rango" class="form-control">
-			<option value="admin">Admin</option>
-			<option value="user">User</option>
-		</select>
-		<p ng-show="error" class="text-danger" >
-			{{mensajeDeError}}
-		</p>
-		<br />
-		<input type="submit" value="Registrar" class="btn btn-primary" style="float:right"/>
-	</form>
-	<br />
-	<span class="text-success" ng-show="registroRealizado">Usuario <a ng-href="#/profile/{{registros.uid}}">{{registros.user}}</a> creado correctamente</span>
+<div class="separador">
+	<div class="section-title">
+		<div class="postInfo">
+			<h2>Crear un nuevo usuario</h2>
+		</div>
+		<div class="postActions">
+			
+				<i class="fa fa-user-plus" title="Crear un nuevo usuario"></i>
+		</div>
+	</div>
+	<div class="new-user">
+		<div class="new-user-info">
+			<p>
+				<span class="text text-success"><i class="fa fa-info-circle"></i> Sólo los administradores pueden crear nuevos Usuarios.</span><br /><br />
+
+				<span class="text text-primary" ng-show="isAdmin()"><i class="fa fa-info-circle"></i> Asegúrate de que el nombre de usuario es el mismo que usa como nick en el juego y que el email facilitado es válido.</b>.</span>
+			</p>
+		</div>
+
+		<div class="auth-forms new-user-form" ng-show="isAdmin()">
+			<h4>Crear un nuevo usuario:</h4>
+			<form ng-submit="register()">
+				<input type="text" ng-model="user.username" placeholder="Nick en el juego" class="form-control" /><br />
+				<input type="email" ng-model="user.email" placeholder="Email" class="form-control" /><br />
+				<input type="password" ng-model="user.password" placeholder="Password" class="form-control" /><br />
+				<select ng-model="user.rango" class="form-control">
+					<option value="admin">Administrador</option>
+					<option value="user">Usuario</option>
+				</select>
+				<p ng-show="error" class="text-danger" >
+						{{mensajeDeError}}
+					</p>
+				<p class="text-success" ng-show="registroRealizado">Usuario <a ng-href="#/profile/{{registros.uid}}">{{registros.user}}</a> creado correctamente</p>
+				<input type="submit" value="Registrar" class="btn btn-primary new-user-button" style="float:right"/>
+			</form>
+			<br />
+			<div class="text text-danger" ng-hide="isAdmin()">
+				<h4>Lo sentimos, debes ser administrador para crear perfiles nuevos.</h4>
+			</div>
+		</div>
+	</div>
+	
 </div>
-<div class="text text-danger" ng-hide="isAdmin()">
-	<h4>Lo sentimos, debes ser administrador para crear perfiles nuevos.</h4>
-</div>
+
+
+

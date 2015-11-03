@@ -12,6 +12,7 @@ angular.module('blogApp')
 
     var ref = new Firebase(FIREBASE_URL);
     var chat = $firebaseArray(ref.child('chat').child('messages'));
+    var stockChat = $firebaseArray(ref.child('stockChat').child('messages'));
 
     var Chat = {
       all: chat,
@@ -42,11 +43,29 @@ angular.module('blogApp')
         var destino = ref.child('chat').child('connected');
         return $firebaseArray(destino);
       },
+      stockMessage:function(mensaje)
+      {
+        console.log("Mensaje para BackUp", mensaje);
+        return stockChat.$add(mensaje)
+        .then(function(){
+          console.log("Mensaje almacenado al stock correctamente");
+        })
+        .catch(function(error)
+          {
+            console.log("se ha producido un error al almacenar el mensaje", error);
+          });
+      },
+      loadStockChat:function(desde, hasta)
+      {
+         var query = ref.child('stockChat').child('messages').orderByChild('date').startAt(desde).endAt(hasta);
+         return $firebaseObject(query);
+      },
       cleanChat:function()
       {
         var limite = new Date().getTime();
         var tresHoras = 3600000*3;
         // var unMinuto = 60000;
+        // var diezSecs = 10000;
         // limite.setDate(limite.getDate()-0.125);
         // limite.setDate(limite.getDate()-0.0001);
         limite -= tresHoras;
@@ -59,6 +78,11 @@ angular.module('blogApp')
             var key = childSnapshot.key();
             console.log("Key", key);
 
+            var childData = childSnapshot.val();
+            console.log("childData", childData);
+
+            Chat.stockMessage(childData);
+
             ref.child('chat').child('messages').child(key).remove(function(error){
               if(error)
               {
@@ -69,13 +93,46 @@ angular.module('blogApp')
               }
             });
 
-            // var childData = childSnapshot.val();
-            // console.log("childData", childData);
           });
         });
         console.log("Chat cleaned"); 
         
       },
+      // cleanChat:function()
+      // {
+      //   var limite = new Date().getTime();
+      //   var tresHoras = 3600000*3;
+      //   // var unMinuto = 60000;
+      //   // var diezSecs = 10000;
+      //   // limite.setDate(limite.getDate()-0.125);
+      //   // limite.setDate(limite.getDate()-0.0001);
+      //   limite -= tresHoras;
+
+      //   console.log("limite", limite);
+
+      //   var messages = ref.child('chat').child('messages').orderByChild('date').endAt(limite);
+      //   messages.once("value", function(snapshot){
+      //     snapshot.forEach(function(childSnapshot){
+      //       var key = childSnapshot.key();
+      //       console.log("Key", key);
+
+      //       ref.child('chat').child('messages').child(key).remove(function(error){
+      //         if(error)
+      //         {
+      //           console.log("Error", error);
+      //         } else
+      //         {
+      //           console.log("Mensaje eliminado con el id", key);
+      //         }
+      //       });
+
+      //       // var childData = childSnapshot.val();
+      //       // console.log("childData", childData);
+      //     });
+      //   });
+      //   console.log("Chat cleaned"); 
+        
+      // },
       deleteMessagesBefore:function(date, callback){
         var messages = ref.child('chat').child('messages').orderByChild('date').endAt(date);
         messages.once("value", function(snapshot){

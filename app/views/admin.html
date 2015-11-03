@@ -10,6 +10,38 @@
 	</div>
 	<div class="admin-settings">
 		<div class="chat-settings">
+			<form ng-submit="loadOldChat()">
+				<h4 class="text text-primary"><b><i class="fa fa-commenting" title="Chat"></i> Chat:</b></h4>
+				<div class="consult-from">
+					<span class="label-consult">Desde:</span>
+			      <div class="form-group form-group-date" ng-class="{error: error, success:success}">
+			        <input type="date" class="form-control"  ng-model="From">
+			      </div>
+			      <div class="form-group form-group-time" ng-class="{error: error, success:success}">
+			        <input type="time" class="form-control"  ng-model="From">
+			      </div>
+			  	</div>
+			  	<div class="consult-from">
+					<span class="label-consult">Hasta:</span>
+			      <div class="form-group form-group-date" ng-class="{error: error, success:success}">
+			        <input type="date" class="form-control"  ng-model="To">
+			      </div>
+			      <div class="form-group form-group-time" ng-class="{error: error, success:success}">
+			        <input type="time" class="form-control"  ng-model="To">
+			      </div>
+			  	</div>
+			  	<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Consultar conversaciones antiguas</button>
+			  </form>
+			  	<button ng-click="unloadStock()" class="btn btn-danger"><i class="fa fa-trash"></i> Borrar Consulta</button>
+			  <div class="stockChat-content" ng-show="stockLoaded">
+			  <ul>
+			  	<li ng-repeat="message in stockChat" ng-class="{system:message.system}">
+			  		<small class="fecha">[{{fechar(message.date) | date:'dd-MM-yyyy'}} | {{fechar(message.date) | date:'HH:mm'}}]</small><span class="stockChat-username"> {{message.username}}:</span>{{message.content}}
+			  	</li>
+			  </ul>
+
+
+			<!--
 			<form ng-submit="deleteChat()">
 				<h4 class="text text-primary"><b><i class="fa fa-commenting" title="Chat"></i> Chat:</b></h4>
 				<p>Borrar Mensajes del Chat hasta:</p>
@@ -19,16 +51,18 @@
 			      <div class="form-group form-group-time" ng-class="{error: error, success:success}">
 			        <input type="time" class="form-control"  ng-model="today">
 			    </div>
+			-->
 <!-- 
 			      <small class="fecha" title="Hora Borrado"> [{{fechar(today) | date:'dd-MM-yyyy'}} a las {{fechar(today) | date:'HH:mm'}}]</small>
 			       -->
-			      <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Borrar Mensajes</button>
+			      <!-- <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Borrar Mensajes</button>
 			      <p ng-show="error" class="text-danger error-password"><i class="fa fa-exclamation-triangle"></i> {{mensajeResetPassword}}</p>
 			      <p ng-show="success" class="text-success success-password"><i class="fa fa-check"></i> {{mensajeResetPassword}}</p>
 			      <p class="text text-danger delete-chat-info"><i class="fa fa-exclamation-triangle"></i> <small>
 			      	<b>Los mensajes borrados no podrán ser recuperados posteriormente.</b><br />(Ejecutar esta acción sólo ante problemas de rendimiento de la aplicación)</small>
-			      </p>
+			      </p> 
 		    </form>
+		-->
 		</div>
 		<hr>
 		<div class="user-settings">

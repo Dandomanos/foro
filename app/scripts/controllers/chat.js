@@ -61,11 +61,11 @@ angular.module('blogApp')
           // Chat.lastEntry(ref.key(), callbackMessage);
           // document.getElementById("mytext").focus();
           // Chat.cleanChat();
-        });
+          });
+        }
+
+
       // }
-
-
-      }
     };
 
     $scope.isConnected = function(milisecs) {

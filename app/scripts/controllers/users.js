@@ -15,7 +15,7 @@ angular.module('blogApp')
     
 
     $scope.checkRoute = function() {
-      if($location.path() ==='/unlogged' || $location.path() === '/user-deleted') {
+      if($location.path() ==='/unlogged' || $location.path() === '/user-deleted' || $location.path() === '/forgetpassword') {
         console.log("El usuario no debería ver el panel");
         $scope.autentified = false;
       } else {
