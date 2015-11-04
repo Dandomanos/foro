@@ -39,32 +39,32 @@ angular.module('blogApp')
       {
         title: 'Temas Generales',
         section: 'general',
-        posts: Post.getSection('general')
+        posts: Post.getHomeSection('general')
       },
       {
         title: 'Batallas',
         section: 'batallas',
-        posts: Post.getSection('batallas')
+        posts: Post.getHomeSection('batallas')
       },
       {
         title: 'Piratería',
         section: 'pirateria',
-        posts: Post.getSection('pirateria')
+        posts: Post.getHomeSection('pirateria')
       },
       {
         title: 'Comercio',
         section: 'comercio',
-        posts: Post.getSection('comercio')
+        posts: Post.getHomeSection('comercio')
       },
       {
         title: 'Cultura',
         section: 'cultura',
-        posts: Post.getSection('cultura')
+        posts: Post.getHomeSection('cultura')
       },
       {
         title: 'Taberna',
         section: 'taberna',
-        posts: Post.getSection('taberna')
+        posts: Post.getHomeSection('taberna')
       }
     ];
 

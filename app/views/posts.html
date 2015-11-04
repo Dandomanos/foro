@@ -10,7 +10,9 @@
 				<div class="postInfo">
 					<h2><a ng-href="#/section/{{section.section}}" alt="Ir a la sección de {{section.title}}" title="Ir a la sección de {{section.title}}">
 						{{section.title}}
-					</a></h2>
+					</a> <small class="subInfo" ng-show="section.posts.length>=2">  [Últimos {{section.posts.length}} posts]</small>
+					<!-- <small  ng-show="section.posts.length>=5"><a ng-href="#/section/{{section.section}}" alt="Ir a la sección de {{section.title}}" title="Ir a la sección de {{section.title}}">Ver más</a></small> -->
+					<small class="subInfo" ng-show="section.posts.length==1">  [Último post]</small></h2>
 				</div>
 				<div class="postActions">
 					<a ng-href="#/section/{{section.section}}" alt="Ir a la sección de {{section.title}}" title="Ir a la sección de {{section.title}}">
@@ -20,7 +22,7 @@
 				</div>
 			</div>
 			<ul class="list-group">
-				<li class="list-group-item" ng-repeat="post in section.posts">
+				<li class="list-group-item" ng-repeat="post in section.posts | orderBy : '-lastDate'">
 					<div class="postInfo">
 						<div class="info">
 							<h3>

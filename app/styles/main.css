@@ -184,6 +184,10 @@ nav a.new-top
   height:100%;
 }
 
+small.subInfo{
+  color:#94dff5;
+}
+
 .postInfo a:hover, .postActions a:hover
 {
   text-decoration:none;
@@ -375,6 +379,13 @@ div {
   float:right;
 }
 
+.postDetail-actions ul.left-menu
+{
+  float:left;
+  margin:0;
+  padding:0;
+}
+
 .postDetail-actions
 {
   background-color:#92a4b3;
@@ -396,6 +407,24 @@ border-bottom-left-radius: 4px;
   top: 5px;
   font-size: 25px;
 }
+
+.postDetail-actions li.post-Paginate
+{
+  color:#fff;
+  font-size:14px;
+  margin:0;
+}
+
+.postDetail-actions button.nextPage i{
+    right: -3px;
+    position: relative;
+}
+
+.postDetail-actions button.prevPage i{
+    left: -3px;
+    position: relative;
+}
+
 
 #postContent
 {

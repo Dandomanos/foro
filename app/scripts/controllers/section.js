@@ -19,6 +19,14 @@ angular.module('blogApp')
     $scope.profile = Auth.getProfile(Auth.user.uid);
     $scope.posts = Post.section($scope.section);
 
+    //Paginado
+    $scope.currentPage = 0;
+    $scope.pageSize = 10;
+    $scope.numberOfPages = function()
+    {
+        return Math.ceil($scope.posts.length/$scope.pageSize);
+    };
+
     $scope.profile.$loaded(function(){
       Auth.updateConnection(Auth.user.uid);
     });

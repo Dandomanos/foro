@@ -29,7 +29,7 @@
 			</div>
 			<div class="Posts">
 				<ul class="list-group">
-					<li class="list-group-item" ng-repeat="post in posts">
+					<li class="list-group-item" ng-repeat="post in posts | orderBy : '-lastDate' | startFrom:currentPage*pageSize | limitTo:pageSize">
 						<div class="postInfo">
 							<div class="info">
 								<h3>
@@ -57,6 +57,21 @@
 					</li>
 				</ul>
 				<div class="postDetail-actions">
+					<ul class="left-menu" ng-show="numberOfPages()>1">
+						<li>
+							<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" class="btn btn-primary prevPage">
+						        <i class="fa fa-arrow-left"></i> Anterior
+						    </button>
+						</li>
+				    	<li class="post-Paginate">
+						    {{currentPage+1}}/{{numberOfPages()}}
+						</li>
+						<li>
+						    <button ng-disabled="currentPage >= posts.length/pageSize - 1" ng-click="currentPage=currentPage+1" class="btn btn-primary nextPage">
+						        Siguiente <i class="fa fa-arrow-right"></i>
+						    </button>
+						</li>
+					</ul>
 				<ul>
 					<li>
 						<a ng-href="#/" alt="Volver a al Inicio" title="Volver a al Inicio">

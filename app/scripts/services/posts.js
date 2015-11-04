@@ -14,6 +14,9 @@ angular.module('blogApp')
 		section: function(section) {
 			return $firebaseArray(ref.child('posts').child(section));
 		},
+		getHomeSection: function(section) {
+			return $firebaseArray(ref.child('posts').child(section).orderByChild('lastDate').limitToLast(5));
+		},
 		getSection: function(section) {
 			return $firebaseArray(ref.child('posts').child(section));
 		},
@@ -38,9 +41,14 @@ angular.module('blogApp')
 			// datos.once('author', callbackData);
 			return datos;
 		},
+		addUpdateChild: function(post, date){
+			console.log("Actualizo el lastDATE");
+			ref.child('posts').child(post.section).child(post.$id).child('lastDate').set(date);
+		},
 		addUpdate: function(post, comment) {
 			// var ultima = {}
-			ref.child('posts').child(post.section).child(post.$id).child('lastUpdate').set(comment);
+			console.log("Actualizo el lastUpdate");
+			ref.child('posts').child(post.section).child(post.$id).child('lastUpdate').set(comment, Post.addUpdateChild(post, comment.date));
 		},
 		addComment:function(post, comment)
 		{
