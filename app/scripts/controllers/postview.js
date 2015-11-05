@@ -21,6 +21,7 @@ angular.module('blogApp')
       Auth.updateConnection(Auth.user.uid);
     });
 
+
     //Añadir watch para cambios en los post {{$scope.post}}
     //Revisar de nuevo la conexión de cada user
 
@@ -39,7 +40,16 @@ angular.module('blogApp')
 
     $scope.post = Post.get($routeParams.postId, $routeParams.section, callbackData);
 
+    //Paginado
+    $scope.currentPage = 0;
+    $scope.pageSize = 5;
+    $scope.numberOfPosts = 0;
+    $scope.numberOfPages = function()
+    {
+        return Math.ceil($scope.postComments.length/$scope.pageSize);
+    };
 
+    $scope.postComments = Post.getComments($routeParams.postId, $routeParams.section, callbackData);
     $scope.exist = true;
     $scope.lastAuthor = {};
     $scope.post.$loaded().then(function(data){
@@ -110,22 +120,30 @@ angular.module('blogApp')
 
     $scope.cargarRangos = function()
     {
-      
+      // $scope.numberOfPosts = 0;
 
+        // for(var comment in $scope.post.comments)
+        //      {
+        //          $scope.post.comments[comment].author.profile =  Auth.getProfile($scope.post.comments[comment].author.uid);
+        //          $scope.post.comments[comment].author.profile.$loaded(function(){
 
-        for(var comment in $scope.post.comments)
-             {
-                 $scope.post.comments[comment].author.profile =  Auth.getProfile($scope.post.comments[comment].author.uid);
-                 $scope.post.comments[comment].author.profile.$loaded(function(){
+        //             $scope.post.comments[comment].author.connected = $scope.isConnected($scope.post.comments[comment].author.profile.lastConnection);
 
-                    $scope.post.comments[comment].author.connected = $scope.isConnected($scope.post.comments[comment].author.profile.lastConnection);
+        //             $scope.lastAuthor.uid = $scope.post.comments[comment].author.uid;
 
-                    $scope.lastAuthor.uid = $scope.post.comments[comment].author.uid;
-
-                 });
+        //          });
+        //          $scope.numberOfPosts++;
                  
                 
+        //      }
+
+             for(var i=0; i<$scope.postComments.length; i++)
+             {
+                // console.log("Comment Array", $scope.postComments[i]);
+                $scope.postComments[i].author.profile = Auth.getProfile($scope.postComments[i].author.uid);
+                
              }
+             $scope.lastAuthor.uid = $scope.postComments[$scope.postComments.length-1].author.uid;
     };
 
     $scope.reiniciarCampos = function()
@@ -203,7 +221,11 @@ angular.module('blogApp')
         
     };
 
-   
+      $scope.editLikeUser = function(post)
+      {
+        $scope.editByAdmin = false;
+        $scope.editar(post);
+      }
 
 
       $scope.editar = function(post)
@@ -214,7 +236,7 @@ angular.module('blogApp')
           $scope.editing = true;
           $scope.replying = false;
           $scope.original = false;
-          $scope.editByAdmin = false;
+          // $scope.editByAdmin = false;
           $scope.postToEdit = post;
           $scope.edit.comment = $scope.postToEdit.comment;
           console.log("Abro el div");
@@ -282,12 +304,12 @@ angular.module('blogApp')
 
      var callbackLog = function()
      {
-        Post.commentByAdmin($scope.editedRef, $routeParams.section, callbackAfterAdmin);
+        Post.commentByAdmin($scope.editedRef, $routeParams.section, $scope.editByAdmin, callbackAfterAdmin);
      };
 
      var callbackLogOriginal = function()
      {
-        Post.originalByAdmin($scope.post.$id, $routeParams.section, callbackAfterAdmin);
+        Post.originalByAdmin($scope.post.$id, $routeParams.section, $scope.editByAdmin, callbackAfterAdmin);
      };
 
 

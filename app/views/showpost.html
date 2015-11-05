@@ -30,7 +30,7 @@
 			</small>
 		</p>
 	</div>
-	<div class="post-comment row" ng-class="{ 'editByAdmin': post.edited.byAdmin }">
+	<div class="post-comment row" ng-class="{ 'editByAdmin': post.edited.byAdmin }" ng-show="currentPage==0">
 		<div class="post-profile col-md-2">
 			<!-- Aquí debería también ir la foto de perfil -->
 			<div class="profileImage">
@@ -82,7 +82,8 @@
 			</div>
 	</div>
 	<!-- ngRepeat para los comentarios -->
-	<div class="post-comment row" ng-repeat="post in post.comments" ng-class="{ 'editByAdmin': post.edited.byAdmin }">
+	<!-- <div class="post-comment row" ng-repeat="post in post.comments | startFrom:currentPage*pageSize | limitTo:pageSize" ng-class="{ 'editByAdmin': post.edited.byAdmin }"> -->
+	<div class="post-comment row" ng-repeat="post in postComments | startFrom:currentPage*pageSize | limitTo:pageSize" ng-class="{ 'editByAdmin': post.edited.byAdmin }">
 		<div class="post-profile col-md-2">
 			<!-- Aquí debería también ir la foto de perfil -->
 			<div class="profileImage">
@@ -127,13 +128,13 @@
 		<div class="actionPost">
 			<ul>
 				<li>
-					<button class="btn btn-danger" ng-show="isAdmin()" ng-click="editar(this.post)">
+					<button class="btn btn-danger" ng-show="isAdmin()" ng-click="editarByAdmin(this.post)">
 						Editar <small>(Admin)</small>
 					</button>
 					
 				</li>
 				<li>
-						<button class="btn btn-primary" ng-show="isAuthor(post.author.uid) && $parent.post.open && post.edited.byAdmin!=true" ng-click="editar(this.post)">
+						<button class="btn btn-primary" ng-show="isAuthor(post.author.uid) && $parent.post.open && post.edited.byAdmin!=true" ng-click="editLikeUser(this.post)">
 						Editar
 					</button>
 					
@@ -166,8 +167,23 @@
 		</div>
 	</div>
 	<div class="postDetail-actions">
+		<ul class="left-menu" ng-show="numberOfPages()>1">
+			<li>
+				<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" class="btn btn-primary prevPage">
+					<i class="fa fa-arrow-left"></i> Anterior
+				</button>
+			</li>
+			<li class="post-Paginate">
+				{{currentPage+1}}/{{numberOfPages()}}
+			</li>
+			<li>
+				<button ng-disabled="currentPage +1 >= numberOfPages()" ng-click="currentPage=currentPage+1" class="btn btn-primary nextPage">
+					Siguiente <i class="fa fa-arrow-right"></i>
+				</button>
+			</li>
+		</ul>
 		<div ng-show="youAreTheLast()" class="info-buttons">
-			<a ng-click="warningExpanded =! warningExpanded"><i class="fa fa-exclamation-triangle"></i> <span ng-show="warningExpanded">No puedes escribir dos comentarios seguidos, edíta la última entrada si tienes algo nuevo que aportar, gracias.</span></a>
+			<a ng-click="warningExpanded =! warningExpanded"><i class="fa fa-exclamation-triangle"></i> <span ng-show="warningExpanded">No puedes escribir dos comentarios seguidos,<br /> edíta la última entrada si tienes algo nuevo que aportar, gracias.</span></a>
 		</div>
 		<ul>
 			<li>

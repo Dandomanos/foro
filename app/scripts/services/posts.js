@@ -32,6 +32,11 @@ angular.module('blogApp')
 		// get: function (postId) {
 		// 	return $firebase(ref.child('posts').child(postId)).$asObject();
 		// },
+		getComments: function(postId, section, callbackData)
+		{
+			var comments = $firebaseArray(ref.child('posts').child(section).child(postId).child('comments'), callbackData);
+			return comments;
+		},
 		get: function (postId, section, callbackData) {
 			var datos = $firebaseObject(ref.child('posts').child(section).child(postId), callbackData);
 			// datos.$loaded().then(function(data){
@@ -97,14 +102,14 @@ angular.module('blogApp')
 		{
 			ref.child('posts').child(Section).child(postID).child('lastUpdate').set(comment, callback);
 		},
-		commentByAdmin:function(editedRef, Section, callback)
+		commentByAdmin:function(editedRef, Section, byAdmin, callback)
 		{
-			return ref.child('posts').child(Section).child(editedRef.postID).child('comments').child(editedRef.commentID).child('edited').child('byAdmin').set(true, callback);
+			return ref.child('posts').child(Section).child(editedRef.postID).child('comments').child(editedRef.commentID).child('edited').child('byAdmin').set(byAdmin, callback);
 		// Post.commentByAdmin($scope.editedRef, $routeParams.section, callbackAfterAdmin);
 		},
-		originalByAdmin:function(postID, Section, callback)
+		originalByAdmin:function(postID, Section, byAdmin, callback)
 		{
-			return ref.child('posts').child(Section).child(postID).child('edited').child('byAdmin').set(true, callback);
+			return ref.child('posts').child(Section).child(postID).child('edited').child('byAdmin').set(byAdmin, callback);
 		},
 		setDateEditOriginal:function(postID, edited, Section, callback)
 		{

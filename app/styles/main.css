@@ -589,8 +589,16 @@ box-sizing:border-box;
 .info-buttons
 {
   float: left;
-    padding: 20px 33px;
+    /*padding: 20px 33px;*/
+    padding:0;
     color: darkslategray;
+}
+
+.info-buttons span {
+  display: block;
+    position: relative;
+    left: 30px;
+    top: -30px;
 }
 
 .info-buttons a, .info-buttons a:hover, .info-buttons a:active, .info-buttons a:focus
@@ -598,6 +606,9 @@ box-sizing:border-box;
   color: darkslategray;
   text-decoration:none;
   cursor:pointer;
+  position:relative;
+  top:16px;
+  left:20px;
 }
 
 #profileImage
