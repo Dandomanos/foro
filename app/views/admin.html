@@ -8,7 +8,7 @@
 				<i class="fa fa-cogs" title="Panel de Administración"></i></i>
 		</div>
 	</div>
-	<div class="admin-settings">
+	<div class="admin-settings" ng-show="isAdmin()">
 		<div class="chat-settings">
 			<form ng-submit="loadOldChat()">
 				<h4 class="text text-primary"><b><i class="fa fa-commenting" title="Chat"></i> Chat:</b></h4>
@@ -32,14 +32,16 @@
 			  	</div>
 			  	<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Consultar conversaciones antiguas</button>
 			  </form>
-			  	<button ng-click="unloadStock()" class="btn btn-danger"><i class="fa fa-trash"></i> Borrar Consulta</button>
+			  <button ng-click="unloadStock()" class="btn btn-danger"><i class="fa fa-trash"></i> Borrar Consulta</button>
 			  <div class="stockChat-content" ng-show="stockLoaded">
 			  <ul>
-			  	<li ng-repeat="message in stockChat" ng-class="{system:message.system}">
+			  	<li ng-repeat="message in stockChat | orderBy : '-date' | startFrom:currentPage*pageSize | limitTo:pageSize" ng-class="{system:message.system}">
 			  		<small class="fecha">[{{fechar(message.date) | date:'dd-MM-yyyy'}} | {{fechar(message.date) | date:'HH:mm'}}]</small><span class="stockChat-username"> {{message.username}}:</span>{{message.content}}
 			  	</li>
 			  </ul>
 
+
+				
 
 			<!--
 			<form ng-submit="deleteChat()">
@@ -63,6 +65,24 @@
 			      </p> 
 		    </form>
 		-->
+	</div>
+		<div class="pagination-chat">
+			<ul class="left-menu" ng-show="numberOfPages()>1">
+						<li>
+							<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" class="btn btn-primary prevPage">
+						        <i class="fa fa-arrow-left"></i> Anterior
+						    </button>
+						</li>
+				    	<li class="post-Paginate">
+						    {{currentPage+1}}/{{numberOfPages()}}
+						</li>
+						<li>
+						    <button ng-disabled="currentPage >= numberOfPages() -1" ng-click="currentPage=currentPage+1" class="btn btn-primary nextPage">
+						        Siguiente <i class="fa fa-arrow-right"></i>
+						    </button>
+						</li>
+					</ul>
+			</div>
 		</div>
 		<hr>
 		<div class="user-settings">
@@ -122,6 +142,10 @@
 				</ul>
 			</div>
 		</div>
+	</div>
+	<div class="admin-settings" ng-hide="isAdmin()">
+		<span class="text text-danger"><i class="fa fa-exclamation-triangle"></i> Este panel sólo está disponible para los <b>administradores</b>.</span>
+		<a class="button-top-right"ng-href="#/" alt="" title="Volver al Foro"><button class="btn btn-success">Volver al Foro</button></a>
 	</div>
 	<!-- <div class="postDetail-actions">
 		

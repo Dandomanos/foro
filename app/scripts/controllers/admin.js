@@ -47,6 +47,15 @@ angular.module('blogApp')
 
    };
 
+   //Paginado
+    $scope.currentPage = 0;
+    $scope.pageSize = 14;
+    $scope.numberOfPosts = 0;
+    $scope.numberOfPages = function()
+    {
+        return Math.ceil($scope.stockChat.length/$scope.pageSize);
+    };
+
    $scope.unloadStock = function()
    {
     console.log("Stock Eliminado");
@@ -161,5 +170,21 @@ angular.module('blogApp')
         // console.log("fechar", fecha);
         return fecha;
      };
+
+     $scope.isAdmin = function(){
+      
+       // console.log("Profile", $scope.profile.rango);
+       // console.log("Auth.user.uid", Auth.user.uid);
+       if(Auth.profile)
+       {
+          if(Auth.profile.rango==='admin')
+          {
+            return true;
+          } else
+          {
+            return false;
+          }
+        }
+      };
 
   }]);

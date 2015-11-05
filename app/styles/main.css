@@ -681,6 +681,7 @@ box-sizing:border-box;
 {
       position: absolute;
     right: 85px;
+    margin-right: -2px;
     
 }
 
@@ -1146,7 +1147,7 @@ border-bottom-left-radius: 4px;
     border-radius: 5px;
     border: 1px solid #ddd;
     padding: 10px;
-    max-height: 300px;
+    height: 300px;
     overflow-y: auto;
 
 }
@@ -1175,6 +1176,28 @@ border-bottom-left-radius: 4px;
   display:inline-block;
 }
 
+.pagination-chat li{
+  display:inline-block;
+  margin-right:10px;
+}
+
+.pagination-chat li button{
+  margin:0;
+}
+
+.pagination-chat ul{
+  margin: 10px 0;
+   padding: 0;
+}
+
+.admin-settings a.button-top-right {
+  float: right;
+    top: -7px;
+    position: relative;
+}
+
+
+
 @media all and (-ms-high-contrast:none) {
   .label-consult { float: left; margin-top:6px; margin-right:5px;} /* IE10 */
   *::-ms-backdrop, .label-consult { float: left; margin-top:6px; margin-right:5px;} /* IE11 */ 
@@ -1184,4 +1207,7 @@ border-bottom-left-radius: 4px;
 
   .chat-settings button{margin-top:0px;}
   *::-ms-backdrop, .chat-settings button{margin-top:0px;}
+
+  #Options input.floatRight {right: 89px;}
+  *::-ms-backdrop, #Options input.floatRight{right: 89px;}
 }

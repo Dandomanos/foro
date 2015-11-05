@@ -143,7 +143,10 @@ angular.module('blogApp')
                 $scope.postComments[i].author.profile = Auth.getProfile($scope.postComments[i].author.uid);
                 
              }
-             $scope.lastAuthor.uid = $scope.postComments[$scope.postComments.length-1].author.uid;
+             if($scope.postComments[$scope.postComments.length-1]!==undefined)
+             {
+                $scope.lastAuthor.uid = $scope.postComments[$scope.postComments.length-1].author.uid;
+             }
     };
 
     $scope.reiniciarCampos = function()

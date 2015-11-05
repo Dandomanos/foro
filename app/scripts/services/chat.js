@@ -58,7 +58,8 @@ angular.module('blogApp')
       loadStockChat:function(desde, hasta)
       {
          var query = ref.child('stockChat').child('messages').orderByChild('date').startAt(desde).endAt(hasta);
-         return $firebaseObject(query);
+         // return $firebaseObject(query);
+         return $firebaseArray(query);
       },
       cleanChat:function()
       {
