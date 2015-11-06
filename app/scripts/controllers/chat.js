@@ -8,9 +8,22 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('ChatCtrl', ['$scope', 'Auth', 'Chat', '$location', '$anchorScroll', '$window', function ($scope, Auth, Chat, $location, $anchorScroll, $window) {
+  .controller('ChatCtrl', ['$scope', 'Auth', 'Chat', '$location', '$anchorScroll', '$window', 'Title', function ($scope, Auth, Chat, $location, $anchorScroll, $window, Title) {
+
+
+    var animarTab;
+    var mensajes = ["Foro CAOS: Chat", "Mensajes sin leer"];
+    var mensajeSelected = 0;
+
+
+
+
 
     Auth.checkUser();
+
+    Title.setTitle(mensajes[mensajeSelected]);
+
+    var focused = true;
 
     $scope.autentified = function() {
         // console.log("Auth.autentified", Auth.autentified)
@@ -89,6 +102,21 @@ angular.module('blogApp')
         return fecha;
      };
 
+     var parpadeo = function()
+     {
+      if(mensajeSelected===0)
+      {
+        mensajeSelected = 1;
+      } else
+      {
+        mensajeSelected = 0;
+      }
+        Title.setTitle(mensajes[mensajeSelected]);
+        console.log("parpadeo", mensajes[mensajeSelected]);
+
+        $scope.$apply();
+     };
+
 
 
 
@@ -123,13 +151,27 @@ angular.module('blogApp')
 
   	});
 
+
     $scope.conversacion.$watch(function(){
       console.log("Conversación ha cambiado: ");
+
+      if(focused===false)
+      {
+        animarTab = setInterval(parpadeo, 1000);
+        // Title.setTitle("Foro CAOS: Nuevo Mensaje de Chat");
+        // PageTitleNotification.On("Nuevo Mensaje de Chat", 1000);
+        // document.title = " Ding Ding!";
+      } else
+      {
+        // PageTitleNotification.Off();
+        // Title.setTitle("Foro CAOS: Chat");
+      }
       if($scope.profile.username===undefined)
       {
         console.log("Usuario eliminado, no debería estar aquí");
         Auth.checkUser();
       }
+      // document.title = " Ding Ding!";
     });
 
 
@@ -230,11 +272,20 @@ angular.module('blogApp')
       }
   	});
 
+    $window.onblur =function(){
+      focused = false;
+    };
 
-  	
 
      $window.onfocus = function(){
+      focused = true;
+      clearInterval(animarTab);
+      mensajeSelected = 0;
+      Title.setTitle(mensajes[mensajeSelected]);
+      // PageTitleNotification.Off();
+       // document.title = " Ding Dong!";
        console.log("focused");
+       Title.setTitle("Foro CAOS: Chat");
        if($scope.profile!==undefined && $location.path()==='/chat')
        {
           if($scope.profile.uid!==undefined && $scope.profile.username!==undefined)

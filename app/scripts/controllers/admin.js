@@ -8,9 +8,12 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('AdminCtrl',['$scope', 'Profile', 'Chat', 'Post', 'Auth', function ($scope, Profile, Chat, Post, Auth) {
+  .controller('AdminCtrl',['$scope', 'Profile', 'Chat', 'Post', 'Auth', 'Title', function ($scope, Profile, Chat, Post, Auth, Title) {
     
    Auth.checkUser();
+
+
+  Title.setTitle("Foro CAOS: Administración");
 
    var unDia = 86400000;
    var tresHoras = 3600000*3;

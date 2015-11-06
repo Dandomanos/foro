@@ -8,10 +8,13 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('SectionCtrl',['$scope', '$routeParams', 'Post', 'Auth', '$location', function ($scope, $routeParams, Post, Auth, $location) {
+  .controller('SectionCtrl',['$scope', '$routeParams', 'Post', 'Auth', '$location', 'Title', function ($scope, $routeParams, Post, Auth, $location, Title) {
     
     Auth.checkUser();
 
+
+
+   
 
 
     
@@ -58,6 +61,8 @@ angular.module('blogApp')
     		default:  return "Temas Generales";
     	}
     };
+
+     Title.setTitle("Foro CAOS: " + returnTitle());
     $scope.post = {comment: '', author:'', title: '', section:$scope.section, date:new Date().getTime(), sectionTitle:returnTitle(), open:true};
     console.log("postObject", $scope.post);
     $scope.nuevoPost = function()

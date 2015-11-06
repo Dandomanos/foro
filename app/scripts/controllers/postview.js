@@ -8,9 +8,10 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('PostviewCtrl', ['$scope', '$routeParams', 'Post', 'Auth', '$anchorScroll', '$location', '$timeout', function ($scope, $routeParams, Post, Auth, $anchorScroll, $location, $timeout) {
+  .controller('PostviewCtrl', ['$scope', '$routeParams', 'Post', 'Auth', '$anchorScroll', '$location', '$timeout', 'Title', function ($scope, $routeParams, Post, Auth, $anchorScroll, $location, $timeout, Title) {
 
 
+    Title.setTitle("Foro CAOS:");
 
 
     Auth.checkUser();
@@ -68,7 +69,7 @@ angular.module('blogApp')
             console.log("UID",  $scope.lastAuthor.uid);
 
              // console.log("ultimo post", $scope.post.comments[0]);
-
+             Title.setTitle("Foro CAOS: " + $scope.post.sectionTitle + " | " + $scope.post.title);
              $scope.cargarRangos();
          }
 
@@ -228,7 +229,7 @@ angular.module('blogApp')
       {
         $scope.editByAdmin = false;
         $scope.editar(post);
-      }
+      };
 
 
       $scope.editar = function(post)

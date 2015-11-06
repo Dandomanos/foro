@@ -8,11 +8,13 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  	.controller('ProfileCtrl', ['$scope', '$routeParams', 'Post', 'Auth', '$anchorScroll', '$location', function ($scope, $routeParams, Post, Auth, $anchorScroll, $location) {
+  	.controller('ProfileCtrl', ['$scope', '$routeParams', 'Post', 'Auth', '$anchorScroll', '$location', 'Title', function ($scope, $routeParams, Post, Auth, $anchorScroll, $location, Title) {
 
 
 
     Auth.checkUser();
+
+    Title.setTitle("Foro CAOS:");
 
       
     $scope.created = 0;
@@ -51,6 +53,9 @@ angular.module('blogApp')
     };
  	$scope.profile = Auth.getProfile($routeParams.uid);
  	$scope.profile.$loaded(function() {
+
+    Title.setTitle("Foro CAOS: " + $scope.profile.username );
+
  		console.log("cargo el perfil");
         contarPost();
         contarComentarios();

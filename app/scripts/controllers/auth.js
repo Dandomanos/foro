@@ -8,9 +8,11 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('AuthCtrl',['$scope', '$location', 'Auth',  function ($scope, $location, Auth) {
+  .controller('AuthCtrl',['$scope', '$location', 'Auth', 'Title', function ($scope, $location, Auth, Title) {
   	
     Auth.checkUser();
+
+    Title.setTitle("Foro CAOS: Registrar Usuario");
 
     $scope.user = {email:'', password:'', username:'', uid:'', rango:'user', silenced:false, blind:false};
 

@@ -8,8 +8,6 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('UnloggedCtrl',[function () {
-
-  	
-    
+  .controller('UnloggedCtrl',['Title',  function (Title) {
+    Title.setTitle("Foro CAOS: Usuario desconectado");
   }]);

@@ -8,9 +8,11 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('PostsCtrl',['$scope', 'Post', 'Auth', '$location', function ($scope, Post, Auth, $location) {
+  .controller('PostsCtrl',['$scope', 'Post', 'Auth', '$location', 'Title', function ($scope, Post, Auth, $location, Title) {
 
-    
+
+    Title.setTitle("Foro CAOS: Página Principal");
+
 
     $scope.post = {url: 'http://'};
 

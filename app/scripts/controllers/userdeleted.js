@@ -8,10 +8,7 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('UserdeletedCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('UserdeletedCtrl',['$scope', 'Title', function ($scope, Title) {
+    
+	Title.setTitle("Foro CAOS: Usuario Eliminado");
+  }]);

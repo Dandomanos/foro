@@ -10,6 +10,8 @@
 angular.module('blogApp')
   .controller('NavCtrl',['$scope', '$location', 'Post', 'Auth', '$window', function ($scope, $location, Post, Auth, $window) {
 
+    
+
 
     $scope.profile = Auth.getProfile(Auth.user.uid);
 
