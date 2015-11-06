@@ -1,4 +1,7 @@
 /*@import url('/../bower_components/font-awesome/css/font-awesome.min.css');*/
+[ng:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
+
+
 
 body {
   background: #F3F3F3;

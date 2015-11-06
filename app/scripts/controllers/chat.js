@@ -14,6 +14,7 @@ angular.module('blogApp')
     var animarTab;
     var mensajes = ["Foro CAOS: Chat", "Mensajes sin leer"];
     var mensajeSelected = 0;
+    var parpadeando = false;
 
 
 
@@ -157,7 +158,11 @@ angular.module('blogApp')
 
       if(focused===false)
       {
-        animarTab = setInterval(parpadeo, 1000);
+        if(parpadeando===false)
+        {
+          animarTab = setInterval(parpadeo, 1000);
+          parpadeando = true;
+        }
         // Title.setTitle("Foro CAOS: Nuevo Mensaje de Chat");
         // PageTitleNotification.On("Nuevo Mensaje de Chat", 1000);
         // document.title = " Ding Ding!";
@@ -280,6 +285,7 @@ angular.module('blogApp')
      $window.onfocus = function(){
       focused = true;
       clearInterval(animarTab);
+      parpadeando = false;
       mensajeSelected = 0;
       Title.setTitle(mensajes[mensajeSelected]);
       // PageTitleNotification.Off();
