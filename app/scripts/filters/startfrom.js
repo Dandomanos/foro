@@ -11,10 +11,12 @@
 angular.module('blogApp')
   .filter('startFrom', function () {
     return function (input, start) {
-    	if(input.length!==undefined)
-    	{	
-	    	start = +start;//parse to int
-	      	return input.slice(start);
+    	if(input){
+	    	if(input.length!==undefined)
+	    	{	
+		    	start = +start;//parse to int
+		      	return input.slice(start);
+	  		}
   		}
     };
   });

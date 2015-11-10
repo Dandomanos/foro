@@ -228,11 +228,8 @@ small.subInfo{
     margin-bottom:0;
 }
 
-/*.profilePost li
-{
-  height:40px;
-}
-*/
+
+
 .profilePost .postActions i
 {
   margin-top:14px;
@@ -241,28 +238,54 @@ small.subInfo{
 ul.profilePost
 {
   max-height: 635px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    /*overflow-y: auto;
+    overflow-x: hidden;*/
     border-bottom: 1px solid#ddd;
     border-right: 1px solid #ddd;
     margin-bottom: 0;
     background-color: #fff;
-    -webkit-border-bottom-right-radius: 4px;
+    /*-webkit-border-bottom-right-radius: 4px;
     -webkit-border-bottom-left-radius: 4px;
     -moz-border-radius-bottomright: 4px;
     -moz-border-radius-bottomleft: 4px;
     border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
+    border-bottom-left-radius: 4px;*/
 }
 
 ul.profilePost li{
   width:100%;
-  margin-top:-2px;
+  margin:0;
+}
+
+li.list-group-item:last-child, li.list-group-item:first-child
+{
+  -webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+border-radius: 0px;
+}
+
+li.list-group-item:first-child {border:none;}
+
+li.list-group-item {
+  border:none;
+  border-top: 1px solid #ddd;
+  margin:0;
+}
+
+.list-group {
+  margin:0;
+  border: 1px solid #ddd;
+  overflow:hidden;
 }
 
 ul.profilePost:-webkit-scrollbar
 {
 border-left:1px solid #ddd;
+}
+
+.postDetail-actions{
+  margin:0;
+  position:relative;
 }
 
 .section-title
@@ -529,6 +552,11 @@ border-top:none;
 
 box-sizing:border-box;
   
+}
+
+.user-list li{
+  border:1px solid #ddd;
+  box-sizing:border-box;
 }
 
 #users > div

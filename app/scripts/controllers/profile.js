@@ -8,7 +8,7 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  	.controller('ProfileCtrl', ['$scope', '$routeParams', 'Post', 'Auth', '$anchorScroll', '$location', 'Title', function ($scope, $routeParams, Post, Auth, $anchorScroll, $location, Title) {
+  	.controller('ProfileCtrl', ['$scope', '$routeParams', 'Post', 'Auth', '$anchorScroll', '$location', 'Title', 'Profile', function ($scope, $routeParams, Post, Auth, $anchorScroll, $location, Title, Profile) {
 
 
 
@@ -19,6 +19,8 @@ angular.module('blogApp')
       
     $scope.created = 0;
     $scope.commented = 0;
+
+    
 
     $scope.scrollTo = function(id) {
       var old = $location.hash();
@@ -68,8 +70,30 @@ angular.module('blogApp')
         $scope.scrollTo("inicio");
 
  	});
+
+  $scope.posts = Profile.getPosts($routeParams.uid);
+  $scope.comments = Profile.getComments($routeParams.uid);
  	console.log("Profile uid", $routeParams.uid);
  	console.log("Auth uid", Auth.user.uid);
+
+  //Paginado
+    $scope.currentPage = 0;
+    $scope.pageSize = 10;
+    
+    $scope.numberOfPages = function()
+    {
+        return Math.ceil($scope.posts.length/$scope.pageSize);
+    };
+
+    $scope.currentCommentsPage = 0;
+    $scope.numberOfCommentsPages = function()
+    {
+      var CommentsPages = Math.ceil($scope.comments.length/$scope.pageSize);
+      // console.log("CommentsPages", CommentsPages);
+      return CommentsPages;
+    }
+
+
 
     $scope.error = false;
     $scope.success = false;
