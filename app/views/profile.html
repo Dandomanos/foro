@@ -3,7 +3,7 @@
 			{{profile.username}}
 		</small>
 	</div>
-<div class="separador">	
+<div class="separador" >	
 	<div class="section-title">
 		<div class="postInfo">
 			<h2>{{profile.username}}
@@ -16,7 +16,7 @@
 			<!--	<i class="glyphicon glyphicon-arrow-right"></i> -->
 		</div>
 	</div>
-	<div id="profileContent">
+	<div id="profileContent" ng-hide="ownProfile.blind">
 		<div id="profileImage">
 			<img gravatar-src="profile.email" gravatar-size="150" gravatar-default="retro">
 		</div>
@@ -73,7 +73,7 @@
 			</div>
 		</div>
 	</div>
-		<div id="profileActions">
+		<div id="profileActions" ng-hide="ownProfile.blind">
 			<ul>
 				<li>
 					<button class="btn btn-primary" ng-show="canEdit()" ng-class="{active:profileOptions==true}" ng-click="openOptions('profile')">
@@ -116,7 +116,7 @@
 			<!--	<i class="glyphicon glyphicon-arrow-right"></i> -->
 		</div>
 	</div>
-	<ul class="list-group profilePost">
+	<ul class="list-group profilePost" ng-hide="ownProfile.blind">
 		<li class="list-group-item" ng-repeat="post in posts | orderBy : '-date' | startFrom:currentPage*pageSize | limitTo:pageSize">
 			<div class="postInfo">
 				<a class="text text-primary info" ng-href="#/posts/{{post.section}}/{{post.postId}}" alt='Ir al post "{{post.title}}"' title='Ir al post "{{post.title}}"'>{{post.title}}</a><br />
@@ -127,7 +127,7 @@
 			</div>
 		</li>
 	</ul>
-	<div class="postDetail-actions">
+	<div class="postDetail-actions" ng-hide="ownProfile.blind">
 		<ul class="left-menu" ng-show="numberOfPages()>1">
 			<li>
 				<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" class="btn btn-primary prevPage">
@@ -159,7 +159,7 @@
 		</div>
 	</div>
 	<div class="Posts">
-		<ul class="list-group profilePost">
+		<ul class="list-group profilePost" ng-hide="ownProfile.blind">
 			<li class="list-group-item" ng-repeat="post in comments | orderBy : '-date' | startFrom:currentCommentsPage*pageSize | limitTo:pageSize">
 				<div class="postInfo">
 					<a class="text text-primary info" ng-href="#/posts/{{post.section}}/{{post.postId}}" alt='Ir al post "{{post.title}}"' title='Ir al post "{{post.title}}"'>{{post.title}}</a><br />
@@ -170,7 +170,7 @@
 				</div>
 			</li>
 		</ul>
-		<div class="postDetail-actions">
+		<div class="postDetail-actions" ng-hide="ownProfile.blind">
 			<ul class="left-menu" ng-show="numberOfCommentsPages()>1">
 				<li>
 					<button ng-disabled="currentCommentsPage == 0" ng-click="currentCommentsPage=currentCommentsPage-1" class="btn btn-primary prevPage">

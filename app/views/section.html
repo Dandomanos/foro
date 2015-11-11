@@ -4,23 +4,23 @@
 			<small><a ng-href="#/" alt="Volver al Inicio" title="Volver al Inicio">Inicio</a>
 			 / {{title}}</small> 
 			</div>
-		<div id="postContent">
+		<div id="postContent" ng-hide="profile.blind">
 			<div class="section-title">
 				<div class="postInfo">
 					<h2>{{title}}</h2>
 				</div>
-				<div class="postActions">
+				<div class="postActions" ng-hide="silenced()">
 					<a ng-click="nuevoPost()" alt="Nuevo Post" title="Nuevo Post" ng-hide="posting">
 						<i class="fa fa-file-o"></i>
 					</a>
-					<a ng-click="cerrarPost()" alt="Nuevo Post" title="Nuevo Post" ng-show="posting">
+					<a ng-click="cerrarPost()" alt="Cerrar Nuevo Post" title="Cerrar Nuevo Post" ng-show="posting">
 						<i class="fa fa-close"></i>
 					</a>
 				</div>
 			</div>
 			<div class="new-post" ng-show="posting">
 				
-				<form class="form-group" ng-submit="submitPost()">
+				<form class="form-group" ng-submit="submitPost()" ng-hide="silenced()">
 		        		<input type="text" class="form-control" placeholder="Título" ng-model="post.title">
 		        		<textarea class="form-control comentario" ng-model="post.comment" placeholder="Comentario"></textarea>
 		      			<button type="submit" class="btn btn-primary">Nuevo Post</button>
@@ -78,7 +78,7 @@
 								<button class="btn btn-primary">Volver a al Inicio</button>
 							</a>
 						</li>			
-						<li>
+						<li ng-hide="silenced()">
 							<a ng-click="nuevoPost()" alt="Nuevo Post" title="Nuevo Post" ng-hide="posting">
 								<button class="btn btn-primary">Nuevo Post</button>
 							</a>

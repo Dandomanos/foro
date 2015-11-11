@@ -16,6 +16,16 @@ angular.module('blogApp')
 
     Auth.checkUser();
 
+    $scope.silenced = function(){
+      if(Auth.profile.silenced === undefined)
+      {
+        return false;
+      } else
+      {
+        return Auth.profile.silenced;
+      }
+    }
+
 
     $scope.profile = Auth.getProfile(Auth.user.uid);
     $scope.profile.$loaded(function(){

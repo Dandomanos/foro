@@ -15,6 +15,27 @@ angular.module('blogApp')
 
     $scope.profile = Auth.getProfile(Auth.user.uid);
 
+    $scope.silencing = function(){
+        if(Auth.profile.silenced===undefined)
+        {
+            return false;
+        } else
+        {
+            return Auth.profile.silenced;
+        }
+    }
+
+    $scope.blinding = function()
+    {
+        if(Auth.profile.blind===undefined)
+        {
+            return false;
+        } else
+        {
+            return Auth.profile.blind;
+        }
+    }
+
     $scope.checkRoute = function() {
       if($location.path() ==='/unlogged' || $location.path() === '/user-deleted') {
         console.log("El usuario no debería ver el panel");

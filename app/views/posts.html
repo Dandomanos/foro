@@ -1,6 +1,6 @@
 
 <div class="post-page">
-	<div ng-show="signedIn()">
+	<div ng-show="signedIn()" ng-hide="profile.blind">
 		<div id="migasDePan">
 			<small>Inicio</small> 
 			</div>
@@ -21,7 +21,7 @@
 					</a>
 				</div>
 			</div>
-			<ul class="list-group">
+			<ul class="list-group home-list">
 				<li class="list-group-item" ng-repeat="post in section.posts | orderBy : '-lastDate'">
 					<div class="postInfo">
 						<div class="info">

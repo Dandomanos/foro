@@ -174,6 +174,15 @@ angular.module('blogApp')
         return fecha;
      };
 
+     $scope.binding = function() {
+      if(Auth.profile.blind===undefined)
+      {
+        return false;
+      } else{
+        return Auth.profile.blind;
+      }
+     };
+
      $scope.isAdmin = function(){
       
        // console.log("Profile", $scope.profile.rango);

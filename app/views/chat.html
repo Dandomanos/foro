@@ -1,7 +1,7 @@
 <div id="migasDePan">
 	<small><a ng-href="#/" alt="Volver al Inicio" title="Volver al Inicio">Inicio</a> / Chat</small> 
 </div>
-<div class="separador" ng-show="signedIn()">	
+<div class="separador" ng-show="signedIn()" ng-hide="profile.blind">	
 	<div class="section-title">
 		<div class="postInfo">
 			<h2>Chat de CAOS
@@ -41,6 +41,16 @@
 					<i class="fa fa-circle ausente" ng-hide="isConnected(user.lastConnection)" title="Desconectado el {{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}"></i>
 				</div>
 				-->
+				<div class="nav-user-status">
+					<ul>
+		    			<li ng-show="userBlinded(user.profile.blind)" class="chat-user-status">
+		    				<i class="fa fa-eye-slash" title="Usuario Cegado"></i>
+		    			</li>
+		    			<li ng-show="user.profile.silenced" class="chat-user-status">
+		    				<i class="fa fa-microphone-slash" title="Usuario Silenciado"></i>
+		    			</li>
+	    			</ul>
+	    		</div>
 				<div class="users-avatar" ng-class="isConnected(user.lastConnection)"> 
 					<a ng-href="#/profile/{{user.uid}}" alt="Ver perfil de {{user.username}}" title="Ver perfil de {{user.username}}">
 						<img gravatar-src="user.email" gravatar-size="30" gravatar-default="retro">
@@ -56,7 +66,7 @@
 		</ul>
 	</div>
 	<div id="chat-form" class="input-group">
-		<form ng-submit="sendMessage()">
+		<form ng-submit="sendMessage()" ng-hide="silenced()">
 			<i class="fa fa-weixin" title="Chat"></i> 
 			<input type="text" class="form-control campo" ng-model="message" placeholder="Escribe un mensaje" ng-focus="true"id="campoEntrada" name="campoEntrada">
 			<span class="input-group-btn">

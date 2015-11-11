@@ -1,5 +1,24 @@
-<div ng-controller="UsersCtrl">
-	<div class="separador" ng-show="autentified">
+
+<div ng-controller="UsersCtrl" ng-show="signedIn()">
+	<div class="separador" ng-show="blinding()">
+		<div class="section-title">
+			<div class="postInfo">
+				<h2>Usuario Cegado</h2>
+			</div>
+			<div class="postActions">
+					
+					<i class="fa fa-eye-slash" title="Usuario Cegado"></i>
+					
+			</div>
+		</div>
+		<div class="unlogged">
+			<p>
+				<span class="text text-danger"><i class="fa fa-exclamation-triangle"></i> El <b>usuario</b> ha sido <b>cegado</b> temporalmente, contacte con el administrador para resolver el problema.</span>
+
+			</p>
+		</div>
+	</div>
+	<div class="separador" ng-hide="blinding()">
 			<div class="section-title">
 				<div class="postInfo">
 					<h2>Usuarios</h2>
@@ -16,7 +35,7 @@
 					<div class="postInfo">
 						<div class="info"> -->
 
-	<ul class="list-group col-xs-12 user-list">
+	<ul class="list-group col-xs-12 user-list" ng-show="signedIn()">
 		<li class="list-group-item col-lg-4 col-md-6 col-xs-12" data-ng-repeat="user in users | orderBy : '-lastConnection'">
 		<div class="user-connected">	
 			<i class="fa fa-circle green" ng-show="isConnected(user.lastConnection)" title="Conectado el {{fechar(user.lastConnection) | date:'dd-MM-yyyy'}} a las {{fechar(user.lastConnection) | date:'HH:mm'}}"></i>

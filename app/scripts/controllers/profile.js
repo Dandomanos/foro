@@ -16,7 +16,8 @@ angular.module('blogApp')
 
     Title.setTitle("Foro CAOS:");
 
-      
+    $scope.ownProfile = Auth.profile;
+
     $scope.created = 0;
     $scope.commented = 0;
 

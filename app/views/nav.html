@@ -26,14 +26,22 @@
 	     -->
 	    <ul class="nav navbar-nav navbar-right" ng-show="signedIn()">
 	    	<li class="user-loged" ng-show="autentified">
-	    		<div class="users-avatar"> 
+	    		<ul class="nav-user-status">
+	    			<li ng-show="blinding()">
+	    				<i class="fa fa-eye-slash" title="Usuario Cegado"></i>
+	    			</li>
+	    			<li ng-show="silencing()">
+	    				<i class="fa fa-microphone-slash" title="Usuario Silenciado"></i>
+	    			</li>
+	    		</ul>
+				<div class="nav-user-info">
+		    		<span>Hola <a ng-href="#/profile/{{profile.$id}}" alt="Ir a tu perfil" title="Ir a tu perfil">{{profile.username}}</a></span><br /><small>{{profile.email}}</small>
+		    	</div>
+		    	<div class="users-avatar"> 
 	    			<a ng-href="#/profile/{{profile.$id}}" alt="Ir a tu perfil" title="Ir a tu perfil">
 						<img gravatar-src="profile.email" gravatar-size="30" gravatar-default="retro">
 					</a>
 				</div>
-				<div class="nav-user-info">
-		    		<span>Hola <a ng-href="#/profile/{{profile.$id}}" alt="Ir a tu perfil" title="Ir a tu perfil">{{profile.username}}</a></span><br /><small>{{profile.email}}</small>
-		    	</div>
 	    	</li>
 			<li ng-show="isAdmin()">
 	    		<a class="new-top" ng-href="#/admin" alt="" title="Administrar">

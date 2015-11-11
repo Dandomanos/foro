@@ -17,7 +17,18 @@ angular.module('blogApp')
     var parpadeando = false;
 
 
-
+    $scope.userBlinded = function(estado)
+    {
+      if(estado===undefined)
+      {
+        console.log("blinded user", false);
+        return false;
+      } else
+      {
+        console.log("blinded user", estado);
+        return estado;
+      }
+    }
 
 
     Auth.checkUser();
@@ -25,6 +36,16 @@ angular.module('blogApp')
     Title.setTitle(mensajes[mensajeSelected]);
 
     var focused = true;
+
+    $scope.silenced = function() {
+      if(Auth.profile.silenced === undefined)
+      {
+        return false;
+      } else
+      {
+        return Auth.profile.silenced;
+      }
+    }
 
     $scope.autentified = function() {
         // console.log("Auth.autentified", Auth.autentified)
@@ -127,7 +148,12 @@ angular.module('blogApp')
       // console.log("Tengo usuario, continuo ", Auth.user);
   	 $scope.profile = Auth.getProfile(Auth.user.uid);
 
-
+     $scope.cargarEstados = function(){
+      for(var i=0; i<$scope.conectados.length; i++)
+      {
+        $scope.conectados[i].profile = Auth.getProfile($scope.conectados[i].uid);
+      }
+     }
 
   	$scope.mensaje = {};
   	// $scope.conversacion = Chat.all;
@@ -138,6 +164,7 @@ angular.module('blogApp')
 
     $scope.conectados.$loaded(function(){
       console.log("Conectados", $scope.conectados);
+      $scope.cargarEstados();
       
     });
 
@@ -151,7 +178,9 @@ angular.module('blogApp')
 
 
   	});
-
+    $scope.conectados.$watch(function(){
+      $scope.cargarEstados();
+    });
 
     $scope.conversacion.$watch(function(){
       console.log("Conversación ha cambiado: ");
@@ -182,7 +211,7 @@ angular.module('blogApp')
 
 
     $scope.$on('$routeChangeStart', function() {
-
+      clearInterval(animarTab);
       if($scope.profile.username===undefined)
       {
         return;

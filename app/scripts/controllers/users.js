@@ -12,6 +12,32 @@ angular.module('blogApp')
 
     Auth.checkUser();
 
+    $scope.profile = Auth.profile;
+
+    $scope.signedIn = function()
+     {
+         $scope.user = Auth.user;
+        return Auth.signedIn();
+        
+     };
+
+
+
+     $scope.profile.$loaded(function(){
+      // console.log("profile.blind", $scope.profile.blind);
+      // $scope.$apply();
+     });
+
+     $scope.blinding = function(){
+      // console.log("profile.blind", $scope.profile.blind);
+      if(Auth.profile.blind===undefined)
+      {
+        return false;
+      } else
+      {
+        return Auth.profile.blind;
+      }
+     };
     
 
     $scope.checkRoute = function() {
