@@ -87,6 +87,15 @@ border-bottom-left-radius: 7px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
+.post-silenced-info
+{
+  float:right;
+  top: 0px;
+  right: 0;
+  text-align: right;
+  width: 100%;
+}
+
 .info {
   font-weight: bolder;
   font-size: 16px;
@@ -1012,8 +1021,26 @@ border-bottom-left-radius: 4px;
   padding: 2px;
   color:#d9534f;
 }
+.nav-user-status li i, .help-info{
+  cursor:help;
+}
 
-.unlogged .form-group
+.profile-status{
+  float: right;
+  right: 0;
+  margin-right: 12px;
+  position: absolute;
+}
+
+.profile-status li{
+  display:inline-block;
+  margin:5px;
+  font-size:16px;
+  cursor:unloggedmar
+  ;
+}
+
+.help .form-group
 {
   width:80%;
   max-width:500px;

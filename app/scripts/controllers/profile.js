@@ -54,6 +54,17 @@ angular.module('blogApp')
         //     $scope.commented +=1;
         // }
     };
+
+    $scope.returnState = function(estado)
+    {
+      if(estado===undefined)
+      {
+        return false;
+      } else
+      {
+        return estado;
+      }
+    }
  	$scope.profile = Auth.getProfile($routeParams.uid);
  	$scope.profile.$loaded(function() {
 

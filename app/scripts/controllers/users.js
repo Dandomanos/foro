@@ -12,7 +12,13 @@ angular.module('blogApp')
 
     Auth.checkUser();
 
-    $scope.profile = Auth.profile;
+    if(Auth.user.uid!==undefined)
+    {
+      $scope.profile = Auth.getProfile(Auth.user.uid);
+    } else
+    {
+      return;
+    }
 
     $scope.signedIn = function()
      {
@@ -27,6 +33,11 @@ angular.module('blogApp')
       // console.log("profile.blind", $scope.profile.blind);
       // $scope.$apply();
      });
+
+     Auth.profile.$watch(function(){
+      // $scope.cargarEstados();
+      // $scope.blinding();
+    });
 
      $scope.blinding = function(){
       // console.log("profile.blind", $scope.profile.blind);
