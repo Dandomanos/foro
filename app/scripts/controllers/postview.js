@@ -24,7 +24,7 @@ angular.module('blogApp')
       {
         return Auth.profile.silenced;
       }
-    }
+    };
 
 
     $scope.profile = Auth.getProfile(Auth.user.uid);
@@ -45,7 +45,7 @@ angular.module('blogApp')
 
     $scope.deletePost = function(post)
     {
-        Post.delete(post);
+        Post.delete(post, true);
     };
 
     $scope.move = function(post)
@@ -54,16 +54,16 @@ angular.module('blogApp')
         if(post.moving===undefined)
         {
             post.moving = true;
-            return
+            return;
         } else {
             if(post.moving===false)
             {
                 post.moving = true;
-                return
+                return;
             } else
             {
                 post.moving = false;
-                return
+                return;
             }
         }
     };
@@ -128,8 +128,8 @@ angular.module('blogApp')
         // console.log("a la sección ", section);
         console.log("POSTID", post.$id);
         post.moving = false;
-        Post.movePostTo(post, section, returnTitle(section));
-    }
+        Post.movePostTo(post, section, returnTitle(section), true);
+    };
 
 
     //Añadir watch para cambios en los post {{$scope.post}}
@@ -153,7 +153,7 @@ angular.module('blogApp')
 
     $scope.postArray.$loaded(function(){
       console.log("postArray", $scope.postArray);
-    })
+    });
 
     //Paginado
     $scope.currentPage = 0;

@@ -28,7 +28,7 @@ angular.module('blogApp')
         console.log("blinded user", estado);
         return estado;
       }
-    }
+    };
 
 
     Auth.checkUser();
@@ -45,7 +45,7 @@ angular.module('blogApp')
       {
         return Auth.profile.silenced;
       }
-    }
+    };
 
     $scope.autentified = function() {
         // console.log("Auth.autentified", Auth.autentified)
@@ -153,7 +153,7 @@ angular.module('blogApp')
       {
         $scope.conectados[i].profile = Auth.getProfile($scope.conectados[i].uid);
       }
-     }
+     };
 
   	$scope.mensaje = {};
   	// $scope.conversacion = Chat.all;

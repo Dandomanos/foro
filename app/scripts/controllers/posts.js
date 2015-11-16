@@ -41,7 +41,7 @@ angular.module('blogApp')
         console.log("POSTID", post.$id);
         post.moving = false;
         Post.movePostTo(post, section, returnTitle(section));
-    }
+    };
 
     var returnTitle = function(seccion)
     {
@@ -76,16 +76,16 @@ angular.module('blogApp')
         if(post.moving===undefined)
         {
             post.moving = true;
-            return
+            return;
         } else {
             if(post.moving===false)
             {
                 post.moving = true;
-                return
+                return;
             } else
             {
                 post.moving = false;
-                return
+                return;
             }
         }
     };

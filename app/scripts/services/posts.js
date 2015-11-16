@@ -3,7 +3,7 @@
 /* global Firebase:false */
 
 angular.module('blogApp')
-.factory('Post',['$firebaseArray', '$firebaseObject', 'FIREBASE_URL', 'Profile', function($firebaseArray, $firebaseObject, FIREBASE_URL, Profile) {
+.factory('Post',['$firebaseArray', '$firebaseObject', 'FIREBASE_URL', 'Profile', '$location', function($firebaseArray, $firebaseObject, FIREBASE_URL, Profile, $location) {
 	var ref = new Firebase(FIREBASE_URL);
 	var posts = $firebaseArray(ref.child('posts'));
 	var general = $firebaseArray(ref.child('posts').child('general'));
@@ -142,7 +142,7 @@ angular.module('blogApp')
 			};
 			return ref.child('posts').child(Section).child(editedRef.postID).child('comments').child(editedRef.commentID).child('edited').child('lastEdit').set(lastEdited, callback);
 		},
-		movePostTo:function(post, newSection, newSectionTitle, comments)
+		movePostTo:function(post, newSection, newSectionTitle, redirect)
 		{
 			console.log("post.comments", post.comments);
 			 console.log("mover post", post.title);
@@ -192,6 +192,13 @@ angular.module('blogApp')
         	console.log("oldSection", oldSection);
         	console.log("id", id);
 
+        	if(redirect===true)
+			{
+				var path = '/posts/'+newSection+'/'+newId;
+				console.log("ir al path", path);
+				$location.path(path);
+			}
+
         	
 			});
 
@@ -200,18 +207,23 @@ angular.module('blogApp')
 			hilo.remove(function(error){
 					if(error)
 					{
-						console.log("se ha producido un error ", error.code)
+						console.log("se ha producido un error ", error.code);
 					} else
 					{
 						console.log("Hilo removido de "+oldSection+" con id "+id);
+						// console.log("$location.path()", $location.path());
 					}
 				});
+
+			
 
         	
         	// ref.child('posts').child(newSection).child(id).set(post);
 		},
-		delete: function (post) {
+		delete: function (post, redirect) {
 			// console.log("POST a deletear", post)
+			var seccion = post.section;
+
 			for(var comment in post.comments)
 			{
 				// console.log("comment", post.comments[comment]);
@@ -227,6 +239,13 @@ angular.module('blogApp')
 
 			var hilo = ref.child('posts').child(post.section).child(post.$id);
 			hilo.remove();
+
+			if(redirect===true)
+			{
+				var path = '/section/'+seccion;
+				console.log("ir al path", path);
+				$location.path(path);
+			}
 		}
 	};
 

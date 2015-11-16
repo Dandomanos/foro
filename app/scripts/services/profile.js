@@ -172,7 +172,7 @@ angular.module('blogApp')
                         console.log("Error al cambiar la sección del perfil en el post", error.code);
                       } else
                       {
-                        console.log("Se ha cambia la sección del perfil en el post")
+                        console.log("Se ha cambia la sección del perfil en el post");
                       }
                   });
                 });
@@ -199,7 +199,7 @@ angular.module('blogApp')
                         console.log("Error al cambiar la sección del perfil en el comentario", error.code);
                       } else
                       {
-                        console.log("Se ha cambia la sección del perfil en el comentario")
+                        console.log("Se ha cambia la sección del perfil en el comentario");
                       }
 
                     });

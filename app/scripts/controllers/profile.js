@@ -64,7 +64,7 @@ angular.module('blogApp')
       {
         return estado;
       }
-    }
+    };
  	$scope.profile = Auth.getProfile($routeParams.uid);
  	$scope.profile.$loaded(function() {
 
@@ -103,7 +103,7 @@ angular.module('blogApp')
       var CommentsPages = Math.ceil($scope.comments.length/$scope.pageSize);
       // console.log("CommentsPages", CommentsPages);
       return CommentsPages;
-    }
+    };
 
 
 

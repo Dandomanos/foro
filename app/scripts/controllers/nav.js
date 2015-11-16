@@ -23,7 +23,7 @@ angular.module('blogApp')
         {
             return Auth.profile.silenced;
         }
-    }
+    };
 
     $scope.blinding = function()
     {
@@ -34,7 +34,7 @@ angular.module('blogApp')
         {
             return Auth.profile.blind;
         }
-    }
+    };
 
     $scope.checkRoute = function() {
       if($location.path() ==='/unlogged' || $location.path() === '/user-deleted') {
