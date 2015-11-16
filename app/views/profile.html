@@ -19,10 +19,10 @@
 	<div id="profileContent" ng-hide="ownProfile.blind">
 		<div class="profile-status text text-danger">
 				<ul>
-	    			<li >
+	    			<li ng-show="profile.blind">
 	    				<i class="fa fa-eye-slash" title="Usuario Cegado"></i>
 	    			</li>
-	    			<li >
+	    			<li ng-show="profile.silenced">
 	    				<i class="fa fa-microphone-slash" title="Usuario Silenciado"></i>
 	    			</li>
 	    		</ul>

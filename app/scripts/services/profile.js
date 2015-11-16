@@ -151,13 +151,70 @@ angular.module('blogApp')
           });
         });
       },
+      setNewSectionPost:function(postid, newSection, newSectionTitle, uid, newID)
+      {
+        console.log("postid", postid);
+        console.log("newSection", newSection);
+        console.log("newSectionTitle", newSectionTitle);
+        console.log("UID", uid);
+
+        var thisPost = ref.child('profile').child(uid).child('posts').orderByChild('postId').equalTo(postid);
+
+        thisPost.once("value", function(snapshot){
+          snapshot.forEach(function(childSnapshot){
+            var key = childSnapshot.key();
+            console.log("Key", key);
+            ref.child('profile').child(uid).child('posts').child(key).child('section').set(newSection, function(){
+                ref.child('profile').child(uid).child('posts').child(key).child('sectionTitle').set(newSectionTitle, function(){
+                  ref.child('profile').child(uid).child('posts').child(key).child('postId').set(newID, function(error){
+                      if(error)
+                      {
+                        console.log("Error al cambiar la sección del perfil en el post", error.code);
+                      } else
+                      {
+                        console.log("Se ha cambia la sección del perfil en el post")
+                      }
+                  });
+                });
+            });
+          });
+        });
+
+      },
+      setNewSectionComment:function(postid, newSection, newSectionTitle, uid, newID)
+      {
+        var thisPost = ref.child('profile').child(uid).child('comments').orderByChild('commentId').equalTo(postid);
+        console.log("postid", postid);
+        console.log("thisPost", thisPost);
+
+        thisPost.once("value", function(snapshot){
+          snapshot.forEach(function(childSnapshot){
+            var key = childSnapshot.key();
+            console.log("Key", key);
+            ref.child('profile').child(uid).child('comments').child(key).child('section').set(newSection, function(){
+                ref.child('profile').child(uid).child('comments').child(key).child('sectionTitle').set(newSectionTitle, function(){
+                    ref.child('profile').child(uid).child('comments').child(key).child('postId').set(newID, function(error){
+                      if(error)
+                      {
+                        console.log("Error al cambiar la sección del perfil en el comentario", error.code);
+                      } else
+                      {
+                        console.log("Se ha cambia la sección del perfil en el comentario")
+                      }
+
+                    });
+                });
+            });
+          });
+        });
+      },
       deletePostFromProfile:function(uid, postid)
       {
         var thisPost = ref.child('profile').child(uid).child('posts').orderByChild('postId').equalTo(postid);
         thisPost.once("value", function(snapshot){
           snapshot.forEach(function(childSnapshot){
             var key = childSnapshot.key();
-            // console.log("Key", key);
+            console.log("Key", key);
             ref.child('profile').child(uid).child('posts').child(key).remove(function(error)
             {
               if(error)

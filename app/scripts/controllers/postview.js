@@ -32,6 +32,105 @@ angular.module('blogApp')
       Auth.updateConnection(Auth.user.uid);
     });
 
+    $scope.open = function(post)
+    {
+        console.log("POST", post);
+        Post.setState(post, true);
+    };
+
+    $scope.close = function(post)
+    {
+        Post.setState(post, false);
+    };
+
+    $scope.deletePost = function(post)
+    {
+        Post.delete(post);
+    };
+
+    $scope.move = function(post)
+    {
+        console.log("POST to Move", post);
+        if(post.moving===undefined)
+        {
+            post.moving = true;
+            return
+        } else {
+            if(post.moving===false)
+            {
+                post.moving = true;
+                return
+            } else
+            {
+                post.moving = false;
+                return
+            }
+        }
+    };
+
+    $scope.sections = [
+      {
+        title: 'Temas Generales',
+        section: 'general'
+      },
+      {
+        title: 'Batallas',
+        section: 'batallas'
+      },
+      {
+        title: 'Piratería',
+        section: 'pirateria'
+      },
+      {
+        title: 'Comercio',
+        section: 'comercio'
+      },
+      {
+        title: 'Cultura',
+        section: 'cultura'
+      },
+      {
+        title: 'Taberna',
+        section: 'taberna'
+      }
+    ];
+
+    var returnTitle = function(seccion)
+    {
+      switch(seccion)
+      {
+        case "general":
+          return "Temas Generales";
+
+            case "batallas":
+                return "Batallas";
+
+            case "pirateria":
+                
+                return "Piratería";
+
+            case "comercio":
+                return "Comercio";
+
+            case "cultura":
+                return "Cultura";
+
+            case "taberna":
+                return "Taberna";
+
+        default:  return "Temas Generales";
+      }
+    };
+
+    $scope.MovePostTo = function(post, section)
+    {
+        // console.log("mover post", post.title);
+        // console.log("a la sección ", section);
+        console.log("POSTID", post.$id);
+        post.moving = false;
+        Post.movePostTo(post, section, returnTitle(section));
+    }
+
 
     //Añadir watch para cambios en los post {{$scope.post}}
     //Revisar de nuevo la conexión de cada user
@@ -50,6 +149,11 @@ angular.module('blogApp')
 
 
     $scope.post = Post.get($routeParams.postId, $routeParams.section, callbackData);
+    $scope.postArray = Post.getArray($routeParams.postId, $routeParams.section, callbackData);
+
+    $scope.postArray.$loaded(function(){
+      console.log("postArray", $scope.postArray);
+    })
 
     //Paginado
     $scope.currentPage = 0;

@@ -200,6 +200,27 @@ small.subInfo{
   color:#94dff5;
 }
 
+.post-admin-actions
+{
+/*  margin-left: 30%;*/
+  float: right;
+}
+
+.post-admin-actions .adminActions
+{
+  margin-top: 7px;
+  padding-top: 5px;
+}
+
+.post-admin-actions .adminActions a{
+  cursor:pointer;
+}
+
+.post-admin-actions .adminActions .text-danger
+{
+  color:#f86161;
+}
+
 .postInfo a:hover, .postActions a:hover
 {
   text-decoration:none;
@@ -300,7 +321,8 @@ border-left:1px solid #ddd;
 .section-title
 {
   background:#337ab7;
-  height:50px;
+  min-height:50px;
+  overflow: auto;
   padding:5px 10px;
   color:#FFF;
   -webkit-border-top-left-radius: 4px;
@@ -1297,6 +1319,28 @@ border-bottom-left-radius: 4px;
   float: right;
     top: -7px;
     position: relative;
+}
+
+.sections-to-move li
+{
+  font-size:10px;
+  margin:0;
+  padding:0;
+  cursor: pointer;
+}
+
+.sections-to-move{
+    float: left;
+    border: 1px solid #e2e3e4;
+    padding: 5px 10px 5px 10px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.sections-to-move ul{
+  margin:0;
+  padding:0;
+  margin-right:20px;
 }
 
 

@@ -34,6 +34,62 @@ angular.module('blogApp')
       return;
     }
 
+    $scope.MovePostTo = function(post, section)
+    {
+        // console.log("mover post", post.title);
+        // console.log("a la sección ", section);
+        console.log("POSTID", post.$id);
+        post.moving = false;
+        Post.movePostTo(post, section, returnTitle(section));
+    }
+
+    var returnTitle = function(seccion)
+    {
+      switch(seccion)
+      {
+        case "general":
+          return "Temas Generales";
+
+            case "batallas":
+                return "Batallas";
+
+            case "pirateria":
+                
+                return "Piratería";
+
+            case "comercio":
+                return "Comercio";
+
+            case "cultura":
+                return "Cultura";
+
+            case "taberna":
+                return "Taberna";
+
+        default:  return "Temas Generales";
+      }
+    };
+
+    $scope.move = function(post)
+    {
+        console.log("POST to Move", post);
+        if(post.moving===undefined)
+        {
+            post.moving = true;
+            return
+        } else {
+            if(post.moving===false)
+            {
+                post.moving = true;
+                return
+            } else
+            {
+                post.moving = false;
+                return
+            }
+        }
+    };
+
 
 
 

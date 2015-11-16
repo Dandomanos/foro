@@ -39,11 +39,19 @@
 
 					</div>
 					<div class="postActions">
+						<div class="sections-to-move" ng-show="post.moving">
+							<ul>
+								<li ng-repeat="seccion in sections" ng-hide="seccion.section==section.section">
+									<a ng-click="MovePostTo(post, seccion.section)" title='Mover "{{post.title}}" a la sección "{{seccion.title}}"'>{{seccion.title}}</a>
+								</li>
+							</ul>
+						</div>
 						<div class="adminActions" ng-show="isAdmin()">
+								<a ng-click="move(post)" alt="Mover el post" title="Mover el post"><i class="fa fa-share-square-o"></i></a>
 								<a ng-click="open(post)" ng-hide="post.open" alt="Reabrir el post" title="Reabrir el post"><i class="fa fa-unlock"></i></a>
 								<a ng-click="close(post)" ng-show="post.open" alt="Cerrar el post" title="Cerrar el post"><i class="fa fa-lock"></i></a>
 
-								<a ng-click="deletePost(post)" alt="Borrar el Hilo" title="Borrar el Hilo"><i class="fa fa-trash"></i></a>
+								<a ng-click="deletePost(post)" alt="Borrar el Hilo" title="Borrar el Hilo"><i class="fa fa-trash text-danger"></i></a>
 							</div>
 
 						<span class="locked" ng-hide="post.open" title="Post cerrado por el Administrador"><i class="fa fa-lock"></i></span>

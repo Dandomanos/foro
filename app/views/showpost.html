@@ -20,6 +20,8 @@
 		<div class="postInfo">
 					<h2>{{post.title}}:</h2>
 		</div>
+
+
 		<p class="postData">
 			<span title="Post cerrado por el Administrador" ng-hide="post.open"><i class="fa fa-lock"></i></span>
 			<small>
@@ -29,6 +31,22 @@
 				</span>
 			</small>
 		</p>
+		<div class="post-admin-actions">
+			<div class="sections-to-move" ng-show="post.moving">
+				<ul>
+					<li ng-repeat="seccion in sections" ng-hide="seccion.section==post.section">
+						<a ng-click="MovePostTo(post, seccion.section)" title='Mover "{{post.title}}" a la sección "{{seccion.title}}"'>{{seccion.title}}</a>
+					</li>
+				</ul>
+			</div>
+			<div class="adminActions" ng-show="isAdmin()">
+				<a ng-click="move(post)" alt="Mover el post" title="Mover el post"><i class="fa fa-share-square-o"></i></a>
+				<a ng-click="open(post)" ng-hide="post.open" alt="Reabrir el post" title="Reabrir el post"><i class="fa fa-unlock"></i></a>
+				<a ng-click="close(post)" ng-show="post.open" alt="Cerrar el post" title="Cerrar el post"><i class="fa fa-lock"></i></a>
+
+				<a ng-click="deletePost(post)" alt="Borrar el Hilo" title="Borrar el Hilo"><i class="fa fa-trash text-danger"></i></a>
+			</div>
+		</div>
 	</div>
 	<div class="post-comment row" ng-class="{ 'editByAdmin': post.edited.byAdmin }" ng-show="currentPage==0">
 		<div class="post-profile col-md-2">

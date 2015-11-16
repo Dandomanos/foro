@@ -37,6 +37,15 @@ angular.module('blogApp')
 			var comments = $firebaseArray(ref.child('posts').child(section).child(postId).child('comments'), callbackData);
 			return comments;
 		},
+		getArray: function (postId, section, callbackData) {
+			var datos = $firebaseArray(ref.child('posts').child(section).child(postId), callbackData);
+			// datos.$loaded().then(function(data){
+			// 	console.log("acabo de cargar", data);
+			// 	callbackData;
+			// });
+			// datos.once('author', callbackData);
+			return datos;
+		},
 		get: function (postId, section, callbackData) {
 			var datos = $firebaseObject(ref.child('posts').child(section).child(postId), callbackData);
 			// datos.$loaded().then(function(data){
@@ -132,6 +141,74 @@ angular.module('blogApp')
 				}
 			};
 			return ref.child('posts').child(Section).child(editedRef.postID).child('comments').child(editedRef.commentID).child('edited').child('lastEdit').set(lastEdited, callback);
+		},
+		movePostTo:function(post, newSection, newSectionTitle, comments)
+		{
+			console.log("post.comments", post.comments);
+			 console.log("mover post", post.title);
+        	console.log("a la sección ", newSection);
+        	console.log("POST ID", post.$id);
+        	console.log("Author", post.author);
+        	console.log("author.uid", post.author.uid);
+        	var comments = post.comments;
+        	var authorUid = post.author.uid;
+        	var newId = '';
+        	var id = post.$id;
+        	var oldSection = post.section;
+        	post.section  = newSection;
+        	post.sectionTitle = newSectionTitle;
+
+
+
+
+
+
+
+
+
+        	//Creamos el hilo en la nueva sección y almacenamos su nuevo ID
+        	Post.create(post, newSection).then(function (ref){
+        		newId = ref.key();
+        		console.log('newId', newId);
+        		
+        		console.log("post.comments", comments);
+				//Cambiamos la sección de los comentarios en los perfiles
+	        	for(var comment in comments)
+	        	{
+	        		// console.log("Comentario", comment); //[comment] => corresponde con commentId dentro de perfil
+	        		// console.log("Autor Username", post.comments[comment].author.username);
+	        		// console.log("Autor Uid", post.comments[comment].author.uid);
+	        		// console.log("Autor uid 2", comment.author.uid)
+	        		// Profile.setNewSectionComment(comment, newSection, newSectionTitle, post.comments[comment].author.uid, newId);
+	        		Profile.setNewSectionComment(comment, newSection, newSectionTitle, comments[comment].author.uid, newId);
+	        	}
+        	
+
+        	
+
+        	//Cambiamos la sección del post en el perfil del autor
+        	Profile.setNewSectionPost(post.$id, newSection, newSectionTitle, authorUid, newId);
+
+        	console.log("oldSection", oldSection);
+        	console.log("id", id);
+
+        	
+			});
+
+			//Finalmente eliminamos el hilo de la antigua sección
+        	var hilo = ref.child('posts').child(oldSection).child(id);
+			hilo.remove(function(error){
+					if(error)
+					{
+						console.log("se ha producido un error ", error.code)
+					} else
+					{
+						console.log("Hilo removido de "+oldSection+" con id "+id);
+					}
+				});
+
+        	
+        	// ref.child('posts').child(newSection).child(id).set(post);
 		},
 		delete: function (post) {
 			// console.log("POST a deletear", post)

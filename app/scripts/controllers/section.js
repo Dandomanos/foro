@@ -23,13 +23,54 @@ angular.module('blogApp')
         }
     }
 
-   
+    $scope.sections = [
+      {
+        title: 'Temas Generales',
+        section: 'general'
+      },
+      {
+        title: 'Batallas',
+        section: 'batallas'
+      },
+      {
+        title: 'Piratería',
+        section: 'pirateria'
+      },
+      {
+        title: 'Comercio',
+        section: 'comercio'
+      },
+      {
+        title: 'Cultura',
+        section: 'cultura'
+      },
+      {
+        title: 'Taberna',
+        section: 'taberna'
+      }
+    ];
+
+    $scope.MovePostTo = function(post, section)
+    {
+        // console.log("mover post", post.title);
+        // console.log("a la sección ", section);
+        console.log("POSTID", post.$id);
+        post.moving = false;
+        Post.movePostTo(post, section, returnTitle(section));
+    }
 
 
     
   	$scope.section = $routeParams.section;
     $scope.profile = Auth.getProfile(Auth.user.uid);
     $scope.posts = Post.section($scope.section);
+
+    // $scope.posts.$loaded(function(){
+    //     for(var post in $scope.posts)
+    //     {
+    //         post.moving = false;
+    //     }
+    // })
 
     //Paginado
     $scope.currentPage = 0;
@@ -44,9 +85,9 @@ angular.module('blogApp')
     });
     // $scope.post = {comments: '', author:'', title: '', section:$scope.section, sectionTittle:returnTitle() };
     
-    var returnTitle = function()
+    var returnTitle = function(seccion)
     {
-    	switch($scope.section)
+    	switch(seccion)
     	{
     		case "general":
     			return "Temas Generales";
@@ -72,7 +113,7 @@ angular.module('blogApp')
     };
 
      Title.setTitle("Foro CAOS: " + returnTitle());
-    $scope.post = {comment: '', author:'', title: '', section:$scope.section, date:new Date().getTime(), sectionTitle:returnTitle(), open:true};
+    $scope.post = {comment: '', author:'', title: '', section:$scope.section, date:new Date().getTime(), sectionTitle:returnTitle($scope.section), open:true};
     console.log("postObject", $scope.post);
     $scope.nuevoPost = function()
     {
@@ -85,7 +126,7 @@ angular.module('blogApp')
     };
     $scope.posting = false;
 
-    $scope.title = returnTitle();
+    $scope.title = returnTitle($scope.section);
     console.log("POST", $scope.posts);
 
     $scope.submitPost = function () {
@@ -129,6 +170,26 @@ angular.module('blogApp')
             return false;
           }
       }
+    };
+
+    $scope.move = function(post)
+    {
+        console.log("POST to Move", post);
+        if(post.moving===undefined)
+        {
+            post.moving = true;
+            return
+        } else {
+            if(post.moving===false)
+            {
+                post.moving = true;
+                return
+            } else
+            {
+                post.moving = false;
+                return
+            }
+        }
     };
 
     $scope.open = function(post)
