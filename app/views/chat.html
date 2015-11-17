@@ -21,7 +21,7 @@
 				 {{entrada.username}} <small class="fecha">[{{fechar(entrada.date) | date:'HH:mm'}}]</small> :
 
 			</div>
-			<div class="chat-message" ng-bind-html="entrada.content | parseUrl" >
+			<div class="chat-message" ng-bind-html="entrada.content | embed:{linkTarget :'_blank'}" >
 				{{entrada.content}}
 			</div>
 			<!--
@@ -66,8 +66,31 @@
 		</ul>
 	</div>
 	<div id="chat-form" class="input-group">
+		<div id="emoti-panel" ng-show="mostrandoEmotis">
+			<ul class="emoti-icons">
+				<li ng-repeat="face in faces | startFrom:currentPage*pageSize | limitTo:pageSize">
+					<a ng-click="addEmoti(face.content)" ng-bind-html="face.content | embed:{linkTarget :'_blank'}">{{face.content}}</a>
+				</li>
+			</ul>
+			<ul class="paginate-emoti" ng-show="numberOfPages()>1">
+						<li>
+							<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" class="btn btn-primary prevPage">
+						        <i class="fa fa-arrow-left"></i> Anterior
+						    </button>
+						</li>
+				    	<li class="post-Paginate">
+						    {{currentPage+1}}/{{numberOfPages()}}
+						</li>
+						<li>
+						    <button ng-disabled="currentPage >= faces.length/pageSize - 1" ng-click="currentPage=currentPage+1" class="btn btn-primary nextPage">
+						        Siguiente <i class="fa fa-arrow-right"></i>
+						    </button>
+						</li>
+					</ul>
+		</div>
 		<form ng-submit="sendMessage()" ng-hide="silenced()">
-			<i class="fa fa-weixin" title="Chat"></i> 
+			<!-- <i class="fa fa-weixin" title="Chat"></i>  -->
+			<a ng-click="showEmotis()" class="show-emotis"><i class="emoticon emoticon-smile" title="Añadir emoticono"></i></a>
 			<input type="text" class="form-control campo" ng-model="message" placeholder="Escribe un mensaje" ng-focus="true"id="campoEntrada" name="campoEntrada" autocomplete="off">
 			<span class="input-group-btn">
 				<!-- <input type="submit" value="Enviar" class="btn btn-primary"/> -->

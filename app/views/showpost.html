@@ -66,15 +66,15 @@
 				
 		</div>
 		<div class="post-comment-text col-md-10">
-			{{post.comment}}
+			<span ng-bind-html="post.comment | nl2br | embed:{linkTarget :'_blank'}">{{post.comment}}</span>
 			<div ng-show="post.edited.count>0">
 				<small>
 					<span class="fecha">
-						<div ng-show="post.edited.byAdmin!=true">
+						<div ng-show="post.edited.byAdmin!=true" class="edited-post">
 							<span ng-show="post.edited.count==1">Post editado {{post.edited.count}} vez.</span>
 							<span ng-show="post.edited.count>1">Post editado {{post.edited.count}} veces.</span>
 						</div>
-						<div ng-show="post.edited.byAdmin">
+						<div ng-show="post.edited.byAdmin" class="edited-post">
 							Post editado por el administrador.
 						</div>
 						<span class="lastUpdate">
@@ -87,12 +87,12 @@
 		<div class="actionPost">
 				<ul>
 					<li>
-						<button class="btn btn-danger" ng-show="isAdmin()" ng-click="editarOriginal()">
+						<button class="btn btn-danger" ng-show="isAdmin()" ng-click="editarOriginal(true)">
 							Editar <small>(Admin)</small>
 						</button>
 					</li>
 					<li ng-hide="silenced()">
-						<button class="btn btn-primary" ng-show="isAuthor(post.author.uid) && post.open && post.edited.byAdmin!=true" ng-click="editarOriginal()">
+						<button class="btn btn-primary" ng-show="isAuthor(post.author.uid) && post.open && post.edited.byAdmin!=true" ng-click="editarOriginal(false)">
 							Editar
 						</button>
 					</li>
@@ -125,15 +125,15 @@
 				
 		</div>
 		<div class="post-comment-text col-md-10">
-		{{post.comment}}
+		<span ng-bind-html="post.comment | nl2br | embed:{linkTarget :'_blank'}">{{post.comment}}</span>
 			<div ng-show="post.edited.count>0">
 				<small>
 					<span class="fecha">
-						<div ng-show="post.edited.byAdmin!=true">
+						<div ng-show="post.edited.byAdmin!=true" class="edited-post">
 							<span ng-show="post.edited.count==1">Post editado {{post.edited.count}} vez.</span>
 							<span ng-show="post.edited.count>1">Post editado {{post.edited.count}} veces.</span>
 						</div>
-						<div ng-show="post.edited.byAdmin">
+						<div ng-show="post.edited.byAdmin" class="edited-post">
 							Post editado por el administrador.
 						</div>
 						<span class="lastUpdate">

@@ -8,13 +8,43 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('ChatCtrl', ['$scope', 'Auth', 'Chat', '$location', '$anchorScroll', '$window', 'Title', function ($scope, Auth, Chat, $location, $anchorScroll, $window, Title) {
+  .controller('ChatCtrl', ['$scope', 'Auth', 'Chat', '$location', '$anchorScroll', '$window', 'Title', 'Emotis', function ($scope, Auth, Chat, $location, $anchorScroll, $window, Title, Emotis) {
 
 
     var animarTab;
     var mensajes = ["Foro CAOS: Chat", "Mensajes sin leer"];
     var mensajeSelected = 0;
     var parpadeando = false;
+
+    // $scope.faces = Emotis.getFaces();
+    // $scope.faces = Emotis.getItems();
+    $scope.faces = Emotis.get();
+
+    $scope.mostrandoEmotis = false;
+
+    $scope.showEmotis = function()
+    {
+      $scope.mostrandoEmotis = !$scope.mostrandoEmotis;
+    }
+
+    
+
+
+
+    $scope.currentPage = 0;
+    $scope.pageSize = 30;
+    $scope.numberOfPages = function()
+    {
+        return Math.ceil($scope.faces.length/$scope.pageSize);
+    };
+
+
+    $scope.message = '';
+
+    $scope.addEmoti = function(emoti)
+    {
+      $scope.message+=emoti;
+    }
 
 
     $scope.userBlinded = function(estado)
@@ -26,6 +56,7 @@ angular.module('blogApp')
       } else
       {
         console.log("blinded user", estado);
+
         return estado;
       }
     };
@@ -67,6 +98,7 @@ angular.module('blogApp')
 
     $scope.sendMessage = function()
     {
+      $scope.mostrandoEmotis = false;
       console.log("scopeProfile", $scope.profile);
       if($scope.profile.username===undefined)
       {

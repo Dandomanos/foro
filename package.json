@@ -39,6 +39,7 @@
   "dependencies": {
     "cdnify": "^0.1.4",
     "font-awesome": "^4.4.0",
-    "grunt-google-cdn": "^0.4.3"
+    "grunt-google-cdn": "^0.4.3",
+    "ng-embed": "^2.0.3"
   }
 }

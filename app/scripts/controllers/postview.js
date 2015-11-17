@@ -379,12 +379,12 @@ angular.module('blogApp')
          $scope.editar(post);
       };
 
-      $scope.editarOriginal = function()
+      $scope.editarOriginal = function(byAdmin)
       {
         $scope.editing = false;
         $scope.replying = false;
         $scope.original = true;
-        $scope.editByAdmin = false;
+        $scope.editByAdmin = byAdmin;
 
         $scope.postToEdit = $scope.post;
         $scope.originalComment = $scope.post.comment;
