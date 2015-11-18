@@ -36,7 +36,7 @@
 			  <div class="stockChat-content" ng-show="stockLoaded">
 			  <ul>
 			  	<li ng-repeat="message in stockChat | orderBy : 'date' | startFrom:currentPage*pageSize | limitTo:pageSize" ng-class="{system:message.system}">
-			  		<small class="fecha">[{{fechar(message.date) | date:'dd-MM-yyyy'}} | {{fechar(message.date) | date:'HH:mm'}}]</small><span class="stockChat-username"> {{message.username}}:</span><span ng-bind-html="message.content | parseUrl">{{message.content}}</span>
+			  		<small class="fecha">[{{fechar(message.date) | date:'dd-MM-yyyy'}} | {{fechar(message.date) | date:'HH:mm'}}]</small><span class="stockChat-username"> {{message.username}}:</span><span ng-bind-html="message.content | embed:{linkTarget :'_blank'}">{{message.content}}</span>
 			  	</li>
 			  </ul>
 

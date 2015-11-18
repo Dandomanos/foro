@@ -162,6 +162,12 @@ angular.module('blogApp')
         $scope.post.author = {username: $scope.profile.username, uid: $scope.profile.$id};
         $scope.post.date = new Date().getTime();
         console.log("FECHA", $scope.post.date);
+
+        if($scope.post.title==='')
+        {
+            $scope.post.title='Sin Asunto';
+        }
+
         Post.create($scope.post, $scope.section).then(function (ref) {
             $location.path('/posts/' + $scope.section + "/" + ref.key());
 
