@@ -25,7 +25,7 @@ angular.module('blogApp')
     $scope.showEmotis = function()
     {
       $scope.mostrandoEmotis = !$scope.mostrandoEmotis;
-    }
+    };
 
     
 
@@ -44,7 +44,7 @@ angular.module('blogApp')
     $scope.addEmoti = function(emoti)
     {
       $scope.message+=emoti;
-    }
+    };
 
 
     $scope.userBlinded = function(estado)

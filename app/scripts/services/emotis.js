@@ -142,7 +142,7 @@ angular.module('blogApp')
       getFaces:function(){
       	return emotis;
       }
-  	}
+  	};
 
   	return Emotis;
   });

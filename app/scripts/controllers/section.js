@@ -8,7 +8,7 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('SectionCtrl',['$scope', '$routeParams', 'Post', 'Auth', '$location', 'Title', function ($scope, $routeParams, Post, Auth, $location, Title) {
+  .controller('SectionCtrl',['$scope', '$routeParams', 'Post', 'Auth', '$location', 'Title', 'Emotis', function ($scope, $routeParams, Post, Auth, $location, Title, Emotis) {
     
     Auth.checkUser();
 
@@ -22,6 +22,35 @@ angular.module('blogApp')
             return Auth.profile.silenced;
         }
     };
+
+    /*      EMOTICONOS      */
+
+    $scope.faces = Emotis.get();
+
+    $scope.mostrandoEmotis = false;
+
+    $scope.showEmotis = function()
+    {
+      $scope.mostrandoEmotis = !$scope.mostrandoEmotis;
+    };
+
+    //paginado emoticonos
+    $scope.currentEmotiPage = 0;
+    $scope.pageEmotiSize = 46;
+    $scope.numberOfEmotiPages = function()
+    {
+        return Math.ceil($scope.faces.length/$scope.pageEmotiSize);
+    };
+
+
+
+    $scope.addEmoti = function(emoti)
+    {
+      $scope.post.comment+=emoti;
+    };
+
+    /*      FIN EMOTICONOS      */
+
 
     $scope.sections = [
       {

@@ -19,13 +19,34 @@
 				</div>
 			</div>
 			<div class="new-post" ng-show="posting">
-				
 				<form class="form-group" ng-submit="submitPost()" ng-hide="silenced()">
 		        		<input type="text" class="form-control" placeholder="Título" ng-model="post.title">
 		        		<textarea class="form-control comentario" ng-model="post.comment" placeholder="Comentario"></textarea>
-		      			<button type="submit" class="btn btn-primary">Nuevo Post</button>
+		      			<button type="submit" class="btn btn-primary">Crear Post</button>
 		    	</form>
-
+				<a ng-click="showEmotis()" class="show-emotis"><i class="emoticon emoticon-smile" title="Añadir emoticono"></i></a>
+				<div id="emoti-panel" class="new-post-emoti-panel" ng-show="mostrandoEmotis">
+					<ul class="emoti-icons">
+						<li ng-repeat="face in faces | startFrom:currentEmotiPage*pageEmotiSize | limitTo:pageEmotiSize">
+							<a ng-click="addEmoti(face.content)" ng-bind-html="face.content | embed:{linkTarget :'_blank'}">{{face.content}}</a>
+						</li>
+					</ul>
+					<ul class="paginate-emoti" ng-show="numberOfEmotiPages()>1">
+						<li>
+							<button ng-disabled="currentEmotiPage == 0" ng-click="currentEmotiPage=currentEmotiPage-1" class="btn btn-primary prevPage">
+								        <i class="fa fa-arrow-left"></i> Anterior
+								  </button>
+						</li>
+						   <li class="post-Paginate">
+								  {{currentEmotiPage+1}}/{{numberOfEmotiPages()}}
+						</li>
+						<li>
+								  <button ng-disabled="currentEmotiPage >= faces.length/pageEmotiSize - 1" ng-click="currentEmotiPage=currentEmotiPage+1" class="btn btn-primary nextPage">
+								        Siguiente <i class="fa fa-arrow-right"></i>
+								  </button>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<div class="Posts">
 				<ul class="list-group">

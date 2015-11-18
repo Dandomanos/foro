@@ -1057,6 +1057,7 @@ border-top-right-radius: 4px;
   height:auto;
   font-size:14px;
   border:none;
+  background-color:aliceblue;
 }
 
 #emoti-panel ul.paginate-emoti
@@ -1093,6 +1094,61 @@ margin: 1px;
   position:static;
   position:initial;
   cursor:pointer;
+}
+
+#emoti-panel.new-post-emoti-panel
+{
+    position: relative;
+    top: -30px;
+    left: 30px;
+    width: 959px;
+    height: 64px;
+}
+
+#emoti-panel.new-post-emoti-panel ul.emoti-icons
+{
+    max-width: 714px;
+    position: relative;
+    display: inline-block;
+    top: -9px;
+}
+
+#emoti-panel.new-post-emoti-panel ul.paginate-emoti
+{
+  display:inline-block;
+  margin-left:7px;
+}
+
+.new-post-emoti-panel li.post-Paginate
+{
+  top:-22px;
+}
+
+#TEXTAREA #emoti-panel.new-post-emoti-panel
+{
+  position: relative;
+    top: -88px;
+    left: 51px;
+    width: 916px;
+}
+
+#TEXTAREA #emoti-panel.new-post-emoti-panel ul.emoti-icons
+{
+  top:0;
+  max-width: 682px;
+}
+
+#TEXTAREA #emoti-panel.new-post-emoti-panel ul.paginate-emoti
+{
+  position: relative;
+        top: -39px;
+        top:-12px;
+    margin-left: 3px;
+}
+
+#TEXTAREA #emoti-panel.new-post-emoti-panel li.post-Paginate 
+{
+  top:0;
 }
 
 .unlogged, .admin-settings

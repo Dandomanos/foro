@@ -73,20 +73,20 @@
 				</li>
 			</ul>
 			<ul class="paginate-emoti" ng-show="numberOfPages()>1">
-						<li>
-							<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" class="btn btn-primary prevPage">
+				<li>
+					<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" class="btn btn-primary prevPage">
 						        <i class="fa fa-arrow-left"></i> Anterior
-						    </button>
-						</li>
-				    	<li class="post-Paginate">
-						    {{currentPage+1}}/{{numberOfPages()}}
-						</li>
-						<li>
-						    <button ng-disabled="currentPage >= faces.length/pageSize - 1" ng-click="currentPage=currentPage+1" class="btn btn-primary nextPage">
+						  </button>
+				</li>
+				   <li class="post-Paginate">
+						  {{currentPage+1}}/{{numberOfPages()}}
+				</li>
+				<li>
+						  <button ng-disabled="currentPage >= faces.length/pageSize - 1" ng-click="currentPage=currentPage+1" class="btn btn-primary nextPage">
 						        Siguiente <i class="fa fa-arrow-right"></i>
-						    </button>
-						</li>
-					</ul>
+						  </button>
+				</li>
+			</ul>
 		</div>
 		<form ng-submit="sendMessage()" ng-hide="silenced()">
 			<!-- <i class="fa fa-weixin" title="Chat"></i>  -->

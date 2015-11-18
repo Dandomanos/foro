@@ -377,12 +377,20 @@ module.exports = function (grunt) {
         }, {
 
 //for font-awesome
-                    expand: true,
-                    dot: true,
-                    cwd: 'bower_components/font-awesome',
-                    src: ['fonts/*.*'],
-                    dest: '<%= yeoman.dist %>'
-                }]
+            expand: true,
+            dot: true,
+            cwd: 'bower_components/font-awesome',
+            src: ['fonts/*.*'],
+            dest: '<%= yeoman.dist %>'
+        }, {
+
+//for ng-embed(emoti)
+            expand: true,
+            dot: true,
+            cwd: 'bower_components/ngEmbed',
+            src: ['fonts/*.*'],
+            dest: '<%= yeoman.dist %>'
+        }]
       },
       styles: {
         expand: true,

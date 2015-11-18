@@ -8,7 +8,7 @@
  * Controller of the blogApp
  */
 angular.module('blogApp')
-  .controller('PostviewCtrl', ['$scope', '$routeParams', 'Post', 'Auth', '$anchorScroll', '$location', '$timeout', 'Title', function ($scope, $routeParams, Post, Auth, $anchorScroll, $location, $timeout, Title) {
+  .controller('PostviewCtrl', ['$scope', '$routeParams', 'Post', 'Auth', '$anchorScroll', '$location', '$timeout', 'Title', 'Emotis', function ($scope, $routeParams, Post, Auth, $anchorScroll, $location, $timeout, Title, Emotis) {
 
 
     Title.setTitle("Foro CAOS:");
@@ -31,6 +31,55 @@ angular.module('blogApp')
     $scope.profile.$loaded(function(){
       Auth.updateConnection(Auth.user.uid);
     });
+
+
+    /*      EMOTICONOS      */
+
+    $scope.faces = Emotis.get();
+
+    $scope.mostrandoEmotis = false;
+
+    $scope.showEmotis = function()
+    {
+      $scope.mostrandoEmotis = !$scope.mostrandoEmotis;
+    };
+
+    //paginado emoticonos
+    $scope.currentEmotiPage = 0;
+    $scope.pageEmotiSize = 44;
+    $scope.numberOfEmotiPages = function()
+    {
+        return Math.ceil($scope.faces.length/$scope.pageEmotiSize);
+    };
+
+    // $scope.destinos = [];
+
+    $scope.addEmoti = function(emoti)
+    {
+      switch($scope.destino)
+      {
+        case 0:
+          $scope.originalComment+=emoti;
+        break;
+
+        case 1:
+          $scope.comment.comment+=emoti;
+        break;
+
+        case 2:
+          $scope.edit.comment+=emoti;
+        break;
+
+        default:
+          $scope.comment.comment+=emoti;
+
+      }
+      // $scope.destinos = [$scope.originalComment, $scope.comment.comment, $scope.edit.comment];
+      // $scope.destinos[$scope.destino]+=emoti;
+    };
+
+    /*      FIN EMOTICONOS      */
+
 
     $scope.open = function(post)
     {
@@ -184,12 +233,15 @@ angular.module('blogApp')
 
              // console.log("ultimo post", $scope.post.comments[0]);
              Title.setTitle("Foro CAOS: " + $scope.post.sectionTitle + " | " + $scope.post.title);
+             $scope.destino = 2;
              $scope.cargarRangos();
+             $scope.destinos = [$scope.originalComment, $scope.comment.comment, $scope.edit.comment];
          }
 
             });
     $scope.post.$watch(function(){
       console.log("Se ha producido un nuevo post: ");
+      $scope.mostrandoEmotis = false;
       if(Auth.profile.username===undefined)
       {
         console.log("Usuario eliminado, no debería estar aquí");
@@ -217,6 +269,7 @@ angular.module('blogApp')
     $scope.comment = {};
     $scope.comment.comment = '';
 
+
     $scope.warningExpanded = false;
 
     $scope.isConnected = function(milisecs) {
@@ -235,22 +288,6 @@ angular.module('blogApp')
 
     $scope.cargarRangos = function()
     {
-      // $scope.numberOfPosts = 0;
-
-        // for(var comment in $scope.post.comments)
-        //      {
-        //          $scope.post.comments[comment].author.profile =  Auth.getProfile($scope.post.comments[comment].author.uid);
-        //          $scope.post.comments[comment].author.profile.$loaded(function(){
-
-        //             $scope.post.comments[comment].author.connected = $scope.isConnected($scope.post.comments[comment].author.profile.lastConnection);
-
-        //             $scope.lastAuthor.uid = $scope.post.comments[comment].author.uid;
-
-        //          });
-        //          $scope.numberOfPosts++;
-                 
-                
-        //      }
 
              for(var i=0; i<$scope.postComments.length; i++)
              {
@@ -323,6 +360,8 @@ angular.module('blogApp')
         $scope.editing = false;
         $scope.original = false;
         $scope.editByAdmin = false;
+        $scope.destino = 1;
+
         $timeout(function() {
 
           console.log("me muevo al div");
@@ -341,6 +380,7 @@ angular.module('blogApp')
 
       $scope.editLikeUser = function(post)
       {
+        $scope.destino = 2;
         $scope.editByAdmin = false;
         $scope.editar(post);
       };
@@ -375,6 +415,7 @@ angular.module('blogApp')
 
       $scope.editarByAdmin = function(post)
       {
+        $scope.destino = 2;
         $scope.editByAdmin = true;
          $scope.editar(post);
       };
@@ -385,6 +426,8 @@ angular.module('blogApp')
         $scope.replying = false;
         $scope.original = true;
         $scope.editByAdmin = byAdmin;
+
+        $scope.destino = 0;
 
         $scope.postToEdit = $scope.post;
         $scope.originalComment = $scope.post.comment;
