@@ -311,7 +311,7 @@ li.list-group-item {
 .list-group {
   margin:0;
   border: 1px solid #ddd;
-  overflow:hidden;
+  /*overflow:hidden;*/
 }
 
 ul.profilePost:-webkit-scrollbar
@@ -355,11 +355,30 @@ border-top-right-radius: 4px;
   color:#9dd8fd;
 }
 
+a.show-emotis
+{
+  -webkit-user-select: none;
+ -khtml-user-select: none;
+ -moz-user-select: none;
+ -o-user-select: none;
+ -ms-user-select: none;
+ user-select: none;
+}
+
+#TEXTAREA #newPost, #TEXTAREA #editPost, #TEXTAREA #editOriginal {
+  height: 316px;
+  margin-bottom:0;
+}
+
+#TEXTAREA {
+  max-height:316px;
+}
+
 .new-post
 {
   height:auto;
   padding: 20px;
-  margin-bottom:40px;
+  height: 370px;
 }
 
 .new-post input, .new-post button
@@ -476,6 +495,11 @@ border-bottom-left-radius: 4px;
   color:#fff;
   font-size:14px;
   margin:0;
+}
+
+#emoti-panel ul.paginate-emoti li.post-Paginate
+{
+  width:50px;
 }
 
 .postDetail-actions button.nextPage i{
@@ -965,6 +989,10 @@ border-top-left-radius: 4px;
 border-bottom-left-radius: 4px;
 }
 
+#chat-form #emoti-panel{
+  top: -138px;
+}
+
 #chat-form a.show-emotis
 {
       position: absolute;
@@ -979,6 +1007,21 @@ border-bottom-left-radius: 4px;
 -moz-border-radius: 4px;
 border-radius: 4px;
 background-color:aliceblue;
+}
+
+.new-post a.show-emotis
+{
+    position: relative;
+    display: block;
+    z-index: 10;
+    top: -5px;
+    left: 0;
+    /* font-size: 24px; */
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: aliceblue;
+    width: 35px;
 }
 
 /*#chat-form i{
@@ -1075,19 +1118,15 @@ border-top-right-radius: 4px;
 }
 
 #emoti-panel li{
-  display:inline-block;
-  width:29px;
-  height:29px;
-  position:relative;
-  border:1px solid #ddd;
-  background-color:#fff;
-  padding:2px;
-  -webkit-border-radius: 4px;
--moz-border-radius: 4px;
-border-radius: 4px;
-margin: 1px;
-    margin-top: -1px;
-    margin-bottom: 0;
+  display: inline-block;
+    width: 29px;
+    height: 29px;
+    position: relative;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    padding: 2px;
+    border-radius: 4px;
+    margin: 1px;
 }
 
 #emoti-panel li i{
@@ -1099,24 +1138,34 @@ margin: 1px;
 #emoti-panel.new-post-emoti-panel
 {
     position: relative;
-    top: -30px;
-    left: 30px;
-    width: 959px;
-    height: 64px;
+    top: -39px;
+    left: 38px;
+    width: 895px;
+    height: 66px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    display:inline-block;
 }
 
 #emoti-panel.new-post-emoti-panel ul.emoti-icons
 {
-    max-width: 714px;
-    position: relative;
+    max-width: 621px;
+    /* position: relative; */
     display: inline-block;
-    top: -9px;
+    margin-top: -3px;
 }
 
 #emoti-panel.new-post-emoti-panel ul.paginate-emoti
 {
-  display:inline-block;
-  margin-left:7px;
+      display: inline-block;
+    margin-right: 12px;
+    float: right
+}
+
+.Posts
+{
+  clear:both;
 }
 
 .new-post-emoti-panel li.post-Paginate
@@ -1126,24 +1175,24 @@ margin: 1px;
 
 #TEXTAREA #emoti-panel.new-post-emoti-panel
 {
-  position: relative;
-    top: -88px;
-    left: 51px;
-    width: 916px;
+ position: relative;
+    top: -86px;
+    left: 59px;
+    width: 897px;
+    clear: both;
+    display: inline-block;
 }
 
 #TEXTAREA #emoti-panel.new-post-emoti-panel ul.emoti-icons
 {
   top:0;
-  max-width: 682px;
+  max-width: 623px;
 }
 
 #TEXTAREA #emoti-panel.new-post-emoti-panel ul.paginate-emoti
 {
-  position: relative;
-        top: -39px;
-        top:-12px;
-    margin-left: 3px;
+    margin-right: 11px;
+    margin-top: 9px;
 }
 
 #TEXTAREA #emoti-panel.new-post-emoti-panel li.post-Paginate 

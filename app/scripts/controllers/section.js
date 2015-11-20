@@ -36,7 +36,7 @@ angular.module('blogApp')
 
     //paginado emoticonos
     $scope.currentEmotiPage = 0;
-    $scope.pageEmotiSize = 46;
+    $scope.pageEmotiSize = 40;
     $scope.numberOfEmotiPages = function()
     {
         return Math.ceil($scope.faces.length/$scope.pageEmotiSize);
