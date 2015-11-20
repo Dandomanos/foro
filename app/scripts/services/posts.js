@@ -56,19 +56,19 @@ angular.module('blogApp')
 			return datos;
 		},
 		addUpdateChild: function(post, date){
-			console.log("Actualizo el lastDATE");
+			// console.log("Actualizo el lastDATE");
 			ref.child('posts').child(post.section).child(post.$id).child('lastDate').set(date);
 		},
 		addUpdate: function(post, comment) {
 			// var ultima = {}
-			console.log("Actualizo el lastUpdate");
+			// console.log("Actualizo el lastUpdate");
 			ref.child('posts').child(post.section).child(post.$id).child('lastUpdate').set(comment, Post.addUpdateChild(post, comment.date));
 		},
 		addComment:function(post, comment)
 		{
-			console.log("post services", post);
-			console.log("post section", post.section);
-			console.log("post $id", post.$id);
+			// console.log("post services", post);
+			// console.log("post section", post.section);
+			// console.log("post $id", post.$id);
 			var pet = $firebaseArray(ref.child('posts').child(post.section).child(post.$id).child('comments'));
 			Post.addUpdate(post, comment);
 			return pet.$add(comment);
@@ -76,8 +76,8 @@ angular.module('blogApp')
 		addIdToComment:function(post, comment, respuesta)
 		{
 			// var id = {id: commentId};
-			console.log("ID desde PostService", comment.id);
-			console.log("Comentario", comment.comment);
+			// console.log("ID desde PostService", comment.id);
+			// console.log("Comentario", comment.comment);
 			return ref.child('posts').child(post.section).child(post.$id).child('comments').child(comment.id).set(comment, respuesta);
 		},
 		editComment:function(editedRef, Section, newMessage, callback)
@@ -144,12 +144,12 @@ angular.module('blogApp')
 		},
 		movePostTo:function(post, newSection, newSectionTitle, redirect)
 		{
-			console.log("post.comments", post.comments);
-			 console.log("mover post", post.title);
-        	console.log("a la sección ", newSection);
-        	console.log("POST ID", post.$id);
-        	console.log("Author", post.author);
-        	console.log("author.uid", post.author.uid);
+			// console.log("post.comments", post.comments);
+			//  console.log("mover post", post.title);
+   //      	console.log("a la sección ", newSection);
+   //      	console.log("POST ID", post.$id);
+   //      	console.log("Author", post.author);
+   //      	console.log("author.uid", post.author.uid);
         	var comments = post.comments;
         	var authorUid = post.author.uid;
         	var newId = '';
@@ -169,9 +169,9 @@ angular.module('blogApp')
         	//Creamos el hilo en la nueva sección y almacenamos su nuevo ID
         	Post.create(post, newSection).then(function (ref){
         		newId = ref.key();
-        		console.log('newId', newId);
+        		// console.log('newId', newId);
         		
-        		console.log("post.comments", comments);
+        		// console.log("post.comments", comments);
 				//Cambiamos la sección de los comentarios en los perfiles
 	        	for(var comment in comments)
 	        	{
@@ -189,13 +189,13 @@ angular.module('blogApp')
         	//Cambiamos la sección del post en el perfil del autor
         	Profile.setNewSectionPost(post.$id, newSection, newSectionTitle, authorUid, newId);
 
-        	console.log("oldSection", oldSection);
-        	console.log("id", id);
+        	// console.log("oldSection", oldSection);
+        	// console.log("id", id);
 
         	if(redirect===true)
 			{
 				var path = '/posts/'+newSection+'/'+newId;
-				console.log("ir al path", path);
+				// console.log("ir al path", path);
 				$location.path(path);
 			}
 
@@ -207,10 +207,11 @@ angular.module('blogApp')
 			hilo.remove(function(error){
 					if(error)
 					{
-						console.log("se ha producido un error ", error.code);
+						// console.log("se ha producido un error ", error.code);
+						//gestionar error en pantalla
 					} else
 					{
-						console.log("Hilo removido de "+oldSection+" con id "+id);
+						// console.log("Hilo removido de "+oldSection+" con id "+id);
 						// console.log("$location.path()", $location.path());
 					}
 				});
@@ -243,7 +244,7 @@ angular.module('blogApp')
 			if(redirect===true)
 			{
 				var path = '/section/'+seccion;
-				console.log("ir al path", path);
+				// console.log("ir al path", path);
 				$location.path(path);
 			}
 		}

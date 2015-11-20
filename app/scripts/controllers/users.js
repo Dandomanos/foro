@@ -53,7 +53,7 @@ angular.module('blogApp')
 
     $scope.checkRoute = function() {
       if($location.path() ==='/unlogged' || $location.path() === '/user-deleted' || $location.path() === '/forgetpassword') {
-        console.log("El usuario no debería ver el panel");
+        // console.log("El usuario no debería ver el panel");
         $scope.autentified = false;
       } else {
         $scope.autentified = true;
@@ -71,7 +71,7 @@ angular.module('blogApp')
   	$scope.orden = 'lastConnection';
 
   	$scope.users.$loaded(function(data){
-  		console.log("usuarios cargados",data);
+  		// console.log("usuarios cargados",data);
       // $scope.users =  $scope.json2array(data);
   	});
 
@@ -81,7 +81,7 @@ angular.module('blogApp')
       keys.forEach(function(key){
           result.push(json[key]);
       });
-      console.log("RESULT", result);
+      // console.log("RESULT", result);
       return result;
     };
 

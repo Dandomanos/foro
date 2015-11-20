@@ -83,7 +83,7 @@ angular.module('blogApp')
     {
         // console.log("mover post", post.title);
         // console.log("a la sección ", section);
-        console.log("POSTID", post.$id);
+        // console.log("POSTID", post.$id);
         post.moving = false;
         Post.movePostTo(post, section, returnTitle(section));
     };
@@ -143,11 +143,11 @@ angular.module('blogApp')
 
      Title.setTitle("Foro CAOS: " + returnTitle());
     $scope.post = {comment: '', author:'', title: '', section:$scope.section, date:new Date().getTime(), sectionTitle:returnTitle($scope.section), open:true};
-    console.log("postObject", $scope.post);
+    // console.log("postObject", $scope.post);
     $scope.nuevoPost = function()
     {
         $scope.posting = true;
-        console.log("POSTING", $scope.posting);
+        // console.log("POSTING", $scope.posting);
     };
     $scope.cerrarPost = function()
     {
@@ -156,12 +156,12 @@ angular.module('blogApp')
     $scope.posting = false;
 
     $scope.title = returnTitle($scope.section);
-    console.log("POST", $scope.posts);
+    // console.log("POST", $scope.posts);
 
     $scope.submitPost = function () {
         $scope.post.author = {username: $scope.profile.username, uid: $scope.profile.$id};
         $scope.post.date = new Date().getTime();
-        console.log("FECHA", $scope.post.date);
+        // console.log("FECHA", $scope.post.date);
 
         if($scope.post.title==='')
         {
@@ -209,7 +209,7 @@ angular.module('blogApp')
 
     $scope.move = function(post)
     {
-        console.log("POST to Move", post);
+        // console.log("POST to Move", post);
         if(post.moving===undefined)
         {
             post.moving = true;
@@ -229,7 +229,7 @@ angular.module('blogApp')
 
     $scope.open = function(post)
     {
-        console.log("POST", post);
+        // console.log("POST", post);
         Post.setState(post, true);
     };
 

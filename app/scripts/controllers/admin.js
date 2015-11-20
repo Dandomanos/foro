@@ -40,10 +40,11 @@ angular.module('blogApp')
       $scope.stockChat = Chat.loadStockChat($scope.From.getTime(), $scope.To.getTime());
       $scope.stockChat.$loaded(function(error){
         if(error === null){
-          console.log("Se ha producido un error al cargar los mensajes del chat", error.code);
+          // console.log("Se ha producido un error al cargar los mensajes del chat", error.code);
+          //gestionar error en pantalla
         } else
         {
-          console.log("Mensajes cargados correctamente", $scope.stockChat);
+          // console.log("Mensajes cargados correctamente", $scope.stockChat);
           $scope.stockLoaded = true;
         }
       });
@@ -61,24 +62,24 @@ angular.module('blogApp')
 
    $scope.unloadStock = function()
    {
-    console.log("Stock Eliminado");
+    // console.log("Stock Eliminado");
       $scope.stockChat = {};
       $scope.stockLoaded = false;
    };
 
    $scope.loadSection = function(section)
    {
-    console.log("Cargando sección", section.title);
+    // console.log("Cargando sección", section.title);
     $scope.postLoaded = Post.getSection(section.section);
     $scope.postLoaded.$loaded(function(){
-      console.log("Cargado", $scope.postLoaded);
+      // console.log("Cargado", $scope.postLoaded);
       // $scope.$apply();
     });
    };
 
    $scope.open = function(post)
     {
-        console.log("POST", post);
+        // console.log("POST", post);
         Post.setState(post, true);
     };
 
@@ -138,11 +139,12 @@ angular.module('blogApp')
 
    $scope.users.$loaded()
    .then(function(authData){
-   	console.log("Users", authData);
+   	// console.log("Users", authData);
    })
    .catch(function(error){
    		if(error) {
-   			console.log("Error", error);
+   			// console.log("Error", error);
+        //gestionar error en pantalla
    		}
 
    });
@@ -151,17 +153,19 @@ angular.module('blogApp')
    {
    	if(error === null)
    	{
-   		console.log("mensajes borrados correctamente");
+   		// console.log("mensajes borrados correctamente");
+
    	} else
    	{
-   		console.log("Error borrando mensajes", error);
+   		// console.log("Error borrando mensajes", error);
+      //gestionar error en pantalla
    	}
    };
 
    $scope.deleteChat = function()
    {
    		var tope = $scope.today.getTime();
-   		console.log("Tope", tope);
+   		// console.log("Tope", tope);
    		Chat.deleteMessagesBefore(tope, callbackDelete);
    };
 

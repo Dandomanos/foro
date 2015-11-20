@@ -38,7 +38,7 @@ angular.module('blogApp')
 
     $scope.checkRoute = function() {
       if($location.path() ==='/unlogged' || $location.path() === '/user-deleted') {
-        console.log("El usuario no debería ver el panel");
+        // console.log("El usuario no debería ver el panel");
         $scope.autentified = false;
       } else {
         $scope.autentified = true;
@@ -71,7 +71,7 @@ angular.module('blogApp')
 
      Auth.user.onChange = function()
      {
-        console.log('ID DE USUARIO', Auth.user.uid);
+        // console.log('ID DE USUARIO', Auth.user.uid);
      };
      
 
@@ -129,13 +129,13 @@ angular.module('blogApp')
                              // console.log("Se ha producido un error al autentificar el usuario", error);
                              break;
                      }
-            console.log("Error ",error);
+            // console.log("Error ",error);
             $scope.error = true;
             $scope.user.password = '';
 
         } else
         {
-            console.log("Success", authData);
+            // console.log("Success", authData);
             $scope.error = false;
             $scope.profile = Auth.getProfile(authData.uid);
 
@@ -173,7 +173,7 @@ angular.module('blogApp')
     };
 
     $window.onfocus = function(){
-       console.log("focused");
+       // console.log("focused");
        if(Auth.user.uid!==undefined && Auth.profile.username !== undefined && $location.path() !== '/unlogged' && $location.path()!=='user-deleted' && $location.path() !== '/forgetpassword')
        {
             Auth.updateConnection(Auth.user.uid); 

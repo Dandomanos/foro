@@ -51,11 +51,11 @@ angular.module('blogApp')
     {
       if(estado===undefined)
       {
-        console.log("blinded user", false);
+        // console.log("blinded user", false);
         return false;
       } else
       {
-        console.log("blinded user", estado);
+        // console.log("blinded user", estado);
 
         return estado;
       }
@@ -99,7 +99,7 @@ angular.module('blogApp')
     $scope.sendMessage = function()
     {
       $scope.mostrandoEmotis = false;
-      console.log("scopeProfile", $scope.profile);
+      // console.log("scopeProfile", $scope.profile);
       if($scope.profile.username===undefined)
       {
         Auth.checkUser();
@@ -115,14 +115,14 @@ angular.module('blogApp')
         rango: $scope.profile.rango,
         system:false
       };
-      console.log("mensaje", $scope.mensaje);
+      // console.log("mensaje", $scope.mensaje);
       $scope.message = '';
 
       // for(var i=0; i<100; i++)
       // {
         Chat.sendMessage($scope.mensaje).then(function(ref)
         {
-          console.log("mensaje guardado con id", ref.key());
+          // console.log("mensaje guardado con id", ref.key());
           $('#campoEntrada').focus();
           Auth.updateChatConnection($scope.profile.uid, $scope.profile.username);
           // Chat.lastEntry(ref.key(), callbackMessage);
@@ -166,7 +166,7 @@ angular.module('blogApp')
         mensajeSelected = 0;
       }
         Title.setTitle(mensajes[mensajeSelected]);
-        console.log("parpadeo", mensajes[mensajeSelected]);
+        // console.log("parpadeo", mensajes[mensajeSelected]);
 
         $scope.$apply();
      };
@@ -195,14 +195,14 @@ angular.module('blogApp')
     $scope.conectados = Chat.getConnected();
 
     $scope.conectados.$loaded(function(){
-      console.log("Conectados", $scope.conectados);
+      // console.log("Conectados", $scope.conectados);
       $scope.cargarEstados();
       
     });
 
   	$scope.conversacion.$loaded(function(){
-      console.log("Conversación Filtrada", $scope.conversacion);
-      console.log("Location Path", $location.path());
+      // console.log("Conversación Filtrada", $scope.conversacion);
+      // console.log("Location Path", $location.path());
   		// console.log("conversación cargada", $scope.conversacion);
   		// // $scope.conexion = new Date().getTime();
   		// console.log("lastEntry", $scope.conversacion.lastEntry);
@@ -215,7 +215,7 @@ angular.module('blogApp')
     });
 
     $scope.conversacion.$watch(function(){
-      console.log("Conversación ha cambiado: ");
+      // console.log("Conversación ha cambiado: ");
 
       if(focused===false)
       {
@@ -234,7 +234,7 @@ angular.module('blogApp')
       }
       if($scope.profile.username===undefined)
       {
-        console.log("Usuario eliminado, no debería estar aquí");
+        // console.log("Usuario eliminado, no debería estar aquí");
         Auth.checkUser();
       }
       // document.title = " Ding Ding!";
@@ -262,10 +262,10 @@ angular.module('blogApp')
         };
         Chat.sendMessage(entrada).then(function()
         {
-          console.log("Usuario sale del Chat");
+          // console.log("Usuario sale del Chat");
           Chat.removeUserFromChat($scope.profile.username, function()
           {
-            console.log("usuario eliminado del panel del chat", $scope.profile.username);
+            // console.log("usuario eliminado del panel del chat", $scope.profile.username);
           });
         });
       }
@@ -282,13 +282,13 @@ angular.module('blogApp')
           rango: $scope.profile.rango,
           system:true
       };
-      Chat.sendMessage(entrada).then(function()
-      {
-        console.log("Usuario sale del Chat");
-      });
+      // Chat.sendMessage(entrada).then(function()
+      // {
+      //   // console.log("Usuario sale del Chat");
+      // });
       Chat.removeUserFromChat($scope.profile.username, function()
       {
-        console.log("usuario eliminado del panel del chat", $scope.profile.username);
+        // console.log("usuario eliminado del panel del chat", $scope.profile.username);
       });
     };
 
@@ -306,7 +306,7 @@ angular.module('blogApp')
 
 
 
-  		console.log("Perfil cargado", data);
+  		// console.log("Perfil cargado", data);
       
   		var entrada = {
 	  			username: 'Sistema',
@@ -319,7 +319,7 @@ angular.module('blogApp')
   		};
   		Chat.sendMessage(entrada).then(function()
   		{
-  			console.log("Usuario Entra en el chat");
+  			// console.log("Usuario Entra en el chat");
         var user =
         {
           username: $scope.profile.username,
@@ -330,7 +330,7 @@ angular.module('blogApp')
         };
         Chat.addUserToChat(user, function()
           {
-            console.log("usuario añadido al panel del chat", user);
+            // console.log("usuario añadido al panel del chat", user);
             Auth.updateChatConnection(user.uid, user.username);
           });
   		});
@@ -351,7 +351,7 @@ angular.module('blogApp')
       Title.setTitle(mensajes[mensajeSelected]);
       // PageTitleNotification.Off();
        // document.title = " Ding Dong!";
-       console.log("focused");
+       // console.log("focused");
        Title.setTitle("Foro CAOS: Chat");
        if($scope.profile!==undefined && $location.path()==='/chat')
        {

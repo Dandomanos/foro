@@ -22,7 +22,7 @@ angular.module('blogApp')
         	});
         	if(newValue)
         	{
-        		console.log("newVAlue");
+        		// console.log("newVAlue");
         		$(element).scrollTop($(element)[0].scrollHeight);
         	}
         });

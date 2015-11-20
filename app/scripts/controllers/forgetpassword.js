@@ -16,7 +16,7 @@ angular.module('blogApp')
     $scope.success = false;
     $scope.resetPassword = function()
   	{
-  		console.log("email", $scope.email);
+  		// console.log("email", $scope.email);
   		$scope.tempEmail = $scope.email;
   		$scope.error = false;
     	$scope.success = false;
@@ -27,17 +27,17 @@ angular.module('blogApp')
   	{
   		if(error === null)
   		{
-  			console.log("Se le ha enviado al correo su nueva contraseña.");
+  			// console.log("Se le ha enviado al correo su nueva contraseña.");
   			$scope.error = false;
     		$scope.success = true;
 
   			$scope.mensajeResetPassword = 'Se le ha enviado a "' + $scope.tempEmail + '" su nueva contraseña.';
 
-  			console.log("success", $scope.success);
+  			// console.log("success", $scope.success);
   			$scope.email = '';
   		} else
   		{
-  			console.log("CODE", error.code);
+  			// console.log("CODE", error.code);
   			$scope.error = true;
     		$scope.success = false;
   			switch(error.code)
@@ -51,7 +51,7 @@ angular.module('blogApp')
   					break;
   			}
 
-  			console.log("error", $scope.error);
+  			// console.log("error", $scope.error);
   			
   		}
 

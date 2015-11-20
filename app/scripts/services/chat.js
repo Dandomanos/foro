@@ -22,10 +22,10 @@ angular.module('blogApp')
       },
       sendMessage:function(mensaje)
       {
-        console.log("Mensaje", mensaje);
+      //   console.log("Mensaje", mensaje);
         return chat.$add(mensaje).then(Chat.cleanChat()).catch(function(error)
           {
-            console.log("se ha producido un error al enviar el mensaje", error);
+            // console.log("se ha producido un error al enviar el mensaje", error);
           });
       },
       addUserToChat:function(user, callback)
@@ -45,14 +45,15 @@ angular.module('blogApp')
       },
       stockMessage:function(mensaje)
       {
-        console.log("Mensaje para BackUp", mensaje);
+        // console.log("Mensaje para BackUp", mensaje);
         return stockChat.$add(mensaje)
         .then(function(){
-          console.log("Mensaje almacenado al stock correctamente");
+          // console.log("Mensaje almacenado al stock correctamente");
         })
         .catch(function(error)
           {
-            console.log("se ha producido un error al almacenar el mensaje", error);
+            // console.log("se ha producido un error al almacenar el mensaje", error);
+            //gestionar error en pantalla
           });
       },
       loadStockChat:function(desde, hasta)
@@ -71,32 +72,33 @@ angular.module('blogApp')
         // limite.setDate(limite.getDate()-0.0001);
         limite -= tresHoras;
 
-        console.log("limite", limite);
+        // console.log("limite", limite);
 
         var messages = ref.child('chat').child('messages').orderByChild('date').endAt(limite);
         messages.once("value", function(snapshot){
           snapshot.forEach(function(childSnapshot){
             var key = childSnapshot.key();
-            console.log("Key", key);
+            // console.log("Key", key);
 
             var childData = childSnapshot.val();
-            console.log("childData", childData);
+            // console.log("childData", childData);
 
             Chat.stockMessage(childData);
 
             ref.child('chat').child('messages').child(key).remove(function(error){
               if(error)
               {
-                console.log("Error", error);
+                // console.log("Error", error);
+                //gestionar error en pantalla
               } else
               {
-                console.log("Mensaje eliminado con el id", key);
+                // console.log("Mensaje eliminado con el id", key);
               }
             });
 
           });
         });
-        console.log("Chat cleaned"); 
+        // console.log("Chat cleaned"); 
         
       },
       // cleanChat:function()
@@ -139,16 +141,16 @@ angular.module('blogApp')
         messages.once("value", function(snapshot){
           snapshot.forEach(function(childSnapshot){
             var key = childSnapshot.key();
-            console.log("Key", key);
+            // console.log("Key", key);
 
             ref.child('chat').child('messages').child(key).remove();
 
             var childData = childSnapshot.val();
-            console.log("childData", childData);
+            // console.log("childData", childData);
           });
         });
 
-        console.log("borrado finalizado");
+        // console.log("borrado finalizado");
         callback();
         // var old = messages.orderByChild('date').endAt(date);
         // var listener = old.on('child_added', function(snapshot){

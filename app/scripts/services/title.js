@@ -13,7 +13,7 @@ angular.module('blogApp')
     return {
     title: function() { console.log("Title", title); return title; },
     setTitle: function(newTitle) { 
-      console.log("newTitle", newTitle);
+      // console.log("newTitle", newTitle);
       // console.log("oldTitle", title);
       $rootScope.title = newTitle; }
     };

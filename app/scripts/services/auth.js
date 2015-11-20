@@ -10,19 +10,19 @@ angular.module('blogApp')
 	function authDataCallback(authData)
 	{
 		if(authData) {
-			console.log("User "+ authData.uid + " is logged in with " + authData.provider);
+			// console.log("User "+ authData.uid + " is logged in with " + authData.provider);
 			Auth.user = authData;
 			Auth.profile = Auth.getProfile(authData.uid);
 
 			Auth.profile.$loaded(function(){
 				if(Auth.profile.username===undefined)
 				{
-					console.log("El usuario ha sido eliminado por un administrador");
+					// console.log("El usuario ha sido eliminado por un administrador");
 					$location.path('/user-deleted');
 					update();
 				}
 			});
-			console.log("Auth.user ", Auth.user);
+			// console.log("Auth.user ", Auth.user);
 
 			// if(Auth.user.username===undefined)
 			// {
@@ -35,7 +35,7 @@ angular.module('blogApp')
 
 			if($location.path()==='/desconectado'  || $location.path()==='/forgetpassword' || $location.path()==='/unlogged')
 			{
-			console.log("Redirecciono a la home");
+			// console.log("Redirecciono a la home");
 			$location.path('/');
 			update();
 			// } else
@@ -48,36 +48,36 @@ angular.module('blogApp')
 				// $location.$reload();
 			}
 		} else {
-			console.log("user sin conectar",Auth.user.uid);
+			// console.log("user sin conectar",Auth.user.uid);
 			if(Auth.user.uid!==undefined)
 			{
-				console.log("Está logado");
+				// console.log("Está logado");
 				Auth.updateConnection(Auth.user.uid);
 			}
 			$location.path('/unlogged');
-			console.log("User is logged out");
+			// console.log("User is logged out");
 			Auth.user={};
 			Auth.profile = {};
 			Auth.autentified = false;
-			console.log("Auth.user ", Auth.user);
+			// console.log("Auth.user ", Auth.user);
 
 		}
 	}
 
 	var update = function () {
-		console.log("Actualizo el path");
+		// console.log("Actualizo el path");
         $timeout(function () {
             $rootScope.currentPath = $location.path();
         }, 0);
     };
 
     var callbackUpdate = function(date) {
-      console.log("Ultima conexión actualizada", date);
+      // console.log("Ultima conexión actualizada", date);
     };
 
     var callbackUpdateChatConnection = function(date)
     {
-    	 console.log("Ultima conexión del Chat actualizada", date);
+    	 // console.log("Ultima conexión del Chat actualizada", date);
     };
 	
 
@@ -115,7 +115,7 @@ angular.module('blogApp')
 			{
 				if(Auth.user.uid===undefined)
 			    {
-			      console.log("No estás logado");
+			      // console.log("No estás logado");
 			      if($location.path()!=='/forgetpassword')
 			      {
 			      	$location.path("/unlogged");
@@ -126,12 +126,12 @@ angular.module('blogApp')
 			    Auth.profile.$loaded(function(){
 					if(Auth.profile.username===undefined)
 					{
-						console.log("El usuario ha sido eliminado por un administrador");
+						// console.log("El usuario ha sido eliminado por un administrador");
 						$location.path('/user-deleted');
 						update();
 					} else
 					{
-						console.log("El usuario está autentificado");
+						// console.log("El usuario está autentificado");
 						Auth.autentified = true;
 					}
 				});
@@ -181,9 +181,9 @@ angular.module('blogApp')
 		    updateChatConnection: function (uid, username) 
 		    {
 		    	var date = new Date().getTime();
-		    	console.log("DATE", date);
-		    	console.log("UID", uid);
-		    	console.log("Username", username);
+		    	// console.log("DATE", date);
+		    	// console.log("UID", uid);
+		    	// console.log("Username", username);
 		    	ref.child('profile').child(uid).child('lastConnection').set(date,
 		    		Auth.updateConnectionFromChat(date, username));		    	
 		    },
@@ -207,7 +207,7 @@ angular.module('blogApp')
 			{
 				
 				ref.unauth();
-				console.log("Usuario desconectado");
+				// console.log("Usuario desconectado");
 				
 			},
 			signedIn:function() {
@@ -225,8 +225,8 @@ angular.module('blogApp')
 			{
 				var authData = ref.getAuth();
 				if(authData) {
-					console.log("Autentificado con el uid=> ", authData.uid);
-					console.log("Total Data", authData);
+					// console.log("Autentificado con el uid=> ", authData.uid);
+					// console.log("Total Data", authData);
 					return authData;
 				} else
 				{
@@ -234,10 +234,10 @@ angular.module('blogApp')
 				}
 			},
 			isConnected: function(milisecs) {
-				console.log("milisecs", milisecs);
+				// console.log("milisecs", milisecs);
 				var actualDate = new Date().getTime();
 				var diferencia = actualDate - milisecs;
-				console.log("Diferencia", diferencia);
+				// console.log("Diferencia", diferencia);
 				if(diferencia<=300000)
 				{
 					return true;

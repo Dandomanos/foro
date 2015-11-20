@@ -83,7 +83,7 @@ angular.module('blogApp')
 
     $scope.open = function(post)
     {
-        console.log("POST", post);
+        // console.log("POST", post);
         Post.setState(post, true);
     };
 
@@ -99,7 +99,7 @@ angular.module('blogApp')
 
     $scope.move = function(post)
     {
-        console.log("POST to Move", post);
+        // console.log("POST to Move", post);
         if(post.moving===undefined)
         {
             post.moving = true;
@@ -175,7 +175,7 @@ angular.module('blogApp')
     {
         // console.log("mover post", post.title);
         // console.log("a la sección ", section);
-        console.log("POSTID", post.$id);
+        // console.log("POSTID", post.$id);
         post.moving = false;
         Post.movePostTo(post, section, returnTitle(section), true);
     };
@@ -188,7 +188,7 @@ angular.module('blogApp')
 
     var callbackData = function()
     {
-        console.log("callBack", $scope.post.author);
+        // console.log("callBack", $scope.post.author);
         // $scope.post.author.profile = Auth.getProfile($scope.post.author.uid);
         // $scope.post.author.profile.$loaded(function(){
         //   console.log("perfil del autor cargado");
@@ -201,7 +201,7 @@ angular.module('blogApp')
     $scope.postArray = Post.getArray($routeParams.postId, $routeParams.section, callbackData);
 
     $scope.postArray.$loaded(function(){
-      console.log("postArray", $scope.postArray);
+      // console.log("postArray", $scope.postArray);
     });
 
     //Paginado
@@ -220,7 +220,7 @@ angular.module('blogApp')
         // console.log("DATA",data);
         if(data.author===undefined)
         {
-            console.log("El post al que intentas acceder ha sido borrado o no existe");
+            // console.log("El post al que intentas acceder ha sido borrado o no existe");
             $scope.exist = false;
         } else
         {
@@ -229,7 +229,7 @@ angular.module('blogApp')
              // console.log("author", data.author);
             $scope.autor = Auth.getProfile(data.author.uid);
             $scope.lastAuthor.uid = data.author.uid;
-            console.log("UID",  $scope.lastAuthor.uid);
+            // console.log("UID",  $scope.lastAuthor.uid);
 
              // console.log("ultimo post", $scope.post.comments[0]);
              Title.setTitle("Foro CAOS: " + $scope.post.sectionTitle + " | " + $scope.post.title);
@@ -240,14 +240,14 @@ angular.module('blogApp')
 
             });
     $scope.post.$watch(function(){
-      console.log("Se ha producido un nuevo post: ");
+      // console.log("Se ha producido un nuevo post: ");
       $scope.mostrandoEmotis = false;
       if(Auth.profile.username===undefined)
       {
-        console.log("Usuario eliminado, no debería estar aquí");
+        // console.log("Usuario eliminado, no debería estar aquí");
         Auth.checkUser();
       } else {
-        console.log("USERNAME", Auth.profile.username);
+        // console.log("USERNAME", Auth.profile.username);
         $scope.cargarRangos();
       }
     });
@@ -322,11 +322,11 @@ angular.module('blogApp')
          
           if($scope.post.comments)
           {
-            console.log("Existen comentarios, cargo los rangos");
+            // console.log("Existen comentarios, cargo los rangos");
             $scope.cargarRangos();
-            console.log("Rangos cargados");
+            // console.log("Rangos cargados");
           }
-          console.log("Reinicio Variables");
+          // console.log("Reinicio Variables");
           // $scope.replying = false;
           // $scope.editing = false;
           // $scope.original = false;
@@ -355,7 +355,7 @@ angular.module('blogApp')
     $scope.responder = function() {
       if($scope.lastAuthor.uid!==Auth.user.uid)
         {
-          console.log("Puedes Responder");
+          // console.log("Puedes Responder");
         $scope.replying = true;
         $scope.editing = false;
         $scope.original = false;
@@ -364,16 +364,16 @@ angular.module('blogApp')
 
         $timeout(function() {
 
-          console.log("me muevo al div");
+          // console.log("me muevo al div");
           $scope.scrollTo('newPost');
           
 
-          console.log("$scope.editing", $scope.editing);
+          // console.log("$scope.editing", $scope.editing);
         }, 1);
 
       } else
       {
-        console.log("Eres el autor del último post");
+        // console.log("Eres el autor del último post");
       }
         
     };
@@ -390,22 +390,22 @@ angular.module('blogApp')
       {
 
         
-          console.log("Puedes Comentar");
+          // console.log("Puedes Comentar");
           $scope.editing = true;
           $scope.replying = false;
           $scope.original = false;
           // $scope.editByAdmin = false;
           $scope.postToEdit = post;
           $scope.edit.comment = $scope.postToEdit.comment;
-          console.log("Abro el div");
+          // console.log("Abro el div");
 
           $timeout(function() {
 
-            console.log("me muevo al div");
+            // console.log("me muevo al div");
             $scope.scrollTo('editPost');
             
 
-            console.log("$scope.editing", $scope.editing);
+            // console.log("$scope.editing", $scope.editing);
             }, 1);
 
 
@@ -436,11 +436,11 @@ angular.module('blogApp')
 
         $timeout(function() {
 
-          console.log("me muevo al div");
+          // console.log("me muevo al div");
           $scope.scrollTo('editOriginal');
           
 
-          console.log("$scope.editing", $scope.editing);
+          // console.log("$scope.editing", $scope.editing);
         }, 1);
       };
 
@@ -460,7 +460,7 @@ angular.module('blogApp')
      var callbackAfterAdmin = function()
      {
             Post.updateAfterEdit($scope.post.$id, $routeParams.section, $scope.edited.newMessage, callbackComment);
-            console.log("Actualizado a LastUpdate");
+            // console.log("Actualizado a LastUpdate");
      };
 
      var callbackLog = function()
@@ -477,11 +477,11 @@ angular.module('blogApp')
 
      var callbackCount = function()
      {
-        console.log("Suma de comentario realizada correctamente");
+        // console.log("Suma de comentario realizada correctamente");
         Post.addEditLog($scope.editedRef, $scope.edited, $routeParams.section).then(function(ref)
           {
-            console.log("comentario editado correctamente");
-            console.log("ref", ref);
+            // console.log("comentario editado correctamente");
+            // console.log("ref", ref);
             //Actualizar fecha de edición primero
             Post.setDateEdit($scope.editedRef, $scope.edited, $routeParams.section, callbackLog);
           });
@@ -489,12 +489,12 @@ angular.module('blogApp')
 
      var callbackCountOriginal = function()
      {
-        console.log("Suma de post original realizada correctamente");
+        // console.log("Suma de post original realizada correctamente");
         // addEditOriginalLog:function(postID, edited, Section)
         Post.addEditOriginalLog($scope.post.$id, $scope.edited, $routeParams.section).then(function(ref)
           {
-            console.log("comentario editado correctamente");
-            console.log("ref", ref);
+            // console.log("comentario editado correctamente");
+            // console.log("ref", ref);
             // setDateEditOriginal:function(postID, edited, Section, callback)
             Post.setDateEditOriginal($scope.post.$id, $scope.edited, $routeParams.section, callbackLogOriginal);
 
@@ -512,8 +512,8 @@ angular.module('blogApp')
       {
         count = 1;
       }
-          console.log("Comentario modificado");
-          console.log("Editado " + count + " veces");
+          // console.log("Comentario modificado");
+          // console.log("Editado " + count + " veces");
           Post.updateCountComment($scope.editedRef, count, $routeParams.section, callbackCount);
      };
 
@@ -527,7 +527,7 @@ angular.module('blogApp')
         {
           count = 1;
         }
-        console.log("Original editado " + count + " veces");
+        // console.log("Original editado " + count + " veces");
         // updateCountOriginal:function(postID, count, Section, callback)
         Post.updateCountOriginal($scope.post.$id, count, $routeParams.section, callbackCountOriginal);
 
@@ -537,13 +537,13 @@ angular.module('blogApp')
         $scope.comment.author = {username: $scope.profile.username, uid: $scope.profile.$id};
         $scope.comment.date = new Date().getTime();
         $scope.comment.edited = {count:0};
-        console.log("FECHA", $scope.post.date);
+        // console.log("FECHA", $scope.post.date);
         Post.addComment($scope.post, $scope.comment).then(function(ref) {
             $scope.comment.id = ref.key();
             Auth.addCommentToProfile($scope.profile.$id, ref.key(), $scope.post,  $scope.comment, $routeParams.postId);
-            console.log("Comentario actualizado", ref);
+            // console.log("Comentario actualizado", ref);
 
-            console.log("Comment ID", $scope.comment.id);
+            // console.log("Comment ID", $scope.comment.id);
             Post.addIdToComment($scope.post, $scope.comment, callbackComment);
         });
      };
@@ -574,7 +574,7 @@ angular.module('blogApp')
           }
         };
 
-        console.log("EDITED", $scope.edited);
+        // console.log("EDITED", $scope.edited);
 
         //Preparamos el objeto con el id de post y comentario
         // $scope.editedRef = {postID : post.$id, commentID : $scope.postToEdit.id };

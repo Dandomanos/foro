@@ -26,33 +26,33 @@ angular.module('blogApp')
      {
         if(error)
         {
-            console.log("Error al crear usuario", error);
-            console.log("errorCode", error.code);
+            // console.log("Error al crear usuario", error);
+            // console.log("errorCode", error.code);
 
             switch(error.code)
             {
               case "EMAIL_TAKEN":
                 $scope.mensajeDeError = 'Ya existe un usuario con ese correo electrónico.';
-                console.log("Ya existe un usuario con ese correo electrónico.");
+                // console.log("Ya existe un usuario con ese correo electrónico.");
                 break;
               case "INVALID_EMAIL":
                 $scope.mensajeDeError = 'Introduce un formato de correo electrónico válido por favor.';
-                console.log("Introduce un formato de correo electrónico válido por favor.");
+                // console.log("Introduce un formato de correo electrónico válido por favor.");
                 break;
               case "INVALID_PASSWORD":
                 $scope.mensajeDeError = 'Introduce una contraseña válida por favor.';
-                console.log('Introduce una contraseña válida por favor.');
+                // console.log('Introduce una contraseña válida por favor.');
                 break;
               default:
                 $scope.mensajeDeError = 'Se ha producido un error en el registro, inténtelo de nuevo más tarde.';
-                console.log("Se ha producido un error en el registro, inténtelo de nuevo más tarde.");
+                // console.log("Se ha producido un error en el registro, inténtelo de nuevo más tarde.");
                 break;
             }
             $scope.error = true;
             $scope.$apply();
         } else
         {
-            console.log("Registrado correctamente, procedemos a crear el Perfil", authData);
+            // console.log("Registrado correctamente, procedemos a crear el Perfil", authData);
             $scope.error = false;
             $scope.user.uid = authData.uid;
             $scope.registros.uid = authData.uid;
@@ -71,14 +71,15 @@ angular.module('blogApp')
      {
         if(error)
         {
-          console.log("Fallo en la sincronización", error);
-          console.log("errorCode", error.code);
+          // console.log("Fallo en la sincronización", error);
+          // console.log("errorCode", error.code);
+          //gestionar error en pantalla
         } else
         {
-          console.log("Perfil creado correctamente", $scope.user.username);
+          // console.log("Perfil creado correctamente", $scope.user.username);
           $scope.registros.user = $scope.user.username;
           $scope.registroRealizado = true;
-          console.log("registros.user", $scope.registros);
+          // console.log("registros.user", $scope.registros);
           $scope.user.username = '';
           $scope.user.email = '';
           $scope.user.password = '';
@@ -89,15 +90,15 @@ angular.module('blogApp')
 
 
     $scope.register = function(){
-      console.log("Proceso de registro");
+      // console.log("Proceso de registro");
       $scope.registroRealizado = false;
       Auth.register($scope.user, callbackRegister);
     };
 
     $scope.isAdmin = function(){
       
-       console.log("Profile", $scope.profile.rango);
-       console.log("Auth.user.uid", Auth.user.uid);
+       // console.log("Profile", $scope.profile.rango);
+       // console.log("Auth.user.uid", Auth.user.uid);
       if($scope.profile.rango==='admin')
       {
         return true;

@@ -70,10 +70,10 @@ angular.module('blogApp')
 
     Title.setTitle("Foro CAOS: " + $scope.profile.username );
 
- 		console.log("cargo el perfil");
+ 		// console.log("cargo el perfil");
         contarPost();
         contarComentarios();
- 		console.log("Número de comentarios", $scope.profile.comments);
+ 		// console.log("Número de comentarios", $scope.profile.comments);
  		// $scope.gotoAnchor('inicio');
  		Auth.updateConnection(Auth.user.uid);
 
@@ -85,8 +85,8 @@ angular.module('blogApp')
 
   $scope.posts = Profile.getPosts($routeParams.uid);
   $scope.comments = Profile.getComments($routeParams.uid);
- 	console.log("Profile uid", $routeParams.uid);
- 	console.log("Auth uid", Auth.user.uid);
+ 	// console.log("Profile uid", $routeParams.uid);
+ 	// console.log("Auth uid", Auth.user.uid);
 
   //Paginado
     $scope.currentPage = 0;
@@ -155,7 +155,7 @@ angular.module('blogApp')
         $scope.avatarOptions = false;
         $scope.passwordOptions = false;
         $scope.profileOptions = false;
-        console.log("cierro todas las ventanas");
+        // console.log("cierro todas las ventanas");
      };
 
      $scope.openOptions = function(menu)
@@ -186,7 +186,7 @@ angular.module('blogApp')
         {
             switch (error.code) {
               case "INVALID_PASSWORD":
-                console.log("La contraseña actual no es correcta");
+                // console.log("La contraseña actual no es correcta");
                 $scope.error = true;
                 $scope.mensajeDeError = 'La contraseña actual no es correcta';
                 $scope.errorNumber = 2;
@@ -194,20 +194,20 @@ angular.module('blogApp')
                 $scope.$apply();
                 break;
               case "INVALID_USER":
-                console.log("La dirección de correo electrónico no es correcta");
+                // console.log("La dirección de correo electrónico no es correcta");
                 $scope.error = true;
                 $scope.mensajeDeError = 'La dirección de correo electrónica no es correcta';
                 $scope.errorNumber = 3;
                 break;
               default:
-                console.log("Se ha producido un error inesperado al intentar cambiar la contraseña", error);
+                // console.log("Se ha producido un error inesperado al intentar cambiar la contraseña", error);
                 $scope.error = true;
                 $scope.mensajeDeError = 'Se ha producido un error inesperado al intentar cambiar la contraseña';
                 $scope.errorNumber = 0;
             }
         } else
         {
-            console.log("Contraseña cambiada correctamente");
+            // console.log("Contraseña cambiada correctamente");
             $scope.error = false;
             $scope.mensajeDeError = '';
             $scope.success = true;
@@ -224,12 +224,12 @@ angular.module('blogApp')
         $scope.errorNumber = 0;
         if($scope.passwordUpdate.newPassword === $scope.passwordUpdate.newPassword2)
         {
-            console.log("Update Object",$scope.passwordUpdate);
+            // console.log("Update Object",$scope.passwordUpdate);
             
             Auth.changePass($scope.passwordUpdate, callbackChangePass);
         } else
         {
-            console.log("La contraseña nueva no coincide");
+            // console.log("La contraseña nueva no coincide");
             $scope.error = true;
             $scope.mensajeDeError = 'La contraseña nueva no coincide';
             $scope.errorNumber = 1;

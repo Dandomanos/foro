@@ -20,7 +20,7 @@ angular.module('blogApp')
 
     if(Auth.user.uid!==undefined)
     {
-        console.log("Auth.user.uid", Auth.user.uid);
+        // console.log("Auth.user.uid", Auth.user.uid);
         $scope.profile = Auth.getProfile(Auth.user.uid);
 
         $scope.profile.$loaded(function(){
@@ -29,7 +29,7 @@ angular.module('blogApp')
           
     } else
     {
-      console.log("No estás logado");
+      // console.log("No estás logado");
       $location.path("/unlogged");
       return;
     }
@@ -38,7 +38,7 @@ angular.module('blogApp')
     {
         // console.log("mover post", post.title);
         // console.log("a la sección ", section);
-        console.log("POSTID", post.$id);
+        // console.log("POSTID", post.$id);
         post.moving = false;
         Post.movePostTo(post, section, returnTitle(section));
     };
@@ -72,7 +72,7 @@ angular.module('blogApp')
 
     $scope.move = function(post)
     {
-        console.log("POST to Move", post);
+        // console.log("POST to Move", post);
         if(post.moving===undefined)
         {
             post.moving = true;
@@ -168,7 +168,7 @@ angular.module('blogApp')
 
      $scope.open = function(post)
     {
-        console.log("POST", post);
+        // console.log("POST", post);
         Post.setState(post, true);
     };
 
